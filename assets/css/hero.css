@@ -1,0 +1,204 @@
+/* ==========================================================
+   HERO
+========================================================== */
+
+.hero{
+
+    position:relative;
+
+    width:100%;
+
+    height:var(--hero-height);
+
+    background:var(--surface);
+
+    overflow:hidden;
+
+}
+
+
+/* ==========================================================
+   HERO MEDIA
+========================================================== */
+
+.hero-media{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+}
+
+
+/* ==========================================================
+   HERO SLIDE
+========================================================== */
+
+.hero-slide{
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:0;
+
+    transition:opacity .8s ease;
+
+    pointer-events:none;
+
+}
+
+.hero-slide.active{
+
+    opacity:1;
+
+    z-index:2;
+
+    pointer-events:auto;
+
+}
+
+
+/* ==========================================================
+   HERO BACKGROUND
+========================================================== */
+
+.hero-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transform-origin:center center;
+
+    will-change:transform;
+
+    backface-visibility:hidden;
+
+}
+
+
+/* ==========================================================
+   HERO FOREGROUND
+========================================================== */
+
+.hero-foreground{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transform-origin:center center;
+
+    will-change:transform;
+
+    backface-visibility:hidden;
+
+}
+
+
+/* ==========================================================
+   ACTIVE ANIMATION
+========================================================== */
+
+.hero-slide.active .hero-bg{
+
+    animation:heroBgZoom 5s linear forwards;
+
+}
+
+.hero-slide.active .hero-foreground{
+
+    animation:heroFgZoom 5s linear forwards;
+
+}
+
+
+/* ==========================================================
+   HERO CONTENT
+========================================================== */
+
+.hero .container{
+
+    position:relative;
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    z-index:10;
+
+}
+
+.hero-content{
+
+    width:var(--hero-content-width);
+
+}
+
+
+/* ==========================================================
+   KEN BURNS
+========================================================== */
+
+/* Background
+   Zoom Out 102% → 100%
+*/
+
+@keyframes heroBgZoom{
+
+    from{
+
+        transform:scale(1.02);
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+    }
+
+}
+
+
+/* Foreground
+   20% dari Background
+   Zoom Out 100.2% → 100%
+*/
+
+@keyframes heroFgZoom{
+
+    from{
+
+        transform:scale(1.004);
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+    }
+
+}

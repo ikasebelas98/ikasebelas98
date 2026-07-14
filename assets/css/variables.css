@@ -1,0 +1,265 @@
+/* ==========================================================
+   VARIABLES
+   IKA SMAN 11 BANDUNG ANGKATAN 98
+   Version : 1.0
+========================================================== */
+
+:root{
+
+/* ==========================================================
+   COLORS
+========================================================== */
+
+--primary: #052049;
+--surface: #F5F7FA;
+--white: #FFFFFF;
+--grey: #99A6B7;
+--light-blue: #A8CCFB;
+--gold: #E69514;
+
+--black: #000000;
+
+--text-primary: #052049;
+--text-secondary: #99A6B7;
+--text-white: #FFFFFF;
+
+--border-color: #E5E7EB;
+
+/* Navbar */
+
+--navbar-text: var(--grey);
+
+--navbar-hover: var(--gold);
+
+
+
+/* ==========================================================
+   TYPOGRAPHY
+========================================================== */
+
+--font-primary: "Inter", sans-serif;
+
+
+
+/* Font Size */
+
+--fs-h1:72px;
+--fs-h2:48px;
+--fs-h3:32px;
+--fs-h4:24px;
+
+--fs-body:18px;
+--fs-body-small:16px;
+--fs-caption:13px;
+
+
+
+/* Font Weight */
+
+--fw-light:300;
+--fw-regular:400;
+--fw-medium:500;
+--fw-semibold:600;
+--fw-bold:700;
+
+
+
+/* Line Height */
+
+--lh-tight:1.2;
+--lh-normal:1.5;
+--lh-loose:1.8;
+
+
+
+/* ==========================================================
+   LAYOUT
+========================================================== */
+
+--desktop-width:1440px;
+
+--container-width:1440px;
+
+--section-gap:10px;
+
+--content-padding:120px;
+
+--navbar-height:36px;
+
+
+
+/* ==========================================================
+   GRID SYSTEM
+========================================================== */
+
+--grid-columns:12;
+
+--grid-gap:24px;
+
+--grid-margin:120px;
+
+
+
+/* ==========================================================
+   COMPONENT SIZE
+========================================================== */
+
+
+/* Navbar */
+
+--navbar-font-size:13px;
+--navbar-font-weight:400;
+--navbar-gap:30px;
+--navbar-height:40px;
+--logo-height:28px;
+--logo-width:40px;
+--navbar-menu-width:650px;
+
+
+
+/* Hero */
+
+--hero-height:810px;
+
+--hero-content-width:720px;
+
+
+
+/* Grid Card */
+
+--grid-card-width:705px;
+
+--grid-card-height:705px;
+
+--grid-card-gap:10px;
+
+
+
+/* Sponsor */
+
+--sponsor-width:466px;
+
+--sponsor-height:262px;
+
+--sponsor-gap:10px;
+
+
+
+/* Footer */
+
+--footer-padding:80px;
+
+
+
+/* ==========================================================
+   BORDER RADIUS
+========================================================== */
+
+--radius-xs:4px;
+
+--radius-sm:8px;
+
+--radius-md:12px;
+
+--radius-lg:20px;
+
+--radius-xl:30px;
+
+--radius-round:999px;
+
+
+
+/* ==========================================================
+   BORDER
+========================================================== */
+
+--border-thin:1px solid var(--border-color);
+
+--border-primary:1px solid var(--primary);
+
+
+
+/* ==========================================================
+   SHADOW
+========================================================== */
+
+--shadow-sm:
+0 2px 8px rgba(0,0,0,.08);
+
+--shadow-md:
+0 8px 24px rgba(0,0,0,.12);
+
+--shadow-lg:
+0 18px 48px rgba(0,0,0,.18);
+
+
+
+/* ==========================================================
+   TRANSITION
+========================================================== */
+
+--transition-fast:.20s ease;
+
+--transition-normal:.35s ease;
+
+--transition-slow:.60s ease;
+
+
+
+/* ==========================================================
+   Z INDEX
+========================================================== */
+
+--z-base:1;
+
+--z-dropdown:100;
+
+--z-navbar:500;
+
+--z-overlay:900;
+
+--z-modal:1000;
+
+
+
+/* ==========================================================
+   OPACITY
+========================================================== */
+
+--opacity-hover:.85;
+
+--opacity-disabled:.45;
+
+
+
+/* ==========================================================
+   SPACING
+========================================================== */
+
+--space-4:4px;
+
+--space-8:8px;
+
+--space-10:10px;
+
+--space-12:12px;
+
+--space-16:16px;
+
+--space-20:20px;
+
+--space-24:24px;
+
+--space-32:32px;
+
+--space-40:40px;
+
+--space-48:48px;
+
+--space-64:64px;
+
+--space-80:80px;
+
+--space-120:120px;
+
+}

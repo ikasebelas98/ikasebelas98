@@ -1,0 +1,26 @@
+/* RESET */
+@import url("reset.css");
+
+/* DESIGN SYSTEM */
+@import url("variables.css");
+
+/* COMPONENT */
+@import url("navbar.css");
+@import url("hero.css");
+@import url("grid-card.css");
+@import url("sponsor.css");
+@import url("footer.css");
+
+/* ==========================================================
+   GLOBAL CONTAINER
+========================================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:var(--container-width);
+
+    margin:0 auto;
+
+}

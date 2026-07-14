@@ -1,0 +1,147 @@
+/* ==========================================================
+   CHAIRMAN
+========================================================== */
+
+.chairman{
+
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 80px 0;
+
+    overflow: hidden;
+
+}
+
+
+/* ==========================================================
+   BACKGROUND
+========================================================== */
+
+.chairman-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:auto;
+
+}
+
+
+/* ==========================================================
+   CONTAINER
+========================================================== */
+
+.chairman .container{
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: flex-start;
+
+    align-items: center;
+
+    min-height: 561px;
+
+    z-index: 2;
+
+}
+
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.chairman-content{
+
+    width:100%;
+
+    max-width:520px;
+
+    margin-left:120px;
+
+}
+
+
+/* ==========================================================
+   TITLE
+========================================================== */
+
+.chairman-title{
+
+    margin: 0 0 35px;
+
+    font-size: 52px;
+
+    font-weight: 800;
+
+    line-height: 1.15;
+
+    color: #1D2B4F;
+
+}
+
+
+/* ==========================================================
+   TEXT
+========================================================== */
+
+.chairman-text{
+
+    width: 100%;
+
+}
+
+.chairman-text p{
+
+    margin: 0 0 22px;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+
+    color: #4B5563;
+
+}
+
+.chairman-text strong{
+
+    font-weight: 700;
+
+    color: #1D2B4F;
+
+}
+
+
+/* ==========================================================
+   SIGNATURE
+========================================================== */
+
+.chairman-sign{
+
+    margin-top: 45px;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    color: #1D2B4F;
+
+}
+
+.chairman-sign strong{
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 22px;
+
+}

@@ -4,9 +4,7 @@
 
 .chairman-content{
 
-    width:58%;
-
-    max-width:720px;
+    max-width:520px;
 
     margin-left:auto;
 
@@ -23,7 +21,7 @@
 
     font-size:52px;
 
-    font-weight:700;
+    font-weight:800;
 
     line-height:1.15;
 
@@ -46,7 +44,7 @@
 
     margin:0 0 22px;
 
-    font-size:17px;
+    font-size:8px;
 
     line-height:2;
 
@@ -71,7 +69,7 @@
 
     margin-top:45px;
 
-    font-size:17px;
+    font-size:8px;
 
     line-height:1.8;
 

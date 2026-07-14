@@ -1,44 +1,90 @@
-.chairman{
+/* ==========================================================
+   CONTENT
+========================================================== */
 
-    position:relative;
+.chairman-content{
 
-    width:100%;
+    width:58%;
 
-    min-height:561px;
+    max-width:720px;
 
-    margin-top:10px;
-
-    overflow:hidden;
-
-}
-
-.chairman-bg{
-
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    z-index:0;
+    margin-left:auto;
 
 }
 
-.chairman .container{
 
-    position:relative;
+/* ==========================================================
+   TITLE
+========================================================== */
 
-    z-index:2;
+.chairman-title{
 
-    min-height:561px;
+    margin:0 0 35px;
 
-    display:flex;
+    font-size:52px;
 
-    justify-content:flex-end;
-    align-items:center;
+    font-weight:700;
+
+    line-height:1.15;
+
+    color:#1D2B4F;
+
+}
+
+
+/* ==========================================================
+   TEXT
+========================================================== */
+
+.chairman-text{
+
+    width:100%;
+
+}
+
+.chairman-text p{
+
+    margin:0 0 22px;
+
+    font-size:17px;
+
+    line-height:2;
+
+    color:#4B5563;
+
+}
+
+.chairman-text strong{
+
+    font-weight:700;
+
+    color:#1D2B4F;
+
+}
+
+
+/* ==========================================================
+   SIGNATURE
+========================================================== */
+
+.chairman-sign{
+
+    margin-top:45px;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    color:#1D2B4F;
+
+}
+
+.chairman-sign strong{
+
+    display:block;
+
+    margin-bottom:6px;
+
+    font-size:20px;
 
 }

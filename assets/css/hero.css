@@ -202,3 +202,44 @@
     }
 
 }
+
+/* ==========================================================
+   HERO FOCUS OVERLAY
+========================================================== */
+
+.hero-focus-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:0;
+
+    background:rgba(10,18,30,.18);
+
+    backdrop-filter:blur(0);
+
+    -webkit-backdrop-filter:blur(0);
+
+    z-index:5;
+
+    transition:
+        opacity .45s ease,
+        backdrop-filter .55s ease,
+        background .45s ease;
+
+}
+
+body.mega-open .hero-focus-overlay{
+
+    opacity:1;
+
+    background:rgba(10,18,30,.50);
+
+    backdrop-filter:blur(3px);
+
+    -webkit-backdrop-filter:blur(3px);
+
+}

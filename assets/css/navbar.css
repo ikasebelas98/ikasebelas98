@@ -128,6 +128,8 @@
 
     width:var(--navbar-menu-width);
 
+    position:relative;
+
     display:flex;
 
     justify-content:space-between;
@@ -166,6 +168,28 @@
 .nav-item:hover > a{
 
     color:var(--navbar-hover);
+
+}
+
+/* ==========================================================
+   NAVBAR HOVER BRIDGE
+========================================================== */
+
+.navbar-menu::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:100%;
+
+    left:0;
+
+    width:100%;
+
+    height:18px;
+
+    background:transparent;
 
 }
 
@@ -256,7 +280,8 @@
    HOVER MEGA MENU
 ========================================================== */
 
-.nav-item:hover .mega-menu{
+.nav-item:hover .mega-menu,
+body.mega-open .mega-menu{
 
     opacity:1;
 
@@ -298,7 +323,8 @@
 
 }
 
-.nav-item:hover .mega-icon{
+.nav-item:hover .mega-icon,
+body.mega-open .mega-icon{
 
     opacity:1;
 
@@ -330,7 +356,7 @@
 
     padding-top:50px;
 
-    padding-left:180px;   /* sesuaikan nanti */
+    padding-left:180px;
 
 }
 
@@ -364,7 +390,8 @@
 
 }
 
-.nav-item:hover .mega-title{
+.nav-item:hover .mega-title,
+body.mega-open .mega-title{
 
     opacity:1;
 
@@ -400,7 +427,8 @@
 
 }
 
-.nav-item:hover .mega-links li{
+.nav-item:hover .mega-links li,
+body.mega-open .mega-links li{
 
     opacity:1;
 

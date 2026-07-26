@@ -118,7 +118,13 @@ const megaData = {
 
         { text: "Rumor (Ruang Humor)", href: "#" },
 
-        { text: "Forum Jual Beli", href: "#" }
+        { text: "RUBIK'98 (Ruang Bisnis dan Komersial)",
+
+            href: "https://fjbikasman11bdg98.wordpress.com/",
+
+            external: true
+
+        },
 
     ]
 

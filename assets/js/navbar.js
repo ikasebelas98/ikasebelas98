@@ -106,11 +106,12 @@ const megaData = {
 
         { text: "Minat dan Hobi", href: "#" },
 
-        { text: "RInDU - Ruang Inspirasi dan Edukasi", 
-            
-           href: "https://ikasman11bandung98.wordpress.com/" 
-           
-           external: true
+        {
+            text: "RInDU - Ruang Inspirasi dan Edukasi",
+
+            href: "https://ikasman11bandung98.wordpress.com/",
+
+            external: true
         },
 
         { text: "Tips Bermanfaat", href: "#" },

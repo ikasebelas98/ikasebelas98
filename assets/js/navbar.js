@@ -118,7 +118,7 @@ const megaData = {
 
         { text: "Rumor (Ruang Humor)", href: "#" },
 
-        { text: "RUBIK'98 (Ruang Bisnis dan Komersial)",
+        { text: "Rubik'98 (Ruang Bisnis dan Komersial)",
 
             href: "https://fjbikasman11bdg98.wordpress.com/",
 

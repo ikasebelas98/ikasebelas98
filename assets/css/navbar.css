@@ -247,7 +247,7 @@
 
     width:100vw;
 
-    height:320px;
+    min-height:320px;
 
     background:rgba(250,252,255,.82);
 
@@ -355,6 +355,8 @@ body.mega-open .mega-icon{
     gap:60px;
 
     padding-top:50px;
+
+    padding-bottom:40px;
 
     padding-left:180px;
 
@@ -469,6 +471,36 @@ body.mega-open .mega-links li{
 .mega-links li:nth-child(6){
 
     transition-delay:.35s;
+
+}
+
+.mega-links li:nth-child(7){
+
+    transition-delay:.40s;
+
+}
+
+.mega-links li:nth-child(8){
+
+    transition-delay:.45s;
+
+}
+
+.mega-links li:nth-child(9){
+
+    transition-delay:.50s;
+
+}
+
+.mega-links li:nth-child(10){
+
+    transition-delay:.55s;
+
+}
+
+.mega-links li:nth-child(11){
+
+    transition-delay:.60s;
 
 }
 

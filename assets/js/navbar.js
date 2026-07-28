@@ -76,8 +76,6 @@ const megaData = {
 
     links: [
 
-        { text: "Database Alumni", href: "#" },
-
         { text: "Direktori Usaha", href: "#" },
 
         { text: "Direktori Keahlian", href: "#" },
@@ -101,6 +99,8 @@ const megaData = {
     icon: "assets/images/tumb 04 community hub.webp",
 
     links: [
+
+        { text: "Tilawah Al Qur'an (One Week One Juz)", href: "#" },
 
         { text: "Event Alumni", href: "#" },
 

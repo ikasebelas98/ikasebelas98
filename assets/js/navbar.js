@@ -26,9 +26,9 @@ const megaData = {
 
     links: [
 
-        { text: "Sejarah", href: "#" },
+        { text: "Tentang IKA.11.98", href: "#" },
 
-        { text: "Visi & Misi", href: "#" },
+        { text: "Visi dan Misi", href: "#" },
 
         { text: "Struktur Organisasi", href: "#" },
 

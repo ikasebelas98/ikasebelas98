@@ -100,14 +100,18 @@ const megaData = {
 
     links: [
 
-        { text: "Tilawah Al Qur'an (One Week One Juz)", href: "#" },
+        { text: "RISALAH ( Ruang ISlami, Alqur'an & Amal Harian )", 
+            
+            href: "https://risalahikasman11bdg98.wordpress.com/",
+
+            external: true
+        },
 
         { text: "Event Alumni", href: "#" },
 
         { text: "Minat dan Hobi", href: "#" },
 
-        {
-            text: "RInDU - Ruang Inspirasi dan Edukasi",
+        { text: "RInDU - Ruang Inspirasi dan Edukasi",
 
             href: "https://ikasman11bandung98.wordpress.com/",
 
@@ -116,7 +120,13 @@ const megaData = {
 
         { text: "Tips Bermanfaat", href: "#" },
 
-        { text: "Rumor (Ruang Humor)", href: "#" },
+        { text: "Rumor (Ruang Humor)", 
+
+            href: "https://rumorikasman11bdg98.wordpress.com/",
+
+            external: true
+
+        },
 
         { text: "Rubik'98 (Ruang Bisnis dan Komersial)",
 

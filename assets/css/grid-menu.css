@@ -1,0 +1,43 @@
+/* ==========================================
+   GRID MENU
+========================================== */
+
+.grid-menu {
+
+    padding: 80px 10px;
+
+    background: red;
+
+    overflow-x: auto;
+
+}
+
+.grid-wrapper {
+
+    width: max-content;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 705px);
+
+    gap: 10px;
+
+    margin: 0 auto;
+
+}
+
+.grid-card {
+
+    width: 705px;
+
+    aspect-ratio: 1 / 1;
+
+    background-color: #d9d9d9;
+
+    border: 2px solid #d0d0d0;
+
+}
+
+body {
+    outline: 10px solid red;
+}

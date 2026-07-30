@@ -32,13 +32,21 @@
 
 .grid-card {
 
+    position: relative;
+
     width: 100%;
 
     aspect-ratio: 1 / 1;
 
+    overflow: hidden;
+
 }
 
 .grid-card img {
+
+    position: absolute;
+
+    inset: 0;
 
     width: 100%;
 
@@ -48,8 +56,54 @@
 
     object-fit: cover;
 
+    transition:
+        opacity 0.35s ease,
+        transform 1s ease;
+
 }
 
 body {
-    outline: 10px solid red;
+    outline: 10px solid rgb(255, 255, 255);
+}
+
+.img-default {
+
+    opacity: 1;
+
+}
+
+.img-hover {
+
+    opacity: 0;
+
+}
+
+.grid-card:hover .img-default {
+
+    opacity: 0;
+
+}
+
+.grid-card:hover .img-hover {
+
+    opacity: 1;
+
+}
+
+.grid-card a {
+
+    display: block;
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+.grid-card:hover img {
+
+    transform: scale(1.02);
+
 }

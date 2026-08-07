@@ -1,0 +1,156 @@
+/* ==========================================
+   SPONSOR ENGINE VARIABLES
+========================================== */
+
+:root {
+
+    --sponsor-active-height: 400px;
+
+    --sponsor-gap: 10px;
+
+    --thumb-xs: 40px;
+    --thumb-s: 50px;
+    --thumb-m: 65px;
+    --thumb-l: 80px;
+    --thumb-xl: 120px;
+
+}
+
+/* ==========================================
+   SPONSOR SLIDER
+========================================== */
+
+.sponsor-slider {
+
+    padding: 10px;
+
+    background: rgb(255, 255, 255);
+
+    overflow-x: auto;
+
+}
+
+.sponsor-safe {
+
+    width: 100%;
+
+    max-width: 1920px;
+
+}
+
+.sponsor-wrapper {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--sponsor-gap);
+
+    width: max-content;
+
+}
+
+.sponsor-viewport {
+
+    position: relative;
+
+    flex: 0 0 auto;
+
+    width: 60px;
+
+    height: var(--sponsor-active-height);
+
+    overflow: hidden;
+
+    background: #d9d9d9;
+
+}
+
+/* ==========================================
+   TEST THUMBNAIL SIZE
+========================================== */
+
+.sponsor-viewport:nth-child(1),
+.sponsor-viewport:nth-child(11) {
+    width: 40px;
+}
+
+.sponsor-viewport:nth-child(2),
+.sponsor-viewport:nth-child(10) {
+    width: 50px;
+}
+
+.sponsor-viewport:nth-child(3),
+.sponsor-viewport:nth-child(9) {
+    width: 65px;
+}
+
+.sponsor-viewport:nth-child(4),
+.sponsor-viewport:nth-child(8) {
+    width: 80px;
+}
+
+.sponsor-viewport:nth-child(5),
+.sponsor-viewport:nth-child(7) {
+    width: 120px;
+}
+
+
+.media-mask{
+
+    position: relative;
+
+    width:100%;
+
+    height:100%;
+
+    overflow:hidden;
+
+}
+
+.media-mask img{
+
+    width:100%;
+
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+}
+
+/* ==========================================
+   ACTIVE STAGE
+========================================== */
+
+.is-active {
+
+    flex: 0 0 auto;
+
+}
+
+
+/* ==========================================
+   THUMBNAIL SIZE
+========================================== */
+
+.thumb-xs {
+    width: var(--thumb-xs);
+}
+
+.thumb-s {
+    width: var(--thumb-s);
+}
+
+.thumb-m {
+    width: var(--thumb-m);
+}
+
+.thumb-l {
+    width: var(--thumb-l);
+}
+
+.thumb-xl {
+    width: var(--thumb-xl);
+}

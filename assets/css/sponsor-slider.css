@@ -30,6 +30,10 @@
 
 }
 
+/* ==========================================
+   SPONSOR SAFE
+========================================== */
+
 .sponsor-safe {
 
     width: 100%;
@@ -38,7 +42,29 @@
 
 }
 
-.sponsor-wrapper {
+/* ==========================================
+   SPONSOR STAGE
+========================================== */
+
+.sponsor-stage {
+
+    position: relative;
+
+    width: 100%;
+
+    height: var(--sponsor-active-height);
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+/* ==========================================
+   SPONSOR TRACK
+========================================== */
+
+.sponsor-track {
 
     display: flex;
 
@@ -49,6 +75,10 @@
     width: max-content;
 
 }
+
+/* ==========================================
+   SPONSOR VIEWPORT
+========================================== */
 
 .sponsor-viewport {
 

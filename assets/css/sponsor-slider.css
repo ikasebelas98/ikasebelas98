@@ -96,9 +96,6 @@
    TUMPUKAN LAYER (Z-INDEX) & FADE-IN/OUT
 ========================================== */
 
-/* Slot paling luar (slot-xs) dibuat samar (opacity rendah)
-   agar saat elemen pindah dari belakang, ia muncul lewat fade-in dari balik slot-s */
-
 .sponsor-viewport.slot-xs { 
     width: var(--thumb-xs) !important; 
     z-index: 1 !important; 
@@ -180,9 +177,10 @@
 }
 
 /* ==========================================
-   VIDEO CONTROLS & SEEKER SLIDER
+   KONTROL VIDEO & SLIDER VOLUME VERTIKAL
 ========================================== */
 
+/* Container Utama Kontrol Video */
 .video-controls {
     position: absolute;
     bottom: 0;
@@ -193,7 +191,7 @@
     background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
     
     opacity: 0;
     visibility: hidden;
@@ -207,6 +205,11 @@
     pointer-events: auto;
 }
 
+.controls-top {
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .controls-bottom {
     display: flex;
     justify-content: space-between;
@@ -218,73 +221,110 @@
     font-size: 10px;
     font-family: monospace;
     letter-spacing: 0.5px;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
+/* Wrapper Volume Horizontal */
+.volume-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 4px 0;
+}
+
+/* Popover Slider Volume (Menggunakan transition-delay agar tidak langsung hilang) */
+.volume-popover {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease 0.1s, visibility 0.2s ease 0.1s;
+}
+
+/* Tampilkan slider saat hover di wrapper volume */
+.volume-wrapper:hover .volume-popover {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Tombol Ikon Volume di Ujung Kanan */
 .sound-toggle-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: #fff;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    background: transparent !important;
+    border: none !important;
+    width: 20px;
+    height: 20px;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    font-size: 11px;
-    backdrop-filter: blur(4px);
-    transition: transform 0.2s ease, background 0.2s ease;
+    z-index: 2;
 }
 
-.sound-toggle-btn:hover {
-    transform: scale(1.15);
-    background: rgba(255, 255, 255, 0.4);
+.sound-toggle-btn svg {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Switcher Tampilan Ikon Mute / Unmute */
+.sound-toggle-btn.is-muted .icon-unmuted { display: none !important; }
+.sound-toggle-btn.is-muted .icon-muted { display: block !important; }
+.sound-toggle-btn:not(.is-muted) .icon-muted { display: none !important; }
+.sound-toggle-btn:not(.is-muted) .icon-unmuted { display: block !important; }
+
+/* ==========================================
+   STYLING SLIDER & TITIK (THUMB) UKURAN ASLI
+========================================== */
+.video-seeker,
+.volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 2px !important;
+    border-radius: 1px;
+    background: rgba(255, 255, 255, 0.3) !important;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 5; /* Memastikan slider berada di paling atas agar bisa diklik/dislide */
 }
 
 .video-seeker {
-    -webkit-appearance: none;
-    appearance: none;
     width: 100%;
-    height: 2px;
-    border-radius: 1px;
-    background: rgba(255, 255, 255, 0.25);
-    outline: none;
-    cursor: pointer;
-    transition: height 0.2s ease;
 }
 
-.video-seeker:hover {
-    height: 3px;
+.volume-slider {
+    width: 50px !important;
+    transform: none !important;
 }
 
-.video-seeker::-webkit-slider-thumb {
+/* Titik Slider (Thumb) KECIL KONSISTEN (Chrome, Safari, Edge) */
+.video-seeker::-webkit-slider-thumb,
+.volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 6px;
-    height: 6px;
+    width: 6px !important;
+    height: 6px !important;
     border-radius: 50%;
-    background: #ffffff;
+    background: #ffffff !important;
     cursor: pointer;
-    transition: transform 0.15s ease;
+    transition: none !important; /* Mencegah titik membesar */
 }
 
-.video-seeker::-webkit-slider-thumb:hover {
-    transform: scale(1.5);
-}
-
-.video-seeker::-moz-range-thumb {
-    width: 6px;
-    height: 6px;
-    border: none;
+/* Titik Slider (Thumb) KECIL KONSISTEN (Firefox) */
+.video-seeker::-moz-range-thumb,
+.volume-slider::-moz-range-thumb {
+    width: 6px !important;
+    height: 6px !important;
+    border: none !important;
     border-radius: 50%;
-    background: #ffffff;
+    background: #ffffff !important;
     cursor: pointer;
-    transition: transform 0.15s ease;
-}
-
-.video-seeker::-moz-range-thumb:hover {
-    transform: scale(1.5);
+    transition: none !important;
 }
 
 /* ==========================================

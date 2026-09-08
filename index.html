@@ -408,34 +408,37 @@
      SPONSOR SLIDER
 ========================================== -->
 <section class="sponsor-slider">
+
+    <!-- TOMBOL NAVIGASI PREV & NEXT (DIPINDAHKAN KE SINI AGAR BISA DI UJUNG TEPI SCREEN) -->
+    <button type="button" class="sponsor-nav sponsor-prev" id="sponsorPrev" aria-label="Sponsor Sebelumnya">&#10094;</button>
+    <button type="button" class="sponsor-nav sponsor-next" id="sponsorNext" aria-label="Sponsor Selanjutnya">&#10095;</button>
+
     <div class="sponsor-safe">
-        
-        <!-- TOMBOL NAVIGASI PREV & NEXT -->
-        <button type="button" class="sponsor-nav sponsor-prev" aria-label="Sponsor Sebelumnya">&#9664;</button>
-        <button type="button" class="sponsor-nav sponsor-next" aria-label="Sponsor Selanjutnya">&#9654;</button>
-
         <div class="sponsor-stage">
-            <div class="sponsor-track">
+            <div class="sponsor-track" id="sponsorTrack">
 
+                <!-- Sponsor 01 -->
                 <div class="sponsor-viewport">
                     <div class="media-mask">
                         <img src="assets/images/guide-sponsor-01.webp" alt="Sponsor 01">
                     </div>
                 </div>
 
+                <!-- Sponsor 02 -->
                 <div class="sponsor-viewport">
                     <div class="media-mask">
                         <img src="assets/images/guide-sponsor-02.webp" alt="Sponsor 02">
                     </div>
                 </div>
 
+                <!-- Sponsor 03 -->
                 <div class="sponsor-viewport">
                     <div class="media-mask">
                         <img src="assets/images/guide-sponsor-03.webp" alt="Sponsor 03">
                     </div>
                 </div>
 
-                <!-- Sponsor Aktif video reuni -->
+                <!-- Sponsor Video Reuni (16:9) -->
                 <div class="sponsor-viewport" data-ratio="16:9">
                     <div class="media-mask">
                         <video 
@@ -447,22 +450,42 @@
 
                         <!-- KONTROL VIDEO INTERAKTIF -->
                         <div class="video-controls">
-                            <input type="range" class="video-seeker" value="0" min="0" max="100" step="0.1" aria-label="Video Progress">
+                            <div class="controls-top">
+                                <input type="range" class="video-seeker" value="0" min="0" max="100" step="0.1" aria-label="Video Progress">
+                            </div>
                             <div class="controls-bottom">
-                                <span class="video-time">00:00</span>
-                                <button class="sound-toggle-btn" aria-label="Toggle Mute">🔇</button>
+                                <span class="video-time">00:00 / 00:00</span>
+                                
+                                <div class="volume-wrapper">
+                                    <div class="volume-popover">
+                                        <input type="range" class="volume-slider" value="1" min="0" max="1" step="0.05" aria-label="Volume Control">
+                                    </div>
+                                    <button type="button" class="sound-toggle-btn is-muted" aria-label="Toggle Mute">
+                                        <svg class="icon-muted" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.5 3.5L20.5 20.5M11 5L6 9H2V15H6L11 19V5Z" stroke="#ff2222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 9H2V15H6L11 19V5L6 9Z" fill="#ff2222"/>
+                                        </svg>
+                                        <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6 9H2V15H6L11 19V5L6 9Z" fill="#ffffff"/>
+                                            <path d="M14 9C15 10 15.5 11 15.5 12C15.5 13 15 14 14 15" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M17 6.5C18.8 8 20 10 20 12C20 14 18.8 16 17 17.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M20 4C22.5 6.2 24 9 24 12C24 15 22.5 17.8 20 20" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Sponsor 05 -->
                 <div class="sponsor-viewport">
                     <div class="media-mask">
                         <img src="assets/images/guide-sponsor-05.webp" alt="Sponsor 05">
                     </div>
                 </div>
 
-                <!-- Sponsor Aktif Awal (Indeks ke-6 / Tengah) -->
+                <!-- Sponsor Video Aktif Awal (9:16) -->
                 <div class="sponsor-viewport is-active" data-ratio="9:16">
                     <div class="media-mask">
                         <video 
@@ -474,39 +497,63 @@
 
                         <!-- KONTROL VIDEO INTERAKTIF -->
                         <div class="video-controls">
-                            <input type="range" class="video-seeker" value="0" min="0" max="100" step="0.1" aria-label="Video Progress">
+                            <div class="controls-top">
+                                <input type="range" class="video-seeker" value="0" min="0" max="100" step="0.1" aria-label="Video Progress">
+                            </div>
                             <div class="controls-bottom">
-                                <span class="video-time">00:00</span>
-                                <button class="sound-toggle-btn" aria-label="Toggle Mute">🔇</button>
+                                <span class="video-time">00:00 / 00:00</span>
+                                
+                                <div class="volume-wrapper">
+                                    <div class="volume-popover">
+                                        <input type="range" class="volume-slider" value="1" min="0" max="1" step="0.05" aria-label="Volume Control">
+                                    </div>
+                                    <button type="button" class="sound-toggle-btn is-muted" aria-label="Toggle Mute">
+                                        <svg class="icon-muted" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.5 3.5L20.5 20.5M11 5L6 9H2V15H6L11 19V5Z" stroke="#ff2222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6 9H2V15H6L11 19V5L6 9Z" fill="#ff2222"/>
+                                        </svg>
+                                        <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6 9H2V15H6L11 19V5L6 9Z" fill="#ffffff"/>
+                                            <path d="M14 9C15 10 15.5 11 15.5 12C15.5 13 15 14 14 15" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M17 6.5C18.8 8 20 10 20 12C20 14 18.8 16 17 17.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M20 4C22.5 6.2 24 9 24 12C24 15 22.5 17.8 20 20" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Sponsor 07 -->
                 <div class="sponsor-viewport">
                     <div class="media-mask">
                         <img src="assets/images/guide-sponsor-07.webp" alt="Sponsor 07">
                     </div>
                 </div>
 
+                <!-- Sponsor 08 -->
                 <div class="sponsor-viewport">
                     <div class="media-mask">
                         <img src="assets/images/guide-sponsor-08.webp" alt="Sponsor 08">
                     </div>
                 </div>
 
+                <!-- Sponsor 09 -->
                 <div class="sponsor-viewport">
                     <div class="media-mask">
                         <img src="assets/images/guide-sponsor-09.webp" alt="Sponsor 09">
                     </div>
                 </div>
 
+                <!-- Sponsor 10 -->
                 <div class="sponsor-viewport">
                     <div class="media-mask">
                         <img src="assets/images/guide-sponsor-10.webp" alt="Sponsor 10">
                     </div>
                 </div>
 
+                <!-- Sponsor 11 -->
                 <div class="sponsor-viewport">
                     <div class="media-mask">
                         <img src="assets/images/guide-sponsor-11.webp" alt="Sponsor 11">
@@ -517,7 +564,7 @@
         </div>
 
         <!-- INDIKATOR DOTS & ACTIVE BAR -->
-        <div class="sponsor-pagination"></div>
+        <div class="sponsor-pagination" id="sponsorPagination"></div>
 
     </div>
 </section>

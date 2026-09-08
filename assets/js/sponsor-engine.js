@@ -1,10 +1,5 @@
 /* ==========================================
    SPONSOR ENGINE (SYMMETRIC LEFT & RIGHT FLIP + AUTOPLAY)
-   - Fixed Container Height based on 9:16 ratio (prevents page jump)
-   - Dynamic Aspect Ratio Support (16:9, 1:1, 9:16)
-   - Absolute Scroll Lock (No Page Jump)
-   - Auto-advance: Video (1x Play / Ended), Image (8s)
-   - Auto-pause when section is not visible in viewport
 ========================================== */
 
 const sponsorTrack = document.querySelector(".sponsor-track");
@@ -13,26 +8,22 @@ const sponsorSection = document.querySelector(".sponsor-slider");
 const LEFT_COUNT = 5;
 const RIGHT_COUNT = 5;
 
-// PATOKAN UTAMA: Dikunci berdasarkan tinggi maksimum video 9:16 (568px)
 const MAX_9_16_HEIGHT = 568; 
 
-// Konfigurasi Durasi & Easing Morphing
 const MORPH_DURATION = "1.8s";
 const MORPH_EASING = "cubic-bezier(0.05, 0.7, 0.1, 1)";
-const IMAGE_AUTO_DURATION = 8000; // 8 Detik untuk gambar
+const IMAGE_AUTO_DURATION = 8000; 
 
 const SLOT_CLASSES = [
     "slot-xs", "slot-s", "slot-m", "slot-l", "slot-xl",
-    "", // Indeks 5: Item Aktif
+    "", 
     "slot-xl", "slot-l", "slot-m", "slot-s", "slot-xs"
 ];
 
-// Array Utama Mengunci Urutan Data Asli Sponsor
 let masterSponsorList = [];
 let imageTimer = null;
 let isSectionVisible = false;
 
-// 1. Fungsi Mendapatkan Aspect Ratio Media
 function getMediaRatio(viewport) {
     const media = viewport.querySelector("img, video");
     if (!media) return 16 / 9;
@@ -53,7 +44,6 @@ function getMediaRatio(viewport) {
     return 16 / 9;
 }
 
-// 2. Fungsi Utama Rotasi & FLIP Morphing Simetris (Kiri & Kanan)
 function setActiveCenter(targetViewport) {
     if (!targetViewport) return;
 
@@ -66,14 +56,12 @@ function setActiveCenter(targetViewport) {
 
     const total = currentDomItems.length;
 
-    // STEP 1: FIRST - Rekam Posisi Pusat Fisik (Center X) Seluruh Thumbnail Tepat Sebelum Dirotasi
     const firstCenters = new Map();
     currentDomItems.forEach((vp) => {
         const rect = vp.getBoundingClientRect();
         firstCenters.set(vp, rect.left + rect.width / 2);
     });
 
-    // STEP 2: Susun Ulang Array Secara Simetris (Kiri-Tengah-Kanan)
     const reorderedItems = [];
     for (let i = LEFT_COUNT; i >= 1; i--) {
         const idx = (targetIndex - i + total) % total;
@@ -85,23 +73,18 @@ function setActiveCenter(targetViewport) {
         reorderedItems.push(currentDomItems[idx]);
     }
 
-    // Matikan Transisi CSS Sementara Untuk Penataan Ulang DOM
     reorderedItems.forEach((vp) => {
         vp.style.transition = "none";
     });
 
-    // Pindahkan Elemen Di DOM Sesuai Urutan Baru
     sponsorTrack.innerHTML = "";
     reorderedItems.forEach((item) => sponsorTrack.appendChild(item));
 
-    // Update Ukuran Visual, Pagination, & Slot
     updateSliderVisuals(targetViewport, reorderedItems);
     updatePagination(targetViewport);
 
-    // FORCE REFLOW 1: Memaksa Browser Memproses Layout Baru Secara Instan
     void sponsorTrack.offsetHeight;
 
-    // STEP 3: INVERT - Hitung Selisih Pusat Fisik (First Center vs Last Center)
     reorderedItems.forEach((vp) => {
         const firstCenter = firstCenters.get(vp);
         if (firstCenter !== undefined) {
@@ -113,10 +96,8 @@ function setActiveCenter(targetViewport) {
         }
     });
 
-    // FORCE REFLOW 2: Mengunci Titik Awal Transformasi
     void sponsorTrack.offsetHeight;
 
-    // STEP 4: PLAY - Hidupkan Transisi dan Kembalikan Ke Transformasi Normal (0)
     requestAnimationFrame(() => {
         reorderedItems.forEach((vp) => {
             vp.style.transition = `transform ${MORPH_DURATION} ${MORPH_EASING}, width ${MORPH_DURATION} ${MORPH_EASING}, height ${MORPH_DURATION} ${MORPH_EASING}, opacity ${MORPH_DURATION} ${MORPH_EASING}`;
@@ -124,11 +105,9 @@ function setActiveCenter(targetViewport) {
         });
     });
 
-    // Jalankan Auto-Advance Timer Sesuai Tipe Media Aktif
     handleAutoAdvance(targetViewport);
 }
 
-// 3. Fungsi Menghitung Dimensi Visual Berdasarkan Patokan Tinggi 9:16
 function updateSliderVisuals(activeTarget, reorderedItems) {
     reorderedItems.forEach((vp, index) => {
         const media = vp.querySelector("img, video");
@@ -145,22 +124,19 @@ function updateSliderVisuals(activeTarget, reorderedItems) {
             const ratio = getMediaRatio(vp);
 
             if (ratio < 0.8) { 
-                // Format Portrait (9:16) -> Menggunakan Tinggi Patokan Utama
                 const activeHeight = MAX_9_16_HEIGHT;
                 vp.style.height = `${activeHeight}px`;
-                vp.style.width = `${activeHeight * ratio}px`; // Lebar ~320px
+                vp.style.width = `${activeHeight * ratio}px`;
 
             } else if (Math.abs(ratio - 1) < 0.2) { 
-                // Format Square (1:1) -> Mengambil Patokan dari Tinggi 9:16
                 const activeSize = MAX_9_16_HEIGHT; 
                 vp.style.width = `${activeSize}px`;
                 vp.style.height = `${activeSize}px`;
 
             } else { 
-                // Format Landscape (16:9) -> Proporsional
                 const activeWidth = 640;
                 vp.style.width = `${activeWidth}px`;
-                vp.style.height = `${activeWidth / ratio}px`; // Tinggi 360px
+                vp.style.height = `${activeWidth / ratio}px`;
             }
 
             if (isVideo && isSectionVisible) {
@@ -172,10 +148,9 @@ function updateSliderVisuals(activeTarget, reorderedItems) {
                 media.pause();
                 media.muted = true;
                 const btn = vp.querySelector(".sound-toggle-btn");
-                if (btn) btn.textContent = "🔇";
+                if (btn) btn.classList.add("is-muted");
             }
 
-            // Ukuran thumbnail non-aktif di samping
             const inactiveHeight = 200; 
             vp.style.height = `${inactiveHeight}px`;
 
@@ -187,7 +162,6 @@ function updateSliderVisuals(activeTarget, reorderedItems) {
     });
 }
 
-// 4. Manajemen Auto-Advance (Gambar 8 Detik, Video 1x Play sampai End)
 function handleAutoAdvance(activeViewport) {
     if (!isSectionVisible) return;
 
@@ -212,7 +186,6 @@ function clearAutoAdvanceTimer() {
     }
 }
 
-// 5. Fungsi Navigasi Next & Prev
 function nextSlide() {
     const currentActive = sponsorTrack.querySelector(".sponsor-viewport.is-active");
     if (!currentActive) return;
@@ -235,7 +208,6 @@ function prevSlide() {
     setActiveCenter(currentDomItems[prevIndex]);
 }
 
-// 6. Inisialisasi & Update Pagination Dots
 function setupPagination() {
     const paginationContainer = document.querySelector(".sponsor-pagination");
     if (!paginationContainer) return;
@@ -279,7 +251,6 @@ function formatTime(seconds) {
    EVENT LISTENERS & HANDLERS
 ========================================== */
 
-// Event Klik Target Slider
 document.addEventListener("click", (e) => {
     if (e.target.closest(".video-controls") || e.target.closest(".sponsor-nav")) return;
 
@@ -300,7 +271,6 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// Listener Navigasi Panah (Delegasi Event)
 document.addEventListener("click", (e) => {
     const prevBtn = e.target.closest(".sponsor-prev");
     const nextBtn = e.target.closest(".sponsor-next");
@@ -315,20 +285,52 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// Listener Mute / Unmute Tombol Suara
+// Listener Mute / Unmute
 document.addEventListener("click", (e) => {
     const soundBtn = e.target.closest(".sound-toggle-btn");
     if (soundBtn) {
         e.stopPropagation();
-        const video = soundBtn.closest(".media-mask").querySelector("video");
+        const container = soundBtn.closest(".media-mask");
+        const video = container ? container.querySelector("video") : null;
+        const volumeSlider = container ? container.querySelector(".volume-slider") : null;
+
         if (video) {
             video.muted = !video.muted;
-            soundBtn.textContent = video.muted ? "🔇" : "🔊";
+            if (video.muted) {
+                soundBtn.classList.add("is-muted");
+                if (volumeSlider) volumeSlider.value = 0;
+            } else {
+                soundBtn.classList.remove("is-muted");
+                if (volumeSlider) volumeSlider.value = video.volume || 1;
+            }
         }
     }
 });
 
-// Update Seeker Progress & Timer Video
+// Listener Input Volume Slider
+document.addEventListener("input", (e) => {
+    if (e.target.classList.contains("volume-slider")) {
+        const slider = e.target;
+        const container = slider.closest(".media-mask");
+        const video = container ? container.querySelector("video") : null;
+        const soundBtn = container ? container.querySelector(".sound-toggle-btn") : null;
+
+        if (video) {
+            const val = parseFloat(slider.value);
+            video.volume = val;
+            video.muted = val === 0;
+
+            if (soundBtn) {
+                if (video.muted) {
+                    soundBtn.classList.add("is-muted");
+                } else {
+                    soundBtn.classList.remove("is-muted");
+                }
+            }
+        }
+    }
+});
+
 document.addEventListener("timeupdate", (e) => {
     if (e.target.tagName === "VIDEO") {
         const video = e.target;
@@ -348,7 +350,6 @@ document.addEventListener("timeupdate", (e) => {
     }
 }, true);
 
-// Fast-Forward / Rewind dengan Slider Seeker
 document.addEventListener("input", (e) => {
     if (e.target.classList.contains("video-seeker")) {
         const seeker = e.target;
@@ -359,7 +360,6 @@ document.addEventListener("input", (e) => {
     }
 });
 
-// Intersection Observer: Deteksi apakah Sponsor Slider terlihat di layar
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         isSectionVisible = entry.isIntersecting;
@@ -383,7 +383,6 @@ if (sponsorSection) {
     observer.observe(sponsorSection);
 }
 
-// Inisialisasi Awal
 window.addEventListener("DOMContentLoaded", () => {
     if (!sponsorTrack) return;
     

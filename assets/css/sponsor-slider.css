@@ -3,184 +3,366 @@
 ========================================== */
 
 :root {
+    --sponsor-max-height: 568px; 
 
-    --sponsor-active-height: 400px;
+    --sponsor-gap: 4px;
+    --sponsor-active-gap: 8px;
 
-    --sponsor-gap: 10px;
-
-    --thumb-xs: 40px;
-    --thumb-s: 50px;
-    --thumb-m: 65px;
-    --thumb-l: 80px;
-    --thumb-xl: 120px;
-
+    /* Ukuran Thumbnail Desktop */
+    --thumb-xs: 25px;
+    --thumb-s: 35px;
+    --thumb-m: 45px;
+    --thumb-l: 60px;
+    --thumb-xl: 85px;
 }
 
 /* ==========================================
-   SPONSOR SLIDER
+   PENYESUAIAN SECTION & STAGE SLIDER
 ========================================== */
 
+.grid-menu {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
 .sponsor-slider {
-
-    padding: 10px;
-
-    background: rgb(255, 255, 255);
-
-    overflow-x: auto;
-
+    position: relative; 
+    padding: 10px 0 25px 0;
+    margin-top: 0;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
 }
 
 /* ==========================================
-   SPONSOR SAFE
+   SPONSOR SAFE (Pembatas Area Thumbnail)
 ========================================== */
 
 .sponsor-safe {
-
+    position: relative;
     width: 100%;
-
-    max-width: 1920px;
-
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-/* ==========================================
-   SPONSOR STAGE
-========================================== */
 
 .sponsor-stage {
-
     position: relative;
-
     width: 100%;
-
-    height: var(--sponsor-active-height);
-
+    height: var(--sponsor-max-height);
     display: flex;
-
     justify-content: center;
-
+    align-items: center; 
 }
 
 /* ==========================================
-   SPONSOR TRACK
+   SPONSOR TRACK & VIEWPORT
 ========================================== */
 
 .sponsor-track {
-
     display: flex;
-
     align-items: center;
-
-    gap: var(--sponsor-gap);
-
-    width: max-content;
-
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
-
-/* ==========================================
-   SPONSOR VIEWPORT
-========================================== */
 
 .sponsor-viewport {
-
     position: relative;
-
     flex: 0 0 auto;
-
-    width: 60px;
-
-    height: var(--sponsor-active-height);
-
     overflow: hidden;
-
     background: #d9d9d9;
+    cursor: pointer;
+    will-change: transform, width, height, opacity;
+    
+    margin: 0 var(--sponsor-gap);
 
+    /* Transisi Morphing & Fade In/Out Halus */
+    transition: width 1.8s cubic-bezier(0.05, 0.7, 0.1, 1),
+                height 1.8s cubic-bezier(0.05, 0.7, 0.1, 1),
+                transform 1.8s cubic-bezier(0.05, 0.7, 0.1, 1),
+                opacity 1.8s cubic-bezier(0.05, 0.7, 0.1, 1);
 }
 
 /* ==========================================
-   TEST THUMBNAIL SIZE
+   TUMPUKAN LAYER (Z-INDEX) & FADE-IN/OUT
 ========================================== */
 
-.sponsor-viewport:nth-child(1),
-.sponsor-viewport:nth-child(11) {
-    width: 40px;
+/* Slot paling luar (slot-xs) dibuat samar (opacity rendah)
+   agar saat elemen pindah dari belakang, ia muncul lewat fade-in dari balik slot-s */
+
+.sponsor-viewport.slot-xs { 
+    width: var(--thumb-xs) !important; 
+    z-index: 1 !important; 
+    opacity: 0.15; 
+    display: block !important; 
 }
 
-.sponsor-viewport:nth-child(2),
-.sponsor-viewport:nth-child(10) {
-    width: 50px;
+.sponsor-viewport.slot-s { 
+    width: var(--thumb-s) !important; 
+    z-index: 10 !important; 
+    opacity: 0.4; 
 }
 
-.sponsor-viewport:nth-child(3),
-.sponsor-viewport:nth-child(9) {
-    width: 65px;
+.sponsor-viewport.slot-m { 
+    width: var(--thumb-m) !important; 
+    z-index: 20 !important; 
+    opacity: 0.65; 
 }
 
-.sponsor-viewport:nth-child(4),
-.sponsor-viewport:nth-child(8) {
-    width: 80px;
+.sponsor-viewport.slot-l { 
+    width: var(--thumb-l) !important; 
+    z-index: 30 !important; 
+    opacity: 0.85; 
 }
 
-.sponsor-viewport:nth-child(5),
-.sponsor-viewport:nth-child(7) {
-    width: 120px;
+.sponsor-viewport.slot-xl { 
+    width: var(--thumb-xl) !important; 
+    z-index: 40 !important; 
+    opacity: 0.95; 
 }
 
+/* Sponsor Aktif selalu berada di paling atas layer */
+.sponsor-viewport.is-active {
+    z-index: 100 !important;
+    opacity: 1 !important;
+    margin: 0 var(--sponsor-active-gap); 
+}
 
-.media-mask{
+/* ==========================================
+   MEDIA MASK & TREATMENT MORPHING
+========================================== */
 
+.media-mask {
     position: relative;
-
-    width:100%;
-
-    height:100%;
-
-    overflow:hidden;
-
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
-.media-mask img{
+.media-mask img,
+.media-mask video {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
 
-    width:100%;
+    transform: scale(1.25);
+    filter: grayscale(100%) brightness(0.7);
+    opacity: 0.6;
 
-    height:100%;
+    transition: transform 1.8s cubic-bezier(0.05, 0.7, 0.1, 1),
+                filter 1.8s cubic-bezier(0.05, 0.7, 0.1, 1),
+                opacity 1.8s cubic-bezier(0.05, 0.7, 0.1, 1);
+}
 
-    display:block;
+.sponsor-viewport.is-active .media-mask img,
+.sponsor-viewport.is-active .media-mask video {
+    transform: scale(1);
+    filter: grayscale(0%) brightness(1);
+    opacity: 1;
+}
 
-    object-fit:cover;
-
+.sponsor-viewport:not(.is-active):hover .media-mask img {
+    transform: scale(1.35);
+    opacity: 0.85;
+    filter: grayscale(50%) brightness(0.9);
 }
 
 /* ==========================================
-   ACTIVE STAGE
+   VIDEO CONTROLS & SEEKER SLIDER
 ========================================== */
 
-.is-active {
-
-    flex: 0 0 auto;
-
+.video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    padding: 10px 12px 8px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
+.sponsor-viewport.is-active:hover .video-controls {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.controls-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.video-time {
+    color: #ffffff;
+    font-size: 10px;
+    font-family: monospace;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+.sound-toggle-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 11px;
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.sound-toggle-btn:hover {
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.video-seeker {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 2px;
+    border-radius: 1px;
+    background: rgba(255, 255, 255, 0.25);
+    outline: none;
+    cursor: pointer;
+    transition: height 0.2s ease;
+}
+
+.video-seeker:hover {
+    height: 3px;
+}
+
+.video-seeker::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.video-seeker::-webkit-slider-thumb:hover {
+    transform: scale(1.5);
+}
+
+.video-seeker::-moz-range-thumb {
+    width: 6px;
+    height: 6px;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.video-seeker::-moz-range-thumb:hover {
+    transform: scale(1.5);
+}
 
 /* ==========================================
-   THUMBNAIL SIZE
+   POSISI TOMBOL NAVIGASI (MINIMALIS & EDGE)
 ========================================== */
 
-.thumb-xs {
-    width: var(--thumb-xs);
+.sponsor-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    background: transparent;
+    border: none;
+    color: #bbbbbb;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 6px;
+    line-height: 1;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.thumb-s {
-    width: var(--thumb-s);
+.sponsor-nav:hover {
+    color: #555555;
+    transform: translateY(-50%) scale(1.2);
 }
 
-.thumb-m {
-    width: var(--thumb-m);
+.sponsor-prev {
+    left: 5px;
 }
 
-.thumb-l {
-    width: var(--thumb-l);
+.sponsor-next {
+    right: 5px;
 }
 
-.thumb-xl {
-    width: var(--thumb-xl);
+/* ==========================================
+   PAGINASI DOTS & INDICATOR BAR
+========================================== */
+
+.sponsor-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 25px;
+    width: 100%;
+    min-height: 12px;
+}
+
+.sponsor-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #d1d1d1;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.sponsor-dot.is-active {
+    width: 32px;
+    border-radius: 4px;
+    background-color: #888888;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+========================================== */
+
+@media (max-width: 768px) {
+    .sponsor-nav {
+        display: none !important;
+    }
+
+    .sponsor-safe {
+        padding: 0 15px;
+    }
+
+    .sponsor-viewport.slot-xs,
+    .sponsor-viewport.slot-s {
+        display: none !important;
+    }
 }

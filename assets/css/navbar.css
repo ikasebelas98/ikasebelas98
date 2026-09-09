@@ -279,7 +279,7 @@ body.mega-open .mega-icon {
 }
 
 /* ==========================================================
-   RESPONSIVE (MOBILE & TABLET - POP-UP CARD MODEL)
+   RESPONSIVE (MOBILE & TABLET - KOTAK POP-UP POPPER)
 ========================================================== */
 
 .navbar-toggle {
@@ -299,80 +299,88 @@ body.mega-open .mega-icon {
     height: 2px;
     background-color: #1f2433;
     border-radius: 2px;
-    transition: all 0.3s ease;
 }
 
 @media screen and (max-width: 991px) {
     .navbar-container {
         justify-content: space-between;
-        position: relative; /* Anchor untuk posisi pop-up card */
+        position: relative;
     }
 
     .navbar-toggle {
         display: flex;
     }
 
-    /* KOTAK POP-UP FLOATING DI SEBELAH KANAN */
-    .navbar-menu {
-        position: absolute;
-        top: calc(100% + 8px); /* Muncul tepat di bawah tombol hamburger */
-        right: 15px;            /* Rata kanan mengikuti garis 3 */
-        left: auto;            /* Hapus nilai left penuh */
-        width: 220px;          /* Lebar kotak pop-up */
-        
-        background: #ffffff;
-        border-radius: 12px;   /* Sudut membulat modern */
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18), 
-                    0 2px 8px rgba(0, 0, 0, 0.08); /* Bayangan halus */
-        border: 1px solid rgba(0, 0, 0, 0.06);
-        
-        flex-direction: column;
-        align-items: stretch;
-        padding: 8px 0;
-        gap: 0;
-
-        /* Effek Animasi Pop-Up */
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px) scale(0.95);
-        transform-origin: top right; /* Animasi membesar dari pojok kanan atas */
-        transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
-        z-index: 1001;
+    /* MATIKAN TOTAL MEGA MENU DESKTOP DI MOBILE */
+    .mega-menu, 
+    body.mega-open .mega-menu {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
     }
 
-    /* KONDISI SAAT TOMBOL GARIS 3 DIKLIK (AKTIF) */
+    /* KOTAK POP-UP MOBILE MENU */
+    .navbar-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 15px;
+        left: auto;
+        width: 230px;
+        height: auto !important;
+        
+        /* Background Solid + Shadow Tebal */
+        background: #1f2433 !important; /* Latar belakang gelap padat agar teks kontras */
+        border-radius: 12px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 0;
+        gap: 0;
+        overflow: hidden; /* Mencegah teks meluber keluar kotak */
+
+        /* State Sembunyi */
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-10px) scale(0.95);
+        transform-origin: top right;
+        transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+        z-index: 99999;
+    }
+
+    /* STATE AKTIF SAAT TOMBOL DI-KLIK */
     .navbar-menu.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0) scale(1);
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        transform: translateY(0) scale(1) !important;
     }
 
     .navbar-menu .nav-item {
         width: 100%;
         height: auto;
+        display: block;
     }
 
     .navbar-menu .nav-item > a {
         width: 100%;
-        padding: 10px 18px;
-        font-size: 13.5px;
+        padding: 12px 20px;
+        font-size: 14px;
         font-weight: 600;
-        color: #1f2433;
+        color: #ffffff !important; /* Warna teks putih rapat */
         text-align: left;
+        display: block;
         box-sizing: border-box;
-        border-radius: 6px;
         transition: background 0.2s ease, color 0.2s ease;
     }
 
-    /* Highlight saat item di dalam pop-up ditekan */
-    .navbar-menu .nav-item > a:active,
-    .navbar-menu .nav-item > a:hover {
-        background: #f4f6f9;
-        color: #e9a538;
-    }
-
-    /* Sembunyikan Mega Menu versi Desktop di Mobile */
-    .mega-menu {
-        display: none !important;
+    .navbar-menu .nav-item > a:hover,
+    .navbar-menu .nav-item > a:active {
+        background: rgba(255, 255, 255, 0.08);
+        color: #e9a538 !important;
     }
 }

@@ -279,7 +279,7 @@ body.mega-open .mega-icon {
 }
 
 /* ==========================================================
-   RESPONSIVE (MOBILE & TABLET - KOTAK POP-UP POPPER)
+   RESPONSIVE (MOBILE & TABLET - ACCORDION DROPDOWN)
 ========================================================== */
 
 .navbar-toggle {
@@ -326,11 +326,10 @@ body.mega-open .mega-icon {
         top: calc(100% + 8px);
         right: 15px;
         left: auto;
-        width: 230px;
-        height: auto !important;
+        width: 260px; /* Diperlebar sedikit agar muat teks sub-menu */
+        max-height: 80vh; /* Batas tinggi jika sub-menu terbuka banyak */
         
-        /* Background Solid + Shadow Tebal */
-        background: #1f2433 !important; /* Latar belakang gelap padat agar teks kontras */
+        background: #1f2433 !important;
         border-radius: 12px;
         box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -338,9 +337,9 @@ body.mega-open .mega-icon {
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        padding: 10px 0;
+        padding: 8px 0;
         gap: 0;
-        overflow: hidden; /* Mencegah teks meluber keluar kotak */
+        overflow-y: auto; /* Bisa di-scroll jika sub-menu panjang */
 
         /* State Sembunyi */
         opacity: 0;
@@ -352,7 +351,6 @@ body.mega-open .mega-icon {
         z-index: 99999;
     }
 
-    /* STATE AKTIF SAAT TOMBOL DI-KLIK */
     .navbar-menu.active {
         opacity: 1 !important;
         visibility: visible !important;
@@ -363,7 +361,8 @@ body.mega-open .mega-icon {
     .navbar-menu .nav-item {
         width: 100%;
         height: auto;
-        display: block;
+        display: flex;
+        flex-direction: column;
     }
 
     .navbar-menu .nav-item > a {
@@ -371,16 +370,55 @@ body.mega-open .mega-icon {
         padding: 12px 20px;
         font-size: 14px;
         font-weight: 600;
-        color: #ffffff !important; /* Warna teks putih rapat */
+        color: #ffffff !important;
         text-align: left;
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         box-sizing: border-box;
         transition: background 0.2s ease, color 0.2s ease;
     }
 
+    /* Panah indikator dropdown di sebelah kanan teks menu */
+    .navbar-menu .nav-item > a::after {
+        content: "›";
+        font-size: 16px;
+        transition: transform 0.25s ease;
+    }
+
+    /* Putar panah ke bawah saat menu dibuka */
+    .navbar-menu .nav-item.active > a::after {
+        transform: rotate(90deg);
+        color: #e9a538;
+    }
+
     .navbar-menu .nav-item > a:hover,
-    .navbar-menu .nav-item > a:active {
-        background: rgba(255, 255, 255, 0.08);
+    .navbar-menu .nav-item.active > a {
+        background: rgba(255, 255, 255, 0.05);
         color: #e9a538 !important;
+    }
+
+    /* WADAH SUB MENU (MOBILE ACCORDION) */
+    .mobile-submenu {
+        max-height: 0;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.25);
+        transition: max-height 0.3s ease-in-out;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .mobile-submenu li a {
+        display: block;
+        padding: 10px 20px 10px 32px; /* Indentasi ke dalam agar beda dari induk */
+        font-size: 13px;
+        color: #a1b0c5;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .mobile-submenu li a:hover {
+        color: #ffffff;
     }
 }

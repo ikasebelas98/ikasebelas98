@@ -88,7 +88,7 @@ const megaData = {
 };
 
 /* ==========================================
-   FUNCTIONS
+   DESKTOP MEGA MENU LOGIC
 ========================================== */
 function loadMegaMenu(menuId) {
     const data = megaData[menuId];
@@ -99,64 +99,106 @@ function loadMegaMenu(menuId) {
 
     if (megaLinks) {
         megaLinks.innerHTML = "";
-
         data.links.forEach((link) => {
             const li = document.createElement("li");
             const a = document.createElement("a");
             a.href = link.href;
-
             if (link.external) {
                 a.target = "_blank";
                 a.rel = "noopener noreferrer";
             }
-
             a.textContent = link.text;
             li.appendChild(a);
             megaLinks.appendChild(li);
         });
     }
-
     return true;
 }
 
-/* ==========================================
-   EVENT LISTENERS
-========================================== */
 if (navItems.length > 0 && megaMenu) {
-
-    // Hover ke setiap item menu di Navbar
     navItems.forEach(menu => {
         menu.addEventListener("mouseenter", () => {
-            // Reset class untuk memicu ulang animasi CSS dari awal
-            document.body.classList.remove("mega-open");
-
-            const success = loadMegaMenu(menu.id);
-
-            if (success) {
-                // Beri jeda 1 frame agar browser mendeteksi perubahan DOM & mengulang animasi
-                requestAnimationFrame(() => {
-                    document.body.classList.add("mega-open");
-                });
+            if (window.innerWidth > 991) {
+                document.body.classList.remove("mega-open");
+                const success = loadMegaMenu(menu.id);
+                if (success) {
+                    requestAnimationFrame(() => {
+                        document.body.classList.add("mega-open");
+                    });
+                }
             }
         });
     });
 
-    // Menjaga Mega Menu tetap terbuka saat kursor berpindah ke Mega Menu
     navbarMenu.addEventListener("mouseleave", (event) => {
-        if (megaMenu.contains(event.relatedTarget)) {
-            return; // Kursor mengarah ke mega menu, jangan tutup
+        if (window.innerWidth > 991 && !megaMenu.contains(event.relatedTarget)) {
+            document.body.classList.remove("mega-open");
         }
-        document.body.classList.remove("mega-open");
     });
 
     megaMenu.addEventListener("mouseleave", (event) => {
-        if (navbarMenu.contains(event.relatedTarget)) {
-            return; // Kursor mengarah kembali ke navbar menu, jangan tutup
+        if (window.innerWidth > 991 && !navbarMenu.contains(event.relatedTarget)) {
+            document.body.classList.remove("mega-open");
         }
-        document.body.classList.remove("mega-open");
     });
-
 }
+
+/* ==========================================
+   MOBILE ACCORDION SUBMENU LOGIC
+========================================== */
+function setupMobileSubmenus() {
+    navItems.forEach(item => {
+        const menuId = item.id;
+        const data = megaData[menuId];
+
+        // Jika data sub-menu ada & belum pernah dibuat elemen sub-menunya
+        if (data && !item.querySelector(".mobile-submenu")) {
+            const subUl = document.createElement("ul");
+            subUl.className = "mobile-submenu";
+
+            data.links.forEach(link => {
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = link.href;
+                a.textContent = link.text;
+                if (link.external) {
+                    a.target = "_blank";
+                    a.rel = "noopener noreferrer";
+                }
+                li.appendChild(a);
+                subUl.appendChild(li);
+            });
+
+            item.appendChild(subUl);
+
+            // Event handler saat menu utama diklik di HP
+            const mainLink = item.querySelector("a");
+            mainLink.addEventListener("click", (e) => {
+                if (window.innerWidth <= 991) {
+                    e.preventDefault(); // Mencegah pindah halaman langsung
+
+                    const isOpen = item.classList.contains("active");
+
+                    // Tutup semua accordion lain
+                    navItems.forEach(otherItem => {
+                        otherItem.classList.remove("active");
+                        const otherSub = otherItem.querySelector(".mobile-submenu");
+                        if (otherSub) otherSub.style.maxHeight = null;
+                    });
+
+                    // Buka/tutup accordion yang diklik
+                    if (!isOpen) {
+                        item.classList.add("active");
+                        subUl.style.maxHeight = subUl.scrollHeight + "px";
+                    }
+                }
+            });
+        }
+    });
+}
+
+// Inisialisasi Sub-menu Mobile
+setupMobileSubmenus();
 
 /* ==========================================
    MOBILE MENU TOGGLE

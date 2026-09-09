@@ -1,545 +1,338 @@
 /* ==========================================================
-   NAVBAR
-   IKA SMAN 11 BANDUNG ANGKATAN 98
+   NAVBAR WRAPPER
 ========================================================== */
 
-/* ==========================================================
-   NAVBAR
-========================================================== */
-
-.navbar{
-
-    position:relative;
-
-    width:100%;
-
-    height:var(--navbar-height);
-
-    background:var(--white);
-
-    border-bottom:1px solid #e9e9e9;
-
-    z-index:var(--z-navbar);
-
-    overflow:visible;
-
+.navbar {
+    position: relative;
+    width: 100%;
+    height: 40px; 
+    background: #ffffff;
+    border-bottom: 1px solid #e9e9e9;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
-/* ==========================================================
-   CONTAINER
-========================================================== */
-
-.navbar-container{
-
-    width:var(--container-width);
-
-    height:100%;
-
-    margin:0 auto;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:var(--navbar-gap);
-
+/* Container Pusat */
+.navbar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
-
 
 /* ==========================================================
    LOGO
 ========================================================== */
 
-.navbar-logo{
-
-    position:relative;
-
-    width:40px;
-
-    height:var(--logo-height);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    flex-shrink:0;
-
+.navbar-logo {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
 }
 
-.navbar-logo img{
-
-    position:absolute;
-
-    left:0;
-
-    top:0;
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:contain;
-
-    transition:opacity .25s ease;
-
+.navbar-logo img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.25s ease;
 }
 
-/* Logo Default */
+.logo-grey { opacity: 1; }
+.logo-gold { opacity: 0; }
 
-.logo-grey{
-
-    opacity:1;
-
-}
-
-/* Logo Hover */
-
-.logo-gold{
-
-    opacity:0;
-
-}
-
-/* Hover */
-
-.navbar-logo:hover .logo-grey{
-
-    opacity:0;
-
-}
-
-.navbar-logo:hover .logo-gold{
-
-    opacity:1;
-
-}
-
+.navbar-logo:hover .logo-grey { opacity: 0; }
+.navbar-logo:hover .logo-gold { opacity: 1; }
 
 /* ==========================================================
-   MENU
+   MENU NAVIGASI
 ========================================================== */
 
-.navbar-menu{
-
-    width:var(--navbar-menu-width);
-
-    position:relative;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: inherit;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
 }
 
-.navbar-menu > .nav-item > a{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    height:100%;
-
-    line-height:1;
-
-    font-family:var(--font-primary);
-
-    font-size:var(--navbar-font-size);
-
-    font-weight:var(--navbar-font-weight);
-
-    color:var(--navbar-text);
-
-    text-decoration:none;
-
-    transition:color var(--transition-fast);
-
+/* JEMBATAN TRANSPARAN */
+.navbar-menu::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: -50px;
+    right: -50px;
+    height: 15px;
+    background: transparent;
+    z-index: 1001;
 }
 
-.nav-item:hover > a{
+.nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    white-space: nowrap;
+}
 
-    color:var(--navbar-hover);
+.nav-item > a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-family: inherit, sans-serif;
+    font-size: 13px; 
+    font-weight: 500; 
+    color: #a1b0c5; 
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
 
+.nav-item:hover > a {
+    color: #e9a538;
 }
 
 /* ==========================================================
-   NAVBAR HOVER BRIDGE
+   MEGA MENU (1. BACKGROUND DIBUKA PERTAMA)
 ========================================================== */
 
-.navbar-menu::after{
+.mega-menu {
+    position: fixed;
+    top: 40px; 
+    left: 0;
+    width: 100vw;
+    min-height: 280px;
+    background: rgba(250, 252, 255, 0.82);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(255, 255, 255, 1);
 
-    content:"";
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 
-    position:absolute;
+    transform-origin: top center;
+    transform: scaleY(0.50);
 
-    top:100%;
-
-    left:0;
-
-    width:100%;
-
-    height:18px;
-
-    background:transparent;
-
-}
-
-/* ==========================================================
-   NAV ITEM
-========================================================== */
-
-.nav-item{
-
-    position:relative;
-
-    display:flex;
-
-    align-items:center;
-
-    height:100%;
-
-}
-
-/* ==========================================================
-   HOVER BRIDGE
-========================================================== */
-
-.hover-bridge{
-
-    position:absolute;
-
-    left:0;
-
-    top:13px;
-
-    width:77px;
-
-    height:14px;
-
-    background:rgb(253, 2, 2) !important;
-
-    opacity:.0;
-
-    z-index:999999;
-
-}
-
-/* ==========================================================
-   MEGA MENU
-========================================================== */
-
-.mega-menu{
-
-    position:fixed;
-
-    top:var(--navbar-height);
-
-    left:0;
-
-    width:100vw;
-
-    min-height:320px;
-
-    background:rgba(250,252,255,.82);
-
-    backdrop-filter:blur(5px);
-    -webkit-backdrop-filter:blur(5px);
-
-    border-bottom:1px solid rgba(255, 255, 255, 100);
-
-
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-
-    transform-origin:top center;
-
-    transform:scaleY(.50);
-
-
-
-    transition:
+    /* Background terbuka selama 0.35s */
+    transition: 
         opacity .22s ease,
-        transform .42s cubic-bezier(.22,.61,.36,1),
+        transform .35s cubic-bezier(.22,.61,.36,1),
         visibility .22s;
 
-    z-index:999;
-
+    z-index: 999;
 }
-
-/* ==========================================================
-   HOVER MEGA MENU
-========================================================== */
 
 .nav-item:hover .mega-menu,
-body.mega-open .mega-menu{
-
-    opacity:1;
-
-    visibility:visible;
-
-    pointer-events:auto;
-
-    transform:
-    scaleY(1)
-    translateY(0);
-
+body.mega-open .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scaleY(1) translateY(0);
 }
 
-
-/* ==========================================================
-   ICON
-========================================================== */
-
-.mega-icon{
-
-    width:204px;
-    height:204px;
-
-    object-fit:cover;
-    flex-shrink:0;
-
-    opacity:0;
-
-    transform:translateY(-25px);
-
-    filter:blur(10px);
-
-    transition:
-        opacity .45s ease,
-        transform .55s cubic-bezier(.22,.61,.36,1),
-        filter .45s ease;
-
-    transition-delay:.20s;
-
+.mega-menu-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 30px 20px 30px 140px;
+    box-sizing: border-box;
 }
 
-.nav-item:hover .mega-icon,
-body.mega-open .mega-icon{
-
-    opacity:1;
-
-    transform:translateY(0);
-
-    filter:blur(0);
-
+.mega-content {
+    display: flex;
+    flex-direction: column;
 }
 
 /* ==========================================================
-   MEGA MENU CONTAINER
+   MEGA TITLE (MUNCUL PERTAMA - DIPERCEPAT)
 ========================================================== */
 
-.mega-menu-container{
+.mega-title {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    font-weight: 700; 
+    color: #1f2433;
 
-    width:var(--container-width);
+    opacity: 0;
+    transform: translateY(-15px);
+}
 
-    height:100%;
-
-    margin:0 auto;
-
-    display:flex;
-
-    align-items:flex-start;
-
-    justify-content:flex-start;
-
-    gap:60px;
-
-    padding-top:50px;
-
-    padding-bottom:40px;
-
-    padding-left:180px;
-
+body.mega-open .mega-title {
+    animation: megaFadeDown 0.25s cubic-bezier(.22,.61,.36,1) forwards;
+    animation-delay: 0.10s; /* Maju dari 0.18s ke 0.10s */
 }
 
 /* ==========================================================
-   MEGA TITLE
+   MEGA LINKS (TEXT KELUAR BERURUTAN - LEBIH GESIT)
 ========================================================== */
 
-.mega-title{
-
-    margin-top:-5px;
-
-    margin-bottom:27px;
-
-    font-family:var(--font-primary);
-
-    font-size:23px;
-
-    font-weight:700;
-
-    color:#1f2433;
-
-    opacity:0;
-
-    transform:translateY(-15px);
-
-    transition:
-        opacity .28s ease,
-        transform .28s ease;
-
-    transition-delay:.05s;
-
+.mega-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.nav-item:hover .mega-title,
-body.mega-open .mega-title{
+.mega-links li {
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(-12px);
+}
 
-    opacity:1;
+body.mega-open .mega-links li {
+    animation: megaFadeDown 0.22s cubic-bezier(.22,.61,.36,1) forwards;
+}
 
-    transform:translateY(0);
+/* Jeda antar-baris dipercepat (hanya selisih 0.04s per baris) */
+body.mega-open .mega-links li:nth-child(1)  { animation-delay: 0.14s; }
+body.mega-open .mega-links li:nth-child(2)  { animation-delay: 0.18s; }
+body.mega-open .mega-links li:nth-child(3)  { animation-delay: 0.22s; }
+body.mega-open .mega-links li:nth-child(4)  { animation-delay: 0.26s; }
+body.mega-open .mega-links li:nth-child(5)  { animation-delay: 0.30s; }
+body.mega-open .mega-links li:nth-child(6)  { animation-delay: 0.34s; }
+body.mega-open .mega-links li:nth-child(7)  { animation-delay: 0.38s; }
+body.mega-open .mega-links li:nth-child(8)  { animation-delay: 0.42s; }
+body.mega-open .mega-links li:nth-child(9)  { animation-delay: 0.46s; }
+body.mega-open .mega-links li:nth-child(10) { animation-delay: 0.50s; }
 
+.mega-links a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600; 
+    color: #1f2433;
+    transition: color 0.2s ease;
+    display: block;
+}
+
+.mega-links a:hover {
+    color: #e9a538;
+}
+
+/* KEYFRAMES SLIDE DOWN */
+@keyframes megaFadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ==========================================================
-   MEGA MENU LINKS
+   ICON / THUMBNAIL (POSISI SEJAJAR DENGAN HEADER)
 ========================================================== */
 
-.mega-links{
+.mega-icon {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 8px;
 
-    list-style:none;
+    /* Menurunkan thumbnail agar garis atasnya sejajar dengan teks header */
+    margin-top: 4px; 
 
-    margin:0;
-
-    padding:0;
-
+    opacity: 0;
+    transform: translateY(-20px);
+    filter: blur(8px);
 }
 
-.mega-links li{
-
-    margin-bottom:11px;
-
-    opacity:0;
-
-    transform:translateY(-12px);
-
-    transition:
-        opacity .22s ease,
-        transform .22s ease;
-
+body.mega-open .mega-icon {
+    animation: megaIconFade 0.35s cubic-bezier(.22,.61,.36,1) forwards;
+    animation-delay: 0.28s;
 }
 
-.nav-item:hover .mega-links li,
-body.mega-open .mega-links li{
-
-    opacity:1;
-
-    transform:translateY(0);
-
-}
-
-.mega-links li:nth-child(1){
-
-    transition-delay:.10s;
-
-}
-
-.mega-links li:nth-child(2){
-
-    transition-delay:.15s;
-
-}
-
-.mega-links li:nth-child(3){
-
-    transition-delay:.20s;
-
-}
-
-.mega-links li:nth-child(4){
-
-    transition-delay:.25s;
-
-}
-
-.mega-links li:nth-child(5){
-
-    transition-delay:.30s;
-
-}
-
-.mega-links li:nth-child(6){
-
-    transition-delay:.35s;
-
-}
-
-.mega-links li:nth-child(7){
-
-    transition-delay:.40s;
-
-}
-
-.mega-links li:nth-child(8){
-
-    transition-delay:.45s;
-
-}
-
-.mega-links li:nth-child(9){
-
-    transition-delay:.50s;
-
-}
-
-.mega-links li:nth-child(10){
-
-    transition-delay:.55s;
-
-}
-
-.mega-links li:nth-child(11){
-
-    transition-delay:.60s;
-
-}
-
-.mega-links a{
-
-    text-decoration:none;
-
-    font-family:var(--font-primary);
-
-    font-size:14px;
-
-    font-weight:600;
-
-    color:#1f2433;
-
-    transition:.25s;
-
-    display:block;
-
-    text-align:left;
-
-    justify-content:flex-start;
-
-}
-
-.mega-links a:hover{
-
-    color:#ffffff;
+@keyframes megaIconFade {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+        filter: blur(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
 }
 
 /* ==========================================================
-   MEGA CONTENT
+   RESPONSIVE (MOBILE & TABLET)
 ========================================================== */
 
-.mega-content{
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 22px;
+    height: 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
 
-    display:flex;
+.navbar-toggle .bar {
+    width: 100%;
+    height: 2px;
+    background-color: #1f2433;
+    border-radius: 2px;
+}
 
-    flex-direction:column;
+@media screen and (max-width: 991px) {
+    .navbar-container {
+        justify-content: space-between;
+    }
 
-    margin-left:-13px;
+    .navbar-toggle {
+        display: flex;
+    }
+
+    .navbar-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        gap: 15px;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        border-bottom: 1px solid #e9e9e9;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+
+    .navbar-menu.active {
+        padding: 20px 0;
+        max-height: 500px;
+    }
+
+    .mega-menu {
+        display: none !important;
+    }
 }

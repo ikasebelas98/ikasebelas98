@@ -1,307 +1,169 @@
 console.log("navbar.js loaded");
 
 /* ==========================================
-   SELECT ELEMENT
+   SELECT ELEMENTS
 ========================================== */
-
 const navItems = document.querySelectorAll(".nav-item");
-
 const navbarMenu = document.querySelector(".navbar-menu");
-
 const megaMenu = document.querySelector(".mega-menu");
-
-console.log(navItems);
-
-/* ==========================================
-   MEGA MENU DATA
-========================================== */
-
-const megaData = {
-
-"tentang-kita": {
-
-    title: "Satu Perjalanan untuk Maju Bersama",
-
-    icon: "assets/images/tumb 01 tentang kita.webp",
-
-    links: [
-
-        { text: "Tentang IKA.11.98", href: "#" },
-
-        { text: "Visi dan Misi", href: "#" },
-
-        { text: "Struktur Organisasi", href: "#" },
-
-        { text: "Pengurus", href: "#" },
-
-        { text: "Legalitas", href: "#" },
-
-        { text: "Kontak", href: "#" }
-
-    ]
-
-},
-
-"alumni-center": {
-
-    title: "Rumah Bersama Terhubung Selamanya",
-
-    icon: "assets/images/tumb 02 alumni center.webp",
-
-    links: [
-
-        { text: "Database Alumni", href: "#" },
-
-        { text: "Jejaring Profesi", href: "#" },
-
-        { text: "Karier dan Lowongan Pekerjaan", href: "#" },
-
-        { text: "Mentoring Alumni", href: "#" },
-
-        { text: "Prestasi Alumni", href: "#" },
-
-        { text: "Ulang Tahun", href: "#" },
-
-        { text: "In Memoriam", href: "#" }
-
-    ]
-
-},
-
-"media-center": {
-
-    title: "Merekam Kenangan, Mengabadikan Kebersamaan",
-
-    icon: "assets/images/tumb 03 media center.webp",
-
-    links: [
-
-        { text: "Direktori Usaha", href: "#" },
-
-        { text: "Direktori Keahlian", href: "#" },
-
-        { text: "Lowongan Pekerjaan", href: "#" },
-
-        { text: "Dokumentasi photo", href: "#" },
-
-        { text: "Dokumentasi Video", href: "#" },
-
-        { text: "Podcast", href: "#" }
-
-    ]
-
-},
-
-"community-hub": {
-
-    title: "Ruang Kebersamaan, Menguatkan Silaturahmi",
-
-    icon: "assets/images/tumb 04 community hub.webp",
-
-    links: [
-
-        { text: "RISALAH ( Ruang ISlami, Alqur'an & Amal Harian )", 
-            
-            href: "https://risalahikasman11bdg98.wordpress.com/",
-
-            external: true
-        },
-
-        { text: "Event Alumni", href: "#" },
-
-        { text: "Minat dan Hobi", href: "#" },
-
-        { text: "RInDU - Ruang Inspirasi dan Edukasi",
-
-            href: "https://ikasman11bandung98.wordpress.com/",
-
-            external: true
-        },
-
-        { text: "Tips Bermanfaat", href: "#" },
-
-        { text: "Rumor (Ruang Humor)", 
-
-            href: "https://rumorikasman11bdg98.wordpress.com/",
-
-            external: true
-
-        },
-
-        { text: "Rubik'98 (Ruang Bisnis dan Komersial)",
-
-            href: "https://fjbikasman11bdg98.wordpress.com/",
-
-            external: true
-
-        },
-
-    ]
-
-},
-
-"donasi": {
-
-    title: "Peduli Bersama Memberi manfaat",
-
-    icon: "assets/images/tumb 05 donasi.webp",
-
-    links: [
-
-        { text: "Mari Berdonasi", href: "#" },
-
-        { text: "Laporan Dana Donasi", href: "#" },
-
-        { text: "Program Sosial", href: "#" },
-
-        { text: "Beasiswa", href: "#" },
-
-        { text: "Menjadi Donatur", href: "#" }
-
-    ]
-
-},
-
-"login": {
-
-    title: "Gabung Kembali Menyambung Silaturahmi",
-
-    icon: "assets/images/tumb 06 login.webp",
-
-    links: [
-
-        { text: "Daftar Baru", href: "#" },
-
-        { text: "Alumni Login", href: "#" },
-
-        { text: "Admin Login", href: "#" },
-
-        { text: "Lupa Password", href: "#" }
-
-    ]
-
-}
-
-};
-
-/* ==========================================
-   FUNCTION
-========================================== */
-
-function setMegaAnchor(menu) {
-
-    if (!menu) return;
-
-    const rect = menu.getBoundingClientRect();
-
-    document.documentElement.style.setProperty(
-        "--mega-offset",
-        `${rect.left}px`
-    );
-
-}
-
-function loadMegaMenu(menu) {
-
-    const data = megaData[menu.id];
-
-    if (!data) return;
-
-    megaTitle.textContent = data.title;
-
-    megaIcon.src = data.icon;
-
-    // Kosongkan daftar menu lama
-    megaLinks.innerHTML = "";
-
-    console.log(data.links.length);
-
-    // Bangun menu baru dari megaData
-    data.links.forEach(link => {
-
-        const li = document.createElement("li");
-
-        const a = document.createElement("a");
-
-        a.href = link.href;
-
-        if (link.external) {
-
-            a.target = "_blank";
-
-            a.rel = "noopener noreferrer";
-
-        }
-
-        a.textContent = link.text;
-
-        li.appendChild(a);
-
-        megaLinks.appendChild(li);
-
-    });
-
-}
-
-const tentangKita = document.querySelector("#tentang-kita");
-
 const megaIcon = document.querySelector("#mega-icon");
 const megaTitle = document.querySelector("#mega-title");
 const megaLinks = document.querySelector("#mega-links");
 
-console.log(megaTitle);
+/* ==========================================
+   MEGA MENU DATA
+========================================== */
+const megaData = {
+    "tentang-kita": {
+        title: "Satu Perjalanan untuk Maju Bersama",
+        icon: "assets/images/tumb 01 tentang kita.webp",
+        links: [
+            { text: "Tentang IKA.11.98", href: "#" },
+            { text: "Visi dan Misi", href: "#" },
+            { text: "Struktur Organisasi", href: "#" },
+            { text: "Pengurus", href: "#" },
+            { text: "Legalitas", href: "#" },
+            { text: "Kontak", href: "#" }
+        ]
+    },
+    "alumni-center": {
+        title: "Rumah Bersama Terhubung Selamanya",
+        icon: "assets/images/tumb 02 alumni center.webp",
+        links: [
+            { text: "Database Alumni", href: "#" },
+            { text: "Jejaring Profesi", href: "#" },
+            { text: "Karier dan Lowongan Pekerjaan", href: "#" },
+            { text: "Mentoring Alumni", href: "#" },
+            { text: "Prestasi Alumni", href: "#" },
+            { text: "Ulang Tahun", href: "#" },
+            { text: "In Memoriam", href: "#" }
+        ]
+    },
+    "media-center": {
+        title: "Merekam Kenangan, Mengabadikan Kebersamaan",
+        icon: "assets/images/tumb 03 media center.webp",
+        links: [
+            { text: "Direktori Usaha", href: "#" },
+            { text: "Direktori Keahlian", href: "#" },
+            { text: "Lowongan Pekerjaan", href: "#" },
+            { text: "Dokumentasi Photo", href: "#" },
+            { text: "Dokumentasi Video", href: "#" },
+            { text: "Podcast", href: "#" }
+        ]
+    },
+    "community-hub": {
+        title: "Ruang Kebersamaan, Menguatkan Silaturahmi",
+        icon: "assets/images/tumb 04 community hub.webp",
+        links: [
+            { text: "RISALAH ( Ruang ISlami, Alqur'an & Amal Harian )", href: "https://risalahikasman11bdg98.wordpress.com/", external: true },
+            { text: "Event Alumni", href: "#" },
+            { text: "Minat dan Hobi", href: "#" },
+            { text: "RInDU - Ruang Inspirasi dan Edukasi", href: "https://ikasman11bandung98.wordpress.com/", external: true },
+            { text: "Tips Bermanfaat", href: "#" },
+            { text: "Rumor (Ruang Humor)", href: "https://rumorikasman11bdg98.wordpress.com/", external: true },
+            { text: "Rubik'98 (Ruang Bisnis dan Komersial)", href: "https://fjbikasman11bdg98.wordpress.com/", external: true }
+        ]
+    },
+    "donasi": {
+        title: "Peduli Bersama Memberi manfaat",
+        icon: "assets/images/tumb 05 donasi.webp",
+        links: [
+            { text: "Mari Berdonasi", href: "#" },
+            { text: "Laporan Dana Donasi", href: "#" },
+            { text: "Program Sosial", href: "#" },
+            { text: "Beasiswa", href: "#" },
+            { text: "Menjadi Donatur", href: "#" }
+        ]
+    },
+    "login": {
+        title: "Gabung Kembali Menyambung Silaturahmi",
+        icon: "assets/images/tumb 06 login.webp",
+        links: [
+            { text: "Daftar Baru", href: "#" },
+            { text: "Alumni Login", href: "#" },
+            { text: "Admin Login", href: "#" },
+            { text: "Lupa Password", href: "#" }
+        ]
+    }
+};
 
-if (tentangKita) {
+/* ==========================================
+   FUNCTIONS
+========================================== */
+function loadMegaMenu(menuId) {
+    const data = megaData[menuId];
+    if (!data) return false;
 
-    
-navItems.forEach(menu => {
+    if (megaTitle) megaTitle.textContent = data.title;
+    if (megaIcon) megaIcon.src = data.icon;
 
-    menu.addEventListener("mouseenter", () => {
+    if (megaLinks) {
+        megaLinks.innerHTML = "";
 
-    console.log("OPEN");
+        data.links.forEach((link) => {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = link.href;
 
-    // Reset animasi
-    document.body.classList.remove("mega-open");
+            if (link.external) {
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+            }
 
-    setMegaAnchor(menu);
-
-    loadMegaMenu(menu);
-
-    // Jalankan animasi pada frame berikutnya
-    requestAnimationFrame(() => {
-
-        document.body.classList.add("mega-open");
-
-    });
-
-});
-
-});
-
-navbarMenu.addEventListener("mouseleave", (event) => {
-
-    // Jika cursor sedang menuju Mega Menu,
-    // jangan tutup Mega Menu.
-    if (megaMenu.contains(event.relatedTarget)) {
-        return;
+            a.textContent = link.text;
+            li.appendChild(a);
+            megaLinks.appendChild(li);
+        });
     }
 
-    console.log("NAVBAR CLOSE");
+    return true;
+}
 
-    document.body.classList.remove("mega-open");
+/* ==========================================
+   EVENT LISTENERS
+========================================== */
+if (navItems.length > 0 && megaMenu) {
 
-});
+    // Hover ke setiap item menu di Navbar
+    navItems.forEach(menu => {
+        menu.addEventListener("mouseenter", () => {
+            // Reset class untuk memicu ulang animasi CSS dari awal
+            document.body.classList.remove("mega-open");
 
-megaMenu.addEventListener("mouseleave", () => {
+            const success = loadMegaMenu(menu.id);
 
-    console.log("MEGA CLOSE");
+            if (success) {
+                // Beri jeda 1 frame agar browser mendeteksi perubahan DOM & mengulang animasi
+                requestAnimationFrame(() => {
+                    document.body.classList.add("mega-open");
+                });
+            }
+        });
+    });
 
-    document.body.classList.remove("mega-open");
+    // Menjaga Mega Menu tetap terbuka saat kursor berpindah ke Mega Menu
+    navbarMenu.addEventListener("mouseleave", (event) => {
+        if (megaMenu.contains(event.relatedTarget)) {
+            return; // Kursor mengarah ke mega menu, jangan tutup
+        }
+        document.body.classList.remove("mega-open");
+    });
 
-});
+    megaMenu.addEventListener("mouseleave", (event) => {
+        if (navbarMenu.contains(event.relatedTarget)) {
+            return; // Kursor mengarah kembali ke navbar menu, jangan tutup
+        }
+        document.body.classList.remove("mega-open");
+    });
 
-} else {
+}
 
-    console.log("ERROR: #tentang-kita tidak ditemukan");
-
+/* ==========================================
+   MOBILE MENU TOGGLE
+========================================== */
+const navbarToggle = document.getElementById("navbarToggle");
+if (navbarToggle && navbarMenu) {
+    navbarToggle.addEventListener("click", () => {
+        navbarMenu.classList.toggle("active");
+    });
 }

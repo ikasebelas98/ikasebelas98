@@ -317,21 +317,38 @@ body.mega-open .mega-icon {
         width: 100%;
         background: #ffffff;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch; /* Mengubah center jadi stretch agar area tap luas */
         padding: 0;
-        gap: 15px;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        gap: 0;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         border-bottom: 1px solid #e9e9e9;
+        
+        /* FIX MENU TERPOTONG */
         max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.35s ease, padding 0.35s ease;
+        overflow-y: auto; /* Memungkinkan scroll jika menu lebih tinggi dari layar HP */
+        transition: max-height 0.4s ease, padding 0.35s ease;
     }
 
+    /* Saat Hamburger Menu Aktif */
     .navbar-menu.active {
-        padding: 20px 0;
-        max-height: 500px;
+        padding: 15px 0;
+        max-height: 80vh; /* Menggunakan 80% tinggi layar HP agar semua menu muat */
     }
 
+    .navbar-menu .nav-item {
+        width: 100%;
+        height: auto;
+        justify-content: flex-start;
+    }
+
+    .navbar-menu .nav-item > a {
+        width: 100%;
+        padding: 12px 24px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    /* Sembunyikan Mega Menu versi Desktop di Mobile */
     .mega-menu {
         display: none !important;
     }

@@ -1,5 +1,5 @@
 /* ==========================================
-   SPONSOR ENGINE (SYMMETRIC LEFT & RIGHT FLIP + AUTOPLAY)
+   SPONSOR ENGINE (SYMMETRIC LEFT & RIGHT FLIP + AUTOPLAY + SWIPE/DRAG GESTURE)
 ========================================== */
 
 const sponsorTrack = document.querySelector(".sponsor-track");
@@ -23,6 +23,10 @@ const SLOT_CLASSES = [
 let masterSponsorList = [];
 let imageTimer = null;
 let isSectionVisible = false;
+
+/* ==========================================
+   HELPER & CORE ENGINE
+========================================== */
 
 function getMediaRatio(viewport) {
     const media = viewport.querySelector("img, video");
@@ -126,12 +130,10 @@ function updateSliderVisuals(activeTarget, reorderedItems) {
             const ratio = getMediaRatio(vp);
 
             if (isMobile) {
-                // Responsif untuk layar HP: Otomatis menyesuaikan lebar layar device
                 const mobileWidth = Math.min(window.innerWidth - 32, 380);
                 vp.style.width = `${mobileWidth}px`;
                 vp.style.height = `${mobileWidth / ratio}px`;
             } else {
-                // Tampilan standar Desktop
                 if (ratio < 0.8) { 
                     const activeHeight = MAX_9_16_HEIGHT;
                     vp.style.height = `${activeHeight}px`;
@@ -255,6 +257,105 @@ function formatTime(seconds) {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+}
+
+/* ==========================================
+   FITUR SWIPE / DRAG GESTURE (HP & DESKTOP)
+========================================== */
+
+function setupSwipeGestures() {
+    if (!sponsorSection) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+    let isHorizontalSwipe = false;
+    const SWIPE_THRESHOLD = 40; // Ambang batas minimum geser (px)
+
+    // Mencegah konflik dengan kontrol internal video & navigasi
+    function isIgnoredElement(target) {
+        return !!target.closest(".video-controls, .video-seeker, .volume-slider, .sound-toggle-btn, .sponsor-nav, .sponsor-pagination");
+    }
+
+    // Touch Event Handlers
+    sponsorSection.addEventListener("touchstart", (e) => {
+        if (isIgnoredElement(e.target)) return;
+        const touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        isDragging = true;
+        isHorizontalSwipe = false;
+    }, { passive: true });
+
+    sponsorSection.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+
+        const touch = e.touches[0];
+        const diffX = touch.clientX - startX;
+        const diffY = touch.clientY - startY;
+
+        // Tentukan orientasi geseran
+        if (!isHorizontalSwipe) {
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
+                isHorizontalSwipe = true;
+            }
+        }
+
+        if (isHorizontalSwipe && e.cancelable) {
+            e.preventDefault(); // Mencegah scroll halaman saat pengguna menggeser slider secara horizontal
+        }
+    }, { passive: false });
+
+    sponsorSection.addEventListener("touchend", (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const touch = e.changedTouches[0];
+        const diffX = touch.clientX - startX;
+
+        if (isHorizontalSwipe && Math.abs(diffX) >= SWIPE_THRESHOLD) {
+            if (diffX < 0) {
+                nextSlide(); // Geser ke kiri -> Slide selanjutnya
+            } else {
+                prevSlide(); // Geser ke kanan -> Slide sebelumnya
+            }
+        }
+    }, { passive: true });
+
+    // Mouse Drag Handlers (Desktop Support)
+    sponsorSection.addEventListener("mousedown", (e) => {
+        if (isIgnoredElement(e.target) || e.button !== 0) return;
+        startX = e.clientX;
+        startY = e.clientY;
+        isDragging = true;
+        isHorizontalSwipe = false;
+    });
+
+    window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+
+        const diffX = e.clientX - startX;
+        const diffY = e.clientY - startY;
+
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
+            isHorizontalSwipe = true;
+        }
+    });
+
+    window.addEventListener("mouseup", (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const diffX = e.clientX - startX;
+
+        if (isHorizontalSwipe && Math.abs(diffX) >= SWIPE_THRESHOLD) {
+            if (diffX < 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
+    });
 }
 
 /* ==========================================
@@ -399,6 +500,7 @@ window.addEventListener("DOMContentLoaded", () => {
     
     masterSponsorList = Array.from(sponsorTrack.querySelectorAll(".sponsor-viewport"));
     setupPagination();
+    setupSwipeGestures();
 
     const initialActive = sponsorTrack.querySelector(".sponsor-viewport.is-active") || sponsorTrack.querySelector(".sponsor-viewport");
     if (initialActive) {

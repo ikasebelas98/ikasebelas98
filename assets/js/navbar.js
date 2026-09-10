@@ -58,10 +58,10 @@ const megaData = {
             { text: "RISALAH Islami", href: "https://risalahikasman11bdg98.wordpress.com/", external: true },
             { text: "Event Alumni", href: "#" },
             { text: "Minat dan Hobi", href: "#" },
-            { text: "RInDU - Inspirasi dan Edukasi", href: "https://ikasman11bandung98.wordpress.com/", external: true },
+            { text: "RInDU - Inspirasi & Edukasi", href: "https://ikasman11bandung98.wordpress.com/", external: true },
             { text: "Tips Bermanfaat", href: "#" },
-            { text: "Rumor (Ruang Humor)", href: "https://rumorikasman11bdg98.wordpress.com/", external: true },
-            { text: "Rubik'98 (Ruang Bisnis dan Komersial)", href: "https://fjbikasman11bdg98.wordpress.com/", external: true }
+            { text: "Rumor - Ruang Humor", href: "https://rumorikasman11bdg98.wordpress.com/", external: true },
+            { text: "Rubik - Bisnis & Komersial", href: "https://fjbikasman11bdg98.wordpress.com/", external: true }
         ]
     },
     "donasi": {

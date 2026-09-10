@@ -301,6 +301,7 @@ body.mega-open .mega-icon {
         display: flex;
     }
 
+    /* MATIKAN MEGA MENU DESKTOP DI MOBILE */
     .mega-menu, 
     body.mega-open .mega-menu {
         display: none !important;
@@ -309,13 +310,17 @@ body.mega-open .mega-icon {
         pointer-events: none !important;
     }
 
+    /* KOTAK POP-UP MOBILE MENU */
     .navbar-menu {
         position: absolute;
         top: calc(100% + 8px);
         right: 15px;
         left: auto;
         width: 270px;
-        max-height: 80vh;
+        
+        /* PAKSA TINGGI DYNAMIC AGAR MUAT 6 MENU & SUB-MENUNYA */
+        height: auto !important;
+        max-height: 80vh !important;
         
         background: #1f2433 !important;
         border-radius: 12px;
@@ -327,8 +332,9 @@ body.mega-open .mega-icon {
         align-items: stretch;
         padding: 8px 0;
         gap: 0;
-        overflow-y: auto;
+        overflow-y: auto !important; /* Scroll aktif jika menu dibuka penuh */
 
+        /* State Sembunyi */
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -347,9 +353,10 @@ body.mega-open .mega-icon {
 
     .navbar-menu .nav-item {
         width: 100%;
-        height: auto;
+        height: auto !important; /* Pastikan tiap item tidak terpotong 40px */
         display: flex;
         flex-direction: column;
+        flex-shrink: 0;
     }
 
     .navbar-menu .nav-item > a {

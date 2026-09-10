@@ -394,3 +394,28 @@ window.addEventListener("DOMContentLoaded", () => {
         setActiveCenter(initialActive);
     }
 });
+
+/* ==========================================================
+   SPONSOR SLIDER FULL-WIDTH DI HP
+========================================================== */
+@media screen and (max-width: 991px) {
+    /* Menghilangkan jarak pembatas kiri-kanan pada area slider */
+    .sponsor-section, 
+    .sponsor-container,
+    .swiper, 
+    .slick-slider {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Memastikan gambar/item slider mengisi area sampai pinggir */
+    .sponsor-slide img,
+    .swiper-slide img {
+        max-width: 100%;
+        height: auto;
+    }
+}

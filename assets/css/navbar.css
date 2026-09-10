@@ -1,5 +1,5 @@
 /* ==========================================================
-   NAVBAR WRAPPER
+   NAVBAR WRAPPER & CONTAINER
 ========================================================== */
 
 .navbar {
@@ -14,7 +14,6 @@
     align-items: center;
 }
 
-/* Container Pusat */
 .navbar-container {
     display: flex;
     justify-content: center;
@@ -60,7 +59,7 @@
 .navbar-logo:hover .logo-gold { opacity: 1; }
 
 /* ==========================================================
-   MENU NAVIGASI
+   DESKTOP MENU NAVIGASI
 ========================================================== */
 
 .navbar-menu {
@@ -74,7 +73,6 @@
     position: relative;
 }
 
-/* JEMBATAN TRANSPARAN */
 .navbar-menu::after {
     content: "";
     position: absolute;
@@ -110,8 +108,15 @@
     color: #e9a538;
 }
 
+/* Sembunyikan elemen sub-menu mobile saat di desktop */
+@media screen and (min-width: 992px) {
+    .mobile-submenu {
+        display: none !important;
+    }
+}
+
 /* ==========================================================
-   MEGA MENU (1. BACKGROUND DIBUKA PERTAMA)
+   MEGA MENU DESKTOP
 ========================================================== */
 
 .mega-menu {
@@ -132,7 +137,6 @@
     transform-origin: top center;
     transform: scaleY(0.50);
 
-    /* Background terbuka selama 0.35s */
     transition: 
         opacity .22s ease,
         transform .35s cubic-bezier(.22,.61,.36,1),
@@ -141,7 +145,6 @@
     z-index: 999;
 }
 
-.nav-item:hover .mega-menu,
 body.mega-open .mega-menu {
     opacity: 1;
     visibility: visible;
@@ -165,10 +168,7 @@ body.mega-open .mega-menu {
     flex-direction: column;
 }
 
-/* ==========================================================
-   MEGA TITLE (MUNCUL PERTAMA - DIPERCEPAT)
-========================================================== */
-
+/* MEGA TITLE DESKTOP */
 .mega-title {
     margin: 0 0 15px 0;
     font-size: 20px;
@@ -181,13 +181,10 @@ body.mega-open .mega-menu {
 
 body.mega-open .mega-title {
     animation: megaFadeDown 0.25s cubic-bezier(.22,.61,.36,1) forwards;
-    animation-delay: 0.10s; /* Maju dari 0.18s ke 0.10s */
+    animation-delay: 0.10s;
 }
 
-/* ==========================================================
-   MEGA LINKS (TEXT KELUAR BERURUTAN - LEBIH GESIT)
-========================================================== */
-
+/* MEGA LINKS DESKTOP */
 .mega-links {
     list-style: none;
     margin: 0;
@@ -204,7 +201,6 @@ body.mega-open .mega-links li {
     animation: megaFadeDown 0.22s cubic-bezier(.22,.61,.36,1) forwards;
 }
 
-/* Jeda antar-baris dipercepat (hanya selisih 0.04s per baris) */
 body.mega-open .mega-links li:nth-child(1)  { animation-delay: 0.14s; }
 body.mega-open .mega-links li:nth-child(2)  { animation-delay: 0.18s; }
 body.mega-open .mega-links li:nth-child(3)  { animation-delay: 0.22s; }
@@ -229,7 +225,6 @@ body.mega-open .mega-links li:nth-child(10) { animation-delay: 0.50s; }
     color: #e9a538;
 }
 
-/* KEYFRAMES SLIDE DOWN */
 @keyframes megaFadeDown {
     from {
         opacity: 0;
@@ -241,19 +236,14 @@ body.mega-open .mega-links li:nth-child(10) { animation-delay: 0.50s; }
     }
 }
 
-/* ==========================================================
-   ICON / THUMBNAIL (POSISI SEJAJAR DENGAN HEADER)
-========================================================== */
-
+/* THUMBNAIL DESKTOP */
 .mega-icon {
     width: 150px;
     height: 150px;
     object-fit: cover;
     flex-shrink: 0;
     border-radius: 8px;
-
-    /* Menurunkan thumbnail agar garis atasnya sejajar dengan teks header */
-    margin-top: 4px; 
+    margin-top: 4px;
 
     opacity: 0;
     transform: translateY(-20px);
@@ -279,7 +269,7 @@ body.mega-open .mega-icon {
 }
 
 /* ==========================================================
-   RESPONSIVE (MOBILE & TABLET - ACCORDION DROPDOWN)
+   RESPONSIVE MOBILE & TABLET (POP-UP ACCORDION)
 ========================================================== */
 
 .navbar-toggle {
@@ -311,7 +301,6 @@ body.mega-open .mega-icon {
         display: flex;
     }
 
-    /* MATIKAN TOTAL MEGA MENU DESKTOP DI MOBILE */
     .mega-menu, 
     body.mega-open .mega-menu {
         display: none !important;
@@ -320,14 +309,13 @@ body.mega-open .mega-icon {
         pointer-events: none !important;
     }
 
-    /* KOTAK POP-UP MOBILE MENU */
     .navbar-menu {
         position: absolute;
         top: calc(100% + 8px);
         right: 15px;
         left: auto;
-        width: 260px; /* Diperlebar sedikit agar muat teks sub-menu */
-        max-height: 80vh; /* Batas tinggi jika sub-menu terbuka banyak */
+        width: 270px;
+        max-height: 80vh;
         
         background: #1f2433 !important;
         border-radius: 12px;
@@ -339,9 +327,8 @@ body.mega-open .mega-icon {
         align-items: stretch;
         padding: 8px 0;
         gap: 0;
-        overflow-y: auto; /* Bisa di-scroll jika sub-menu panjang */
+        overflow-y: auto;
 
-        /* State Sembunyi */
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -379,14 +366,13 @@ body.mega-open .mega-icon {
         transition: background 0.2s ease, color 0.2s ease;
     }
 
-    /* Panah indikator dropdown di sebelah kanan teks menu */
     .navbar-menu .nav-item > a::after {
         content: "›";
-        font-size: 16px;
+        font-size: 18px;
+        line-height: 1;
         transition: transform 0.25s ease;
     }
 
-    /* Putar panah ke bawah saat menu dibuka */
     .navbar-menu .nav-item.active > a::after {
         transform: rotate(90deg);
         color: #e9a538;
@@ -398,11 +384,11 @@ body.mega-open .mega-icon {
         color: #e9a538 !important;
     }
 
-    /* WADAH SUB MENU (MOBILE ACCORDION) */
     .mobile-submenu {
+        display: block !important;
         max-height: 0;
         overflow: hidden;
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(0, 0, 0, 0.3);
         transition: max-height 0.3s ease-in-out;
         list-style: none;
         padding: 0;
@@ -411,14 +397,16 @@ body.mega-open .mega-icon {
 
     .mobile-submenu li a {
         display: block;
-        padding: 10px 20px 10px 32px; /* Indentasi ke dalam agar beda dari induk */
+        padding: 10px 20px 10px 30px;
         font-size: 13px;
         color: #a1b0c5;
         text-decoration: none;
         transition: color 0.2s ease;
+        line-height: 1.4;
     }
 
-    .mobile-submenu li a:hover {
+    .mobile-submenu li a:hover,
+    .mobile-submenu li a:active {
         color: #ffffff;
     }
 }

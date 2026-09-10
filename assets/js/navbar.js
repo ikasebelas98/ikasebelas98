@@ -55,10 +55,10 @@ const megaData = {
         title: "Ruang Kebersamaan, Menguatkan Silaturahmi",
         icon: "assets/images/tumb 04 community hub.webp",
         links: [
-            { text: "RISALAH ( Ruang ISlami, Alqur'an & Amal Harian )", href: "https://risalahikasman11bdg98.wordpress.com/", external: true },
+            { text: "RISALAH Islami", href: "https://risalahikasman11bdg98.wordpress.com/", external: true },
             { text: "Event Alumni", href: "#" },
             { text: "Minat dan Hobi", href: "#" },
-            { text: "RInDU - Ruang Inspirasi dan Edukasi", href: "https://ikasman11bandung98.wordpress.com/", external: true },
+            { text: "RInDU - Inspirasi dan Edukasi", href: "https://ikasman11bandung98.wordpress.com/", external: true },
             { text: "Tips Bermanfaat", href: "#" },
             { text: "Rumor (Ruang Humor)", href: "https://rumorikasman11bdg98.wordpress.com/", external: true },
             { text: "Rubik'98 (Ruang Bisnis dan Komersial)", href: "https://fjbikasman11bdg98.wordpress.com/", external: true }

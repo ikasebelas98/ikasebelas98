@@ -45,7 +45,7 @@ function getMediaRatio(viewport) {
 }
 
 function setActiveCenter(targetViewport) {
-    if (!targetViewport) return;
+    if (!targetViewport || !sponsorTrack) return;
 
     clearAutoAdvanceTimer();
 
@@ -109,6 +109,8 @@ function setActiveCenter(targetViewport) {
 }
 
 function updateSliderVisuals(activeTarget, reorderedItems) {
+    const isMobile = window.innerWidth <= 991;
+
     reorderedItems.forEach((vp, index) => {
         const media = vp.querySelector("img, video");
         const isVideo = media && media.tagName === "VIDEO";
@@ -123,20 +125,26 @@ function updateSliderVisuals(activeTarget, reorderedItems) {
 
             const ratio = getMediaRatio(vp);
 
-            if (ratio < 0.8) { 
-                const activeHeight = MAX_9_16_HEIGHT;
-                vp.style.height = `${activeHeight}px`;
-                vp.style.width = `${activeHeight * ratio}px`;
-
-            } else if (Math.abs(ratio - 1) < 0.2) { 
-                const activeSize = MAX_9_16_HEIGHT; 
-                vp.style.width = `${activeSize}px`;
-                vp.style.height = `${activeSize}px`;
-
-            } else { 
-                const activeWidth = 640;
-                vp.style.width = `${activeWidth}px`;
-                vp.style.height = `${activeWidth / ratio}px`;
+            if (isMobile) {
+                // Responsif untuk layar HP: Otomatis menyesuaikan lebar layar device
+                const mobileWidth = Math.min(window.innerWidth - 32, 380);
+                vp.style.width = `${mobileWidth}px`;
+                vp.style.height = `${mobileWidth / ratio}px`;
+            } else {
+                // Tampilan standar Desktop
+                if (ratio < 0.8) { 
+                    const activeHeight = MAX_9_16_HEIGHT;
+                    vp.style.height = `${activeHeight}px`;
+                    vp.style.width = `${activeHeight * ratio}px`;
+                } else if (Math.abs(ratio - 1) < 0.2) { 
+                    const activeSize = MAX_9_16_HEIGHT; 
+                    vp.style.width = `${activeSize}px`;
+                    vp.style.height = `${activeSize}px`;
+                } else { 
+                    const activeWidth = 640;
+                    vp.style.width = `${activeWidth}px`;
+                    vp.style.height = `${activeWidth / ratio}px`;
+                }
             }
 
             if (isVideo && isSectionVisible) {
@@ -151,7 +159,7 @@ function updateSliderVisuals(activeTarget, reorderedItems) {
                 if (btn) btn.classList.add("is-muted");
             }
 
-            const inactiveHeight = 200; 
+            const inactiveHeight = isMobile ? 120 : 200; 
             vp.style.height = `${inactiveHeight}px`;
 
             const slotClass = SLOT_CLASSES[index];
@@ -187,6 +195,7 @@ function clearAutoAdvanceTimer() {
 }
 
 function nextSlide() {
+    if (!sponsorTrack) return;
     const currentActive = sponsorTrack.querySelector(".sponsor-viewport.is-active");
     if (!currentActive) return;
 
@@ -198,6 +207,7 @@ function nextSlide() {
 }
 
 function prevSlide() {
+    if (!sponsorTrack) return;
     const currentActive = sponsorTrack.querySelector(".sponsor-viewport.is-active");
     if (!currentActive) return;
 
@@ -255,7 +265,7 @@ document.addEventListener("click", (e) => {
     if (e.target.closest(".video-controls") || e.target.closest(".sponsor-nav")) return;
 
     const clickedViewport = e.target.closest(".sponsor-viewport");
-    if (clickedViewport && sponsorTrack.contains(clickedViewport)) {
+    if (clickedViewport && sponsorTrack && sponsorTrack.contains(clickedViewport)) {
         e.preventDefault();
 
         if (!clickedViewport.classList.contains("is-active")) {
@@ -353,7 +363,8 @@ document.addEventListener("timeupdate", (e) => {
 document.addEventListener("input", (e) => {
     if (e.target.classList.contains("video-seeker")) {
         const seeker = e.target;
-        const video = seeker.closest(".media-mask").querySelector("video");
+        const container = seeker.closest(".media-mask");
+        const video = container ? container.querySelector("video") : null;
         if (video && video.duration) {
             video.currentTime = (seeker.value / 100) * video.duration;
         }
@@ -394,28 +405,3 @@ window.addEventListener("DOMContentLoaded", () => {
         setActiveCenter(initialActive);
     }
 });
-
-/* ==========================================================
-   SPONSOR SLIDER FULL-WIDTH DI HP
-========================================================== */
-@media screen and (max-width: 991px) {
-    /* Menghilangkan jarak pembatas kiri-kanan pada area slider */
-    .sponsor-section, 
-    .sponsor-container,
-    .swiper, 
-    .slick-slider {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-
-    /* Memastikan gambar/item slider mengisi area sampai pinggir */
-    .sponsor-slide img,
-    .swiper-slide img {
-        max-width: 100%;
-        height: auto;
-    }
-}

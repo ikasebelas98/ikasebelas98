@@ -69,3 +69,61 @@
     color:#D1D5DB;
 
 }
+
+/* ==========================================================
+   BANNER SECTION (BETWEEN CHAIRMAN & GRID MENU)
+========================================================== */
+
+.banner-section {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--surface, #ffffff);
+    /* Opsional: sesuaikan jarak atas/bawah jika diperlukan */
+    padding: 0; 
+}
+
+.banner-container {
+    width: 100%;
+    max-width: 100%; /* Atau gunakan max-width container Anda jika tidak ingin full-width */
+    margin: 0 auto;
+}
+
+.banner-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1920 / 700; /* Menjaga rasio foto 1920x700px */
+    object-fit: cover;
+    display: block;
+    
+    /* Hardware acceleration agar render halus */
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* ==========================================================
+   SPOT LOGO SPONSOR (BELOW SPONSOR SLIDER)
+========================================================== */
+
+.sponsor-logos-section {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--surface, #ffffff);
+    padding: 2px 0; /* Memberikan sedikit ruang bernapas di atas & bawah */
+}
+
+.sponsor-logos-container {
+    width: 100%;
+    max-width: 100%; /* Ubah ke var(--container-width, 1200px) jika tidak ingin full-width */
+    margin: 0 auto;
+}
+
+.sponsor-logos-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1920 / 160; /* Menjaga rasio foto 1920x300px agar tidak tertarik/distort */
+    object-fit: contain; /* Menggunakan contain agar seluruh logo sponsor terlihat utuh */
+    display: block;
+    
+    will-change: transform;
+    backface-visibility: hidden;
+}

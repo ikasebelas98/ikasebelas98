@@ -1,17 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Kunci unik website kamu (ganti 'namawebsitekamu' dengan nama domain/web kamu)
-    const namespace = "namawebsitekamu.com";
+    // Kita gunakan endpoint V2 resmi yang aktif
+    const namespace = "ikasebelas98";
     const key = "visits";
 
-    fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+    fetch(`https://api.counterapi.dev/v1/up/${namespace}/${key}`)
+        .then(response => {
+            if (!response.ok) {
+                // Jika key belum terdaftar di API v2, buat otomatis lewat endpoint hit
+                return fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+            }
+            return response;
+        })
         .then(response => response.json())
         .then(data => {
-            // Format angka agar ada 0 di depan (misal: 001250) biar kelihatan keren
-            const formattedNumber = String(data.value).padStart(6, '0');
+            // Ambil nilai count dari response API
+            const count = data.count || data.value || 0;
+            const formattedNumber = String(count).padStart(6, '0');
             document.getElementById("visitorCount").innerText = formattedNumber;
         })
         .catch(err => {
-            // Jika API offline, tampilkan angka default buat gaya-gayaan
-            document.getElementById("visitorCount").innerText = "001234";
+            console.error("Counter Error:", err);
+            // Angka default jika offline
+            document.getElementById("visitorCount").innerText = "000001";
         });
 });

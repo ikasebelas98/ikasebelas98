@@ -2,244 +2,132 @@
    HERO
 ========================================================== */
 
-.hero{
-
-    position:relative;
-
-    width:100%;
-
-    aspect-ratio:3 / 1;
-
-    background:var(--surface);
-
-    overflow:hidden;
-
+.hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 1;
+    background: var(--surface);
+    overflow: hidden;
 }
-
 
 /* ==========================================================
    HERO MEDIA
 ========================================================== */
 
-.hero-media{
-
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-
-    height:100%;
-
+.hero-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
 }
-
 
 /* ==========================================================
    HERO SLIDE
 ========================================================== */
 
-.hero-slide{
-
-    position:absolute;
-
-    inset:0;
-
-    opacity:0;
-
-    transition:opacity .8s ease;
-
-    pointer-events:none;
-
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    z-index: 1;
+    /* Transisi fade-in/fade-out yang sangat lembut */
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
 }
 
-.hero-slide.active{
-
-    opacity:1;
-
-    z-index:2;
-
-    pointer-events:auto;
-
+/* Slide aktif selalu berada di layer paling atas */
+.hero-slide.active {
+    opacity: 1;
+    z-index: 2;
+    pointer-events: auto;
 }
-
 
 /* ==========================================================
-   HERO BACKGROUND
+   HERO BACKGROUND & FOREGROUND BASE
 ========================================================== */
 
-.hero-bg{
-
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    transform-origin:center center;
-
-    will-change:transform;
-
-    backface-visibility:hidden;
-
+.hero-bg,
+.hero-foreground {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: center center;
+    
+    /* Paksa GPU Hardware Acceleration agar bebas stuttering */
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
+/* Foreground diam (still image) */
+.hero-foreground {
+    transform: scale(1) translateZ(0);
+}
+
+/* Background default berada di posisi skala awal saat belum aktif */
+.hero-bg {
+    transform: scale(1.12) translateZ(0);
+}
 
 /* ==========================================================
-   HERO FOREGROUND
+   ACTIVE ANIMATION (ZOOM-OUT CONTINUOUS)
 ========================================================== */
 
-.hero-foreground{
-
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    transform-origin:center center;
-
-    will-change:transform;
-
-    backface-visibility:hidden;
-
+/* Durasi animasi background 5.2s linear (bergerak mulus tanpa melambat) */
+.hero-slide.active .hero-bg {
+    animation: heroBgZoom 5.2s linear forwards;
 }
 
-
-/* ==========================================================
-   ACTIVE ANIMATION
-========================================================== */
-
-.hero-slide.active .hero-bg{
-
-    animation:heroBgZoom 5s linear forwards;
-
+@keyframes heroBgZoom {
+    0% {
+        transform: scale(1.12) translateZ(0);
+    }
+    100% {
+        transform: scale(1.00) translateZ(0);
+    }
 }
-
-.hero-slide.active .hero-foreground{
-
-    animation:heroFgZoom 5s linear forwards;
-
-}
-
 
 /* ==========================================================
    HERO CONTENT
 ========================================================== */
 
-.hero .container{
-
-    position:relative;
-
-    width:100%;
-
-    height:100%;
-
-    display:flex;
-
-    align-items:center;
-
-    z-index:10;
-
+.hero .container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 10;
 }
 
-.hero-content{
-
-    width:var(--hero-content-width);
-
-}
-
-
-/* ==========================================================
-   KEN BURNS
-========================================================== */
-
-/* Background
-   Zoom Out 102% → 100%
-*/
-
-@keyframes heroBgZoom{
-
-    from{
-
-        transform:scale(1.02);
-
-    }
-
-    to{
-
-        transform:scale(1);
-
-    }
-
-}
-
-
-/* Foreground
-   20% dari Background
-   Zoom Out 100.2% → 100%
-*/
-
-@keyframes heroFgZoom{
-
-    from{
-
-        transform:scale(1.004);
-
-    }
-
-    to{
-
-        transform:scale(1);
-
-    }
-
+.hero-content {
+    width: var(--hero-content-width);
 }
 
 /* ==========================================================
    HERO FOCUS OVERLAY
 ========================================================== */
 
-.hero-focus-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    pointer-events:none;
-
-    opacity:0;
-
-    background:rgba(10,18,30,.18);
-
-    backdrop-filter:blur(0);
-
-    -webkit-backdrop-filter:blur(0);
-
-    z-index:5;
-
-    transition:
-        opacity .45s ease,
-        backdrop-filter .55s ease,
-        background .45s ease;
-
+.hero-focus-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: rgba(10, 18, 30, 0.18);
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+    z-index: 5;
+    transition: opacity 0.45s ease,
+                backdrop-filter 0.55s ease,
+                background 0.45s ease;
 }
 
-body.mega-open .hero-focus-overlay{
-
-    opacity:1;
-
-    background:rgba(10,18,30,.50);
-
-    backdrop-filter:blur(3px);
-
-    -webkit-backdrop-filter:blur(3px);
-
+body.mega-open .hero-focus-overlay {
+    opacity: 1;
+    background: rgba(10, 18, 30, 0.50);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }

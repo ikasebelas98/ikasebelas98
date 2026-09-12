@@ -1,0 +1,32 @@
+.visitor-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #0f172a;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: monospace;
+    border: 1px solid #334155;
+}
+
+.counter-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    letter-spacing: 1px;
+}
+
+.counter-number {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #38bdf8; /* Warna biru neon / cyans */
+    letter-spacing: 2px;
+}
+
+.counter-wrapper {
+    display: flex;
+    justify-content: center; /* Membuat counter berada tepat di tengah horizontal */
+    align-items: center;
+    width: 100%;
+    margin: 20px 0; /* Memberi jarak atas & bawah */
+}

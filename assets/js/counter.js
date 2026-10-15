@@ -1,18 +1,26 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCQPbOs9mN3TIW9SkBsPM6y0MjJmlhBfgc",
+  authDomain: "ikasebelas98-96595.firebaseapp.com",
+  projectId: "ikasebelas98-96595",
+  storageBucket: "ikasebelas98-96595.firebasestorage.app",
+  messagingSenderId: "142033224407",
+  appId: "1:142033224407:web:21a6cd2305c75c1deee692",
+  measurementId: "G-W486XXJVBX"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. FUNGSI LIVE CLOCK & TANGGAL REALTIME
+    // 1. LIVE CLOCK & TANGGAL REALTIME
     function updateLiveDateTime() {
         const now = new Date();
-
-        // Format Hari dan Tanggal Bahasa Indonesia
-        const optionsDate = { 
-            weekday: 'long', 
-            day: 'numeric', 
-            month: 'short', 
-            year: 'numeric' 
-        };
+        const optionsDate = { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' };
         const dateString = now.toLocaleDateString('id-ID', optionsDate);
 
-        // Format Jam, Menit, Detik
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
@@ -25,31 +33,39 @@ document.addEventListener("DOMContentLoaded", () => {
         if (clockEl) clockEl.innerText = timeString;
     }
 
-    // Jalankan jam pertama kali & update setiap 1 detik (1000ms)
     updateLiveDateTime();
     setInterval(updateLiveDateTime, 1000);
 
-    // 2. FUNGSI VISITOR COUNTER API
-    const namespace = "ikasebelas98";
-    const key = "visits";
+    // 2. FIREBASE FIRESTORE VISITOR COUNTER
+    async function trackVisitor() {
+        try {
+            const visitorRef = doc(db, "settings", "visitor_counter");
+            const visitorSnap = await getDoc(visitorRef);
 
-    fetch(`https://api.counterapi.dev/v1/up/${namespace}/${key}`)
-        .then(response => {
-            if (!response.ok) {
-                return fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+            let currentCount = 1;
+
+            if (visitorSnap.exists()) {
+                // Jika dokumen sudah ada, tambahkan 1
+                await updateDoc(visitorRef, {
+                    count: increment(1)
+                });
+                currentCount = visitorSnap.data().count + 1;
+            } else {
+                // Jika dokumen belum ada, buat baru mulai dari 1
+                await setDoc(visitorRef, { count: 1 });
             }
-            return response;
-        })
-        .then(response => response.json())
-        .then(data => {
-            const count = data.count || data.value || 0;
-            const formattedNumber = String(count).padStart(6, '0');
+
+            // Format ke 6 digit (contoh: 000001)
+            const formattedNumber = String(currentCount).padStart(6, '0');
             const visitorEl = document.getElementById("visitorCount");
             if (visitorEl) visitorEl.innerText = formattedNumber;
-        })
-        .catch(err => {
-            console.error("Counter Error:", err);
+
+        } catch (err) {
+            console.error("Firebase Counter Error:", err);
             const visitorEl = document.getElementById("visitorCount");
             if (visitorEl) visitorEl.innerText = "000001";
-        });
+        }
+    }
+
+    trackVisitor();
 });

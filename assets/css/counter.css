@@ -1,32 +1,91 @@
+.counter-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 24px 0;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
 .visitor-counter {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    background: #0f172a;
+    background: rgba(15, 23, 42, 0.85); /* Semi-transparan dark navy */
+    backdrop-filter: blur(8px);
     color: #ffffff;
     padding: 8px 16px;
-    border-radius: 20px;
+    border-radius: 30px;
+    font-family: 'Inter', monospace;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    white-space: nowrap; /* Mencegah teks turun baris */
+}
+
+/* Waktu & Tanggal */
+.counter-time-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    letter-spacing: 0.3px;
+}
+
+.counter-clock {
+    color: #facc15; /* Kuning Gold untuk Jam */
+    font-weight: 700;
     font-family: monospace;
-    border: 1px solid #334155;
+}
+
+.counter-divider {
+    color: #475569;
+}
+
+.counter-divider-vertical {
+    width: 1px;
+    height: 14px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Visitor Counter */
+.counter-stats-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .counter-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #94a3b8;
-    letter-spacing: 1px;
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
 }
 
 .counter-number {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #38bdf8; /* Warna biru neon / cyans */
-    letter-spacing: 2px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #38bdf8; /* Cyan neon untuk angka visitor */
+    letter-spacing: 1.5px;
+    font-family: monospace;
 }
 
-.counter-wrapper {
-    display: flex;
-    justify-content: center; /* Membuat counter berada tepat di tengah horizontal */
-    align-items: center;
-    width: 100%;
-    margin: 20px 0; /* Memberi jarak atas & bawah */
+/* Responsif Mobile (tetap dipaksa satu baris dengan mengecilkan sedikit ukuran font) */
+@media (max-width: 640px) {
+    .visitor-counter {
+        padding: 6px 12px;
+        gap: 8px;
+    }
+    .counter-time-group {
+        font-size: 0.62rem;
+    }
+    .counter-number {
+        font-size: 0.85rem;
+    }
+    .counter-label {
+        font-size: 0.62rem;
+    }
 }

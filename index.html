@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/grid-menu.css">
     <link rel="stylesheet" href="assets/css/sponsor-slider.css">
+    <link rel="stylesheet" href="assets/css/counter.css">
 
 </head>
 
@@ -604,8 +605,20 @@
 
 <div class="counter-wrapper">
     <div class="visitor-counter">
-        <span class="counter-label">.. visitor:</span>
-        <span id="visitorCount" class="counter-number">000000</span>
+        <!-- Live Clock & Date -->
+        <div class="counter-time-group">
+            <span id="liveDayDate" class="counter-date">MEMUAT TANGGAL...</span>
+            <span class="counter-divider">|</span>
+            <span id="liveClock" class="counter-clock">00:00:00 WIB</span>
+        </div>
+        
+        <span class="counter-divider-vertical"></span>
+
+        <!-- Visitor Stats -->
+        <div class="counter-stats-group">
+            <span class="counter-label">visitor:</span>
+            <span id="visitorCount" class="counter-number">000000</span>
+        </div>
     </div>
 </div>
 
@@ -715,6 +728,8 @@
 <script src="assets/js/navbar.js?v=2.0"></script>
 
 <script src="assets/js/sponsor-engine.js"></script>
+
+<script src="assets/js/counter.js"></script>
 
 </body>
 

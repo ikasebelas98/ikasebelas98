@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Alumni IKA SMAN 11 Bandung '98</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Font Inter & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+    <!-- QR Code Styling CDN -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0F172A',
+                            900: '#0A0F1D',
+                            950: '#05070E',
+                        },
+                        gold: {
+                            400: '#FACC15',
+                            500: '#EAB308',
+                            600: '#CA8A04',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .gold-gradient {
+            background: linear-gradient(135deg, #FFE066 0%, #EAB308 50%, #CA8A04 100%);
+        }
+        .navy-card-bg {
+            background: linear-gradient(145deg, #1E293B 0%, #0F172A 100%);
+        }
+        .font-panton-black-italic {
+            font-family: 'Panton Black Italic', 'Panton', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+        }
+        .font-montserrat-bold {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .idcard-photo-ambience {
+            filter: brightness(0.95) contrast(115%) saturate(110%) sepia(0.12);
+        }
+
+        /* Pastikan foto utuh tanpa terpotong (contain) */
+#prevFotoFront, #prevFotoBack, #cardFotoFront, #cardFotoBack {
+    object-fit: contain !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    transform-origin: center center !important;
+}
+
+        /* Style Slider Thumb */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fbbf24;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fbbf24;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:active {
+            transform: scale(1.4);
+        }
+
+        .custom-slider-track {
+            background: linear-gradient(
+                to right, 
+                rgba(51, 65, 85, 0.8) 0%, 
+                rgba(51, 65, 85, 0.8) calc(50% - 1px), 
+                rgba(251, 191, 36, 0.6) calc(50% - 1px), 
+                rgba(251, 191, 36, 0.6) calc(50% + 1px), 
+                rgba(15, 23, 42, 0.9) calc(50% + 1px), 
+                rgba(15, 23, 42, 0.9) 100%
+            ) !important;
+        }
+
+        /* Aturan Cetak / Print A4 Presisi Vertikal */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+
+            body {
+                background: #ffffff !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+
+            #idCardPrintArea, #idCardPrintArea * {
+                visibility: visible;
+            }
+
+            #idCardPrintArea {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                height: 100vh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 24px !important;
+                margin: 0 auto !important;
+                padding: 20px 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .idcard-render-box {
+                position: relative !important;
+                width: 319px !important;
+                height: 502px !important;
+                border-radius: 16px !important;
+                overflow: hidden !important;
+                box-shadow: none !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+        /* Menyamakan tampilan elemen form di Safari */
+        input, button, select {
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 0;
+        }
+
+    </style>
+</head>
+
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-navy-900">
+
+    <!-- Navbar Header -->
+    <header class="border-b border-slate-800 bg-navy-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <img src="assets/images/logoIKAlanscape.webp" alt="Logo IKA SMAN 11 Bandung" class="h-10 sm:h-12 w-auto object-contain">
+                </a>
+            </div>
+            
+            <!-- Area Profil / Tombol User setelah Registrasi / Sign In -->
+<div id="navUserArea" class="hidden items-center space-x-3">
+    <button id="navUserBtn" class="flex items-center space-x-2 bg-slate-800/80 hover:bg-slate-700/80 text-gold-400 border border-gold-500/30 font-semibold px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md">
+        <i class="fa-solid fa-user-circle text-gold-400 text-base"></i>
+        <span id="navUserName"></span>
+    </button>
+
+    <!-- Tombol Ke Beranda (Tanpa Log Out) -->
+    <a href="index.html" title="Kembali ke Beranda" class="bg-slate-800 hover:bg-gold-500/20 hover:border-gold-500/40 text-gold-400 text-xs font-semibold px-3 py-2 rounded-xl transition border border-gold-500/30 flex items-center gap-1.5">
+        <i class="fa-solid fa-house"></i>
+        <span class="hidden sm:inline">Ke Beranda</span>
+    </a>
+</div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 md:p-10">
+        <div class="w-full max-w-4xl">
+
+            <!-- Alert Box -->
+            <div id="alertBox" class="hidden mb-6 p-4 rounded-xl text-sm font-medium flex items-center space-x-3 shadow-lg transition-all">
+                <i id="alertIcon" class="text-lg"></i>
+                <span id="alertMessage" class="flex-grow"></span>
+                <button onclick="hideAlert()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- VIEW 1: AUTHENTICATION FORM -->
+            <div id="authContainer" class="bg-slate-800/80 border border-slate-700/60 rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden">
+                <div class="flex border-b border-slate-700/80 bg-navy-950/40">
+                    <button id="tabSignIn" onclick="switchTab('signin')" class="flex-1 py-4 text-center font-heading font-semibold text-sm transition border-b-2 border-gold-400 text-gold-400">
+                        <i class="fa-solid fa-right-to-bracket mr-2"></i>Sign In (Masuk)
+                    </button>
+                    <button id="tabRegister" onclick="switchTab('register')" class="flex-1 py-4 text-center font-heading font-semibold text-sm transition border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+                        <i class="fa-solid fa-user-plus mr-2"></i>Registrasi Alumni Baru
+                    </button>
+                </div>
+
+                <div class="p-6 sm:p-10">
+                    <!-- FORM SIGN IN -->
+<form id="formSignIn" autocomplete="off" onsubmit="handleSignIn(event)" class="space-y-6 max-w-md mx-auto">
+    <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold font-heading text-white">Wilujeung Sumping Baraya!</h2>
+        <p class="text-slate-400 text-sm mt-1">di akun Alumni SMAN 11 Bandung Angkatan '98.</p>
+    </div>
+
+    <!-- Input Email -->
+    <div>
+        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">EMAIL</label>
+        <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                <i class="fas fa-envelope"></i>
+            </span>
+            <input type="email" id="loginEmail" required placeholder="nama@email.com" class="w-full pl-10 pr-4 py-3 bg-slate-900/60 border border-slate-700/60 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 transition-colors">
+        </div>
+    </div>
+
+    <!-- Input Password -->
+    <div>
+        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">PASSWORD</label>
+        <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                <i class="fas fa-lock"></i>
+            </span>
+            
+            <!-- Perhatikan penambahan readonly, onfocus, dan autocomplete di bawah ini -->
+            <input type="password" id="loginPassword" required readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" placeholder="Masukkan password" class="w-full pl-10 pr-10 py-3 bg-slate-900/60 border border-slate-700/60 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 transition-colors">
+            
+            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'toggleLoginIcon')" class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-white">
+                <i id="toggleLoginIcon" class="fas fa-eye-slash"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Tombol Submit Sign In -->
+    <button type="submit" id="btnSignInSubmit" class="w-full py-3.5 px-4 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg shadow-gold-500/10 hover:shadow-gold-500/20 transition-all flex items-center justify-center space-x-2">
+        <span>Mangga ka Lebet</span>
+        <i class="fas fa-arrow-right text-sm"></i>
+    </button>
+</form>
+
+                    <!-- FORM REGISTRASI ALUMNI BARU -->
+                    <form id="formRegister" novalidate onsubmit="handleRegister(event)" class="hidden space-y-8">
+                        <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3.5 text-xs text-amber-300 flex items-center space-x-2">
+                            <i class="fa-solid fa-circle-info text-base shrink-0"></i>
+                            <span>Kolom bertanda <strong>* (Wajib Diisi)</strong> adalah data prioritas untuk validasi.</span>
+                        </div>
+
+                        <!-- 1. IDENTITAS UTAMA -->
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
+                                <i class="fa-solid fa-id-card"></i> 1. Identitas Utama (Wajib Diisi)
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Nama Lengkap & Gelar *</label>
+                                    <input type="text" id="regNamaLengkap" oninput="updateCardPreview()" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="Hasan Aksan, S.T.">
+                                </div>
+                                <div class="bg-gold-500/10 border border-gold-500/30 p-3 rounded-xl relative" id="wrapperNamaPanggilan">
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-gold-400 mb-0.5">★ Nama Panggilan Masa SMA *</label>
+                                    <input type="text" id="regNamaPanggilan" oninput="updateCardPreview()" class="w-full bg-slate-950 border border-gold-500/50 rounded-lg py-2 px-3 text-gold-300 font-semibold text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition uppercase" placeholder="contoh: THOMAS KASEP PISAN">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Tempat Lahir *</label>
+                                    <input type="text" id="regTempatLahir" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="Kota Tempat Lahir">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Tanggal Lahir *</label>
+                                    <input type="date" id="regTanggalLahir" oninput="this.classList.remove('text-slate-500'); this.classList.add('text-slate-100');" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-500 text-sm focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition [color-scheme:dark]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Kelas Masa SMA (Kelas 3) *</label>
+                                    <select id="regKelas" onchange="this.classList.remove('text-slate-500'); this.classList.add('text-slate-100');" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-500 text-sm focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition">
+    <option value="" disabled selected class="text-slate-500 bg-slate-950">-- Pilih Kelas --</option>
+    <option value="3 IPA 1" class="text-slate-100 bg-slate-950">3 - 1 (IPA 1)</option>
+    <option value="3 IPA 2" class="text-slate-100 bg-slate-950">3 - 2 (IPA 2)</option>
+    <option value="3 IPA 3" class="text-slate-100 bg-slate-950">3 - 3 (IPA 3)</option>
+    <option value="3 IPA 4" class="text-slate-100 bg-slate-950">3 - 4 (IPA 4)</option>
+    <option value="3 IPA 5" class="text-slate-100 bg-slate-950">3 - 5 (IPA 5)</option>
+    <option value="3 IPS 1" class="text-slate-100 bg-slate-950">3 - 6 (IPS 1)</option>
+    <option value="3 IPS 2" class="text-slate-100 bg-slate-950">3 - 7 (IPS 2)</option>
+    <option value="3 IPS 3" class="text-slate-100 bg-slate-950">3 - 8 (IPS 3)</option>
+    <option value="3 IPS 4" class="text-slate-100 bg-slate-950">3 - 9 (IPS 4)</option>
+    <option value="3 IPS 5" class="text-slate-100 bg-slate-950">3 - 10 (IPS 5)</option>
+</select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Nomor WhatsApp / HP *</label>
+                                    <input type="tel" id="regWhatsapp" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="081234567890">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. DOMISILI & PROFIL -->
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
+                                <i class="fa-solid fa-house-user"></i> 2. Domisili & Profil
+                            </h3>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Alamat Domisili Lengkap *</label>
+                                <textarea id="regDomisili" rows="2" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="Jl. Kembar Baru No.23, Cigereleng, Kec. Regol, Kota Bandung, Jawa Barat 40253"></textarea>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Profil LinkedIn</label>
+                                    <input type="url" id="regLinkedin" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="https://linkedin.com/in/username">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Instagram Pribadi</label>
+                                    <input type="text" id="regInstagram" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="@username_anda">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. KARIR -->
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
+                                <i class="fa-solid fa-briefcase"></i> 3. Karir & Keahlian Strategis
+                            </h3>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Status Pekerjaan Utama *</label>
+                                <select id="regStatusPekerjaan" onchange="this.classList.remove('text-slate-500'); this.classList.add('text-slate-100'); toggleJobDetails(this.value);" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-500 text-sm focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition">
+                                    <option value="" disabled selected class="text-slate-500 bg-slate-950">-- Pilih Status Pekerjaan --</option>
+                                    <option value="bekerja" class="text-slate-100 bg-slate-950">Bekerja di Perusahaan / Instansi</option>
+                                    <option value="wirausaha" class="text-slate-100 bg-slate-950">Wirausaha / Pemilik Usaha (Founder)</option>
+                                    <option value="mencari_peluang" class="text-slate-100 bg-slate-950">Mencari Peluang (Open for Opportunity)</option>
+                                    <option value="lainnya" class="text-slate-100 bg-slate-950">Lainnya</option>
+                                </select>
+                            </div>
+
+                            <div id="wrapperBekerja" class="hidden p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-300 mb-1">Nama Perusahaan / Instansi *</label>
+                                        <input type="text" id="regNamaPerusahaan" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: PT. Kaha Timbel Sejahtera">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-300 mb-1">Jabatan</label>
+                                        <input type="text" id="regJabatan" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Senior Manager">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="wrapperWirausaha" class="hidden p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-300 mb-1">Nama Brand / Usaha *</label>
+                                        <input type="text" id="regNamaUsaha" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Ado Batagor">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-300 mb-1">Jenis Produk / Jasa *</label>
+                                        <input type="text" id="regJenisUsaha" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: F&B">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="wrapperMencariPeluang" class="hidden p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+                                <label class="block text-xs font-medium text-slate-300 mb-1">Keahlian Utama / Core Skills *</label>
+                                <input type="text" id="regKeahlian" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Digital Marketing, Software Engineer">
+                            </div>
+
+                            <div id="wrapperStatusLainnya" class="hidden p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+                                <label class="block text-xs font-medium text-slate-300 mb-1">Sebutkan Kegiatan Saat Ini *</label>
+                                <input type="text" id="regStatusLainnyaText" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Ibu Rumah Tangga">
+                            </div>
+                        </div>
+
+                        <!-- 4. AKUN & FOTO -->
+                        <div class="space-y-4 pt-2 border-t border-slate-800">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="md:col-span-2">
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Email Aktif *</label>
+                                    <input type="email" id="regEmail" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="nama@email.com">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Buat Password *</label>
+                                    <div class="relative">
+                                        <input type="password" id="regPassword" autocomplete="new-password" minlength="6" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 pl-3.5 pr-10 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="Minimal 6 karakter">
+                                        <button type="button" onclick="togglePasswordVisibility('regPassword', 'iconToggleRegPass')" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 hover:text-gold-400 focus:outline-none transition">
+                                            <i class="fa-solid fa-eye" id="iconToggleRegPass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Ulangi Password *</label>
+                                    <div class="relative">
+                                        <input type="password" id="regConfirmPassword" autocomplete="new-password" minlength="6" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 pl-3.5 pr-10 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="Ketik ulang password">
+                                        <button type="button" onclick="togglePasswordVisibility('regConfirmPassword', 'iconToggleRegConfirmPass')" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 hover:text-gold-400 focus:outline-none transition">
+                                            <i class="fa-solid fa-eye" id="iconToggleRegConfirmPass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="wrapperInputFoto">
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Upload Pas Foto *</label>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center overflow-hidden shrink-0">
+                                        <i class="fa-solid fa-user text-xl text-slate-600" id="photoPlaceholder"></i>
+                                        <img id="photoPreview" class="w-full h-full object-cover hidden" alt="Preview Foto">
+                                    </div>
+                                    <input type="file" id="inputFoto" accept="image/*" onchange="previewImage(event)" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-gold-400 hover:file:bg-slate-700 cursor-pointer">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AREA LIVE PREVIEW ID CARD -->
+                        <div class="mt-8 pt-6 border-t border-slate-800">
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-gold-400 mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-id-card"></i> Live Preview ID Card
+                            </label>
+                            
+                            <div class="flex flex-col xl:flex-row items-center justify-center gap-6 bg-slate-950/60 p-4 sm:p-6 rounded-2xl border border-slate-800/80">
+                                <!-- CARD DEPAN PREVIEW -->
+                                <div class="relative w-[319px] h-[502px] rounded-2xl overflow-hidden shadow-2xl bg-white shrink-0">
+                                    <img src="assets/images/card_latar.png" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" alt="Card Latar">
+
+                                    <div class="absolute inset-0 flex items-center justify-center overflow-hidden z-10">
+                                        <div id="previewLoaderFront" class="hidden absolute inset-0 bg-slate-900/40 backdrop-blur-sm z-30 flex items-center justify-center">
+                                            <i class="fa-solid fa-spinner fa-spin text-3xl text-gold-400"></i>
+                                        </div>
+                                        <img id="prevFotoFront" src="https://placehold.co/638x1004/0e0e0e/cccccc?text=Foto" class="max-w-full max-h-full object-contain pointer-events-none transition-transform duration-75" style="transform-origin: center center;">
+                                    </div>
+
+                                    <img src="assets/images/card_back.png" class="absolute inset-0 w-full h-full object-contain pointer-events-none z-20" alt="Frame Overlay">
+
+                                    <div class="absolute inset-0 z-20 pointer-events-none">
+                                        <div class="absolute bottom-[12%] left-[45%] right-[8%] text-left">
+                                            <h2 id="prevNamaPanggilan" class="font-panton-black-italic text-[12pt] tracking-wider uppercase leading-none mb-1 text-white truncate text-left">
+                                                NAMA PANGGILAN
+                                            </h2>
+                                            <p id="prevNamaLengkap" class="font-montserrat-medium text-[7pt] text-[#E9A538] truncate text-left">
+                                                Nama Lengkap Alumni
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            
+                                <!-- CARD BELAKANG PREVIEW -->
+                                <div class="relative w-[319px] h-[502px] rounded-2xl overflow-hidden shadow-2xl bg-white shrink-0">
+                                    <img src="assets/images/card_latar.png" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" alt="Card Latar">
+
+                                    <div class="absolute inset-0 flex items-center justify-center overflow-hidden z-10">
+                                        <img id="prevFotoBack" src="https://placehold.co/638x1004/0e0e0e/cccccc?text=Foto" class="max-w-full max-h-full object-contain pointer-events-none transition-transform duration-75" style="transform-origin: center center;">
+                                    </div>
+
+                                    <img src="assets/images/card_front.png" class="absolute inset-0 w-full h-full object-contain pointer-events-none z-20" alt="Frame Overlay">
+
+                                    <!-- QR CODE -->
+                                    <div class="absolute bottom-[18px] left-[25px] flex justify-start items-center z-30 pointer-events-none">
+                                        <div id="prevQrcodeBack" class="pointer-events-auto w-[132px] h-[132px] flex items-center justify-center"></div>
+                                    </div>
+
+                                    <!-- NOMOR ANGGOTA BELAKANG -->
+                                    <div class="absolute bottom-6 right-6 font-panton-black-italic text-[13px] uppercase tracking-widest text-[#434343] z-20 pointer-events-none" id="prevNoAnggotaBack">
+                                        ika11a980000
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KONTROL FOTO INTERAKTIF -->
+                        <div class="w-full mt-6 p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-xs">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- KOLOM KIRI: CARD DEPAN -->
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                                        <span class="text-gold-400 font-bold uppercase tracking-wider flex items-center gap-1.5 text-[11px]">
+                                            <i class="fa-solid fa-sliders"></i> Adjust Foto Depan
+                                        </span>
+                                        <button type="button" id="btnResetFrontPhoto" class="text-[10px] text-slate-500 hover:text-slate-300 transition">Reset</button>
+                                    </div>
+
+                                    <div class="flex items-center gap-2.5" title="Zoom Foto">
+                                        <i class="fa-solid fa-magnifying-glass text-slate-400 w-4 text-center text-[11px]"></i>
+                                        <input type="range" id="zoomFront" min="-1" max="3" step="0.01" value="1" class="w-full h-1 rounded-lg appearance-none cursor-pointer touch-none custom-slider-track">
+                                    </div>
+
+                                    <div class="flex items-center gap-2.5" title="Geser Kiri / Kanan">
+                                        <i class="fa-solid fa-arrows-left-right text-slate-400 w-4 text-center text-[11px]"></i>
+                                        <input type="range" id="posXFront" min="-800" max="800" step="1" value="0" class="w-full h-1 rounded-lg appearance-none cursor-pointer touch-none custom-slider-track">
+                                    </div>
+
+                                    <div class="flex items-center gap-2.5" title="Geser Atas / Bawah">
+                                        <i class="fa-solid fa-arrows-up-down text-slate-400 w-4 text-center text-[11px]"></i>
+                                        <input type="range" id="posYFront" min="-800" max="800" step="1" value="0" class="w-full h-1 rounded-lg appearance-none cursor-pointer touch-none custom-slider-track">
+                                    </div>
+
+                                    <div class="flex items-center gap-2.5" title="Putar / Rotate">
+                                        <i class="fa-solid fa-rotate text-slate-400 w-4 text-center text-[11px]"></i>
+                                        <input type="range" id="rotateFront" min="-180" max="180" step="1" value="0" class="w-full h-1 rounded-lg appearance-none cursor-pointer touch-none custom-slider-track">
+                                    </div>
+                                </div>
+
+                                <!-- KOLOM KANAN: CARD BELAKANG -->
+                                <div class="space-y-3 md:border-l md:border-slate-800/80 md:pl-6">
+                                    <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                                        <span class="text-gold-400 font-bold uppercase tracking-wider flex items-center gap-1.5 text-[11px]">
+                                            <i class="fa-solid fa-sliders"></i> Adjust Foto Belakang
+                                        </span>
+                                        <button type="button" id="btnResetBackPhoto" class="text-[10px] text-slate-500 hover:text-slate-300 transition">Reset</button>
+                                    </div>
+
+                                    <div class="flex items-center gap-2.5" title="Zoom Foto">
+                                        <i class="fa-solid fa-magnifying-glass text-slate-400 w-4 text-center text-[11px]"></i>
+                                        <input type="range" id="zoomBack" min="-1" max="3" step="0.01" value="1" class="w-full h-1 rounded-lg appearance-none cursor-pointer touch-none custom-slider-track">
+                                    </div>
+
+                                    <div class="flex items-center gap-2.5" title="Geser Kiri / Kanan">
+                                        <i class="fa-solid fa-arrows-left-right text-slate-400 w-4 text-center text-[11px]"></i>
+                                        <input type="range" id="posXBack" min="-800" max="800" step="1" value="0" class="w-full h-1 rounded-lg appearance-none cursor-pointer touch-none custom-slider-track">
+                                    </div>
+
+                                    <div class="flex items-center gap-2.5" title="Geser Atas / Bawah">
+                                        <i class="fa-solid fa-arrows-up-down text-slate-400 w-4 text-center text-[11px]"></i>
+                                        <input type="range" id="posYBack" min="-800" max="800" step="1" value="0" class="w-full h-1 rounded-lg appearance-none cursor-pointer touch-none custom-slider-track">
+                                    </div>
+
+                                    <div class="flex items-center gap-2.5" title="Putar / Rotate">
+                                        <i class="fa-solid fa-rotate text-slate-400 w-4 text-center text-[11px]"></i>
+                                        <input type="range" id="rotateBack" min="-180" max="180" step="1" value="0" class="w-full h-1 rounded-lg appearance-none cursor-pointer touch-none custom-slider-track">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="btnRegisterSubmit" class="w-full py-3.5 px-6 gold-gradient text-navy-950 font-bold font-heading rounded-xl shadow-xl transition flex items-center justify-center space-x-2 text-sm uppercase">
+                            <i class="fa-solid fa-id-card"></i>
+                            <span>Gass Join & Klaim ID Card Digitalmu</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ID CARD DIGITAL CONTAINER -->
+<div id="idCardContainer" class="hidden space-y-6 max-w-4xl mx-auto">
+    
+    <!-- WRAPPER KARTU BERSEBELAHAN -->
+    <div id="captureArea" class="bg-transparent p-6 rounded-2xl flex flex-col md:flex-row items-center justify-center gap-6">
+        
+        <!-- TAMPAK DEPAN -->
+        <div class="relative w-[319px] h-[502px] rounded-2xl overflow-hidden shadow-2xl bg-white shrink-0">
+            <!-- Latar Belakang -->
+            <img src="assets/images/card_latar.png" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" alt="Card Latar">
+
+            <!-- Layer Foto Depan -->
+            <div class="absolute inset-0 flex items-center justify-center overflow-hidden z-10">
+                <img id="cardFotoFront" class="max-w-full max-h-full object-contain pointer-events-none transition-transform duration-75" style="transform-origin: center center;" src="https://placehold.co/638x1004/0e0e0e/cccccc?text=Foto" alt="Foto Depan">
+            </div>
+
+            <!-- Layer Frame Overlay Depan -->
+            <img src="assets/images/card_back.png" class="absolute inset-0 w-full h-full object-contain pointer-events-none z-20" alt="Frame Overlay">
+
+            <!-- Layer Teks Nama Depan (SAMA PERSIS DENGAN PREVIEW EDITOR) -->
+<div class="absolute inset-0 z-20 pointer-events-none">
+    <div class="absolute bottom-[12%] left-[45%] right-[8%] text-left">
+        <h2 id="cardNamaPanggilan" class="font-panton-black-italic text-[12pt] tracking-wider uppercase leading-none mb-0.5 text-white truncate text-left">
+            NAMA PANGGILAN
+        </h2>
+        <p id="cardNamaLengkap" class="font-montserrat-medium text-[7pt] text-[#E9A538] truncate text-left">
+            Nama Lengkap Alumni
+        </p>
+    </div>
+</div>
+        </div>
+
+        <!-- TAMPAK BELAKANG -->
+        <div class="relative w-[319px] h-[502px] rounded-2xl overflow-hidden shadow-2xl bg-white shrink-0">
+            <!-- Latar Belakang -->
+            <img src="assets/images/card_latar.png" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none" alt="Card Latar">
+
+            <!-- Layer Foto Belakang -->
+            <div class="absolute inset-0 flex items-center justify-center overflow-hidden z-10">
+                <img id="cardFotoBack" class="max-w-full max-h-full object-contain pointer-events-none transition-transform duration-75" style="transform-origin: center center;" src="https://placehold.co/638x1004/0e0e0e/cccccc?text=Foto" alt="Foto Belakang">
+            </div>
+
+            <!-- Layer Frame Overlay Belakang -->
+            <img src="assets/images/card_front.png" class="absolute inset-0 w-full h-full object-contain pointer-events-none z-20" alt="Frame Overlay">
+
+            <!-- QR CODE BELAKANG -->
+            <div class="absolute bottom-[18px] left-[25px] flex justify-start items-center z-30 pointer-events-none">
+                <div id="cardQrcodeBack" class="pointer-events-auto w-[132px] h-[132px] flex items-center justify-center"></div>
+            </div>
+
+            <!-- NOMOR ANGGOTA BELAKANG -->
+            <div class="absolute bottom-6 right-6 font-panton-black-italic text-[13px] uppercase tracking-widest text-[#434343] z-20 pointer-events-none" id="cardNoAnggotaBack">
+                ika11a980000
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TOMBOL ACTION -->
+    <div class="flex items-center justify-center gap-4">
+        <button onclick="window.printIDCard()" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-lg flex items-center space-x-2 transition-all">
+            <i class="fa-solid fa-print"></i>
+            <span>Print ID Card</span>
+        </button>
+        <button onclick="window.downloadIDCardPNG()" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-gold-400 border border-gold-500/30 font-bold rounded-xl shadow-lg flex items-center space-x-2 transition-all">
+            <i class="fa-solid fa-download"></i>
+            <span>Download PNG</span>
+        </button>
+    </div>
+</div>
+        </div>
+    </main>
+
+    <!-- GLOBAL HELPER FUNCTIONS -->
+    <script>
+        window.showAlert = function(type, message) {
+            const alertBox = document.getElementById('alertBox');
+            const alertIcon = document.getElementById('alertIcon');
+            const alertMessage = document.getElementById('alertMessage');
+            if (!alertBox || !alertIcon || !alertMessage) return;
+
+            alertBox.classList.remove('hidden', 'bg-red-500/20', 'border-red-500/40', 'text-red-300', 'bg-emerald-500/20', 'border-emerald-500/40', 'text-emerald-300');
+            
+            if (type === 'error') {
+                alertBox.classList.add('bg-red-500/20', 'border', 'border-red-500/40', 'text-red-300');
+                alertIcon.className = "fa-solid fa-circle-exclamation text-red-400 text-lg";
+            } else {
+                alertBox.classList.add('bg-emerald-500/20', 'border', 'border-emerald-500/40', 'text-emerald-300');
+                alertIcon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
+            }
+
+            alertMessage.textContent = message;
+        };
+
+        window.hideAlert = function() {
+            const alertBox = document.getElementById('alertBox');
+            if (alertBox) alertBox.classList.add('hidden');
+        };
+
+        window.switchTab = function(tab) {
+            const tabSignIn = document.getElementById('tabSignIn');
+            const tabRegister = document.getElementById('tabRegister');
+            const formSignIn = document.getElementById('formSignIn');
+            const formRegister = document.getElementById('formRegister');
+
+            if (typeof window.hideAlert === 'function') window.hideAlert();
+
+            if (tab === 'signin') {
+                if (tabSignIn) tabSignIn.className = "flex-1 py-4 text-center font-heading font-semibold text-sm transition border-b-2 border-gold-400 text-gold-400";
+                if (tabRegister) tabRegister.className = "flex-1 py-4 text-center font-heading font-semibold text-sm transition border-b-2 border-transparent text-slate-400 hover:text-slate-200";
+                if (formSignIn) formSignIn.classList.remove('hidden');
+                if (formRegister) formRegister.classList.add('hidden');
+            } else {
+                if (tabRegister) tabRegister.className = "flex-1 py-4 text-center font-heading font-semibold text-sm transition border-b-2 border-gold-400 text-gold-400";
+                if (tabSignIn) tabSignIn.className = "flex-1 py-4 text-center font-heading font-semibold text-sm transition border-b-2 border-transparent text-slate-400 hover:text-slate-200";
+                if (formRegister) formRegister.classList.remove('hidden');
+                if (formSignIn) formSignIn.classList.add('hidden');
+            }
+        };
+
+        window.toggleJobDetails = function(status) {
+            const wrapperBekerja = document.getElementById('wrapperBekerja');
+            const wrapperWirausaha = document.getElementById('wrapperWirausaha');
+            const wrapperMencariPeluang = document.getElementById('wrapperMencariPeluang');
+            const wrapperStatusLainnya = document.getElementById('wrapperStatusLainnya');
+
+            if (wrapperBekerja) wrapperBekerja.classList.add('hidden');
+            if (wrapperWirausaha) wrapperWirausaha.classList.add('hidden');
+            if (wrapperMencariPeluang) wrapperMencariPeluang.classList.add('hidden');
+            if (wrapperStatusLainnya) wrapperStatusLainnya.classList.add('hidden');
+
+            if (status === 'bekerja' && wrapperBekerja) wrapperBekerja.classList.remove('hidden');
+            if (status === 'wirausaha' && wrapperWirausaha) wrapperWirausaha.classList.remove('hidden');
+            if (status === 'mencari_peluang' && wrapperMencariPeluang) wrapperMencariPeluang.classList.remove('hidden');
+            if (status === 'lainnya' && wrapperStatusLainnya) wrapperStatusLainnya.classList.remove('hidden');
+        };
+
+        window.updateCardPreview = function() {
+            const inputNamaPanggilan = document.getElementById('regNamaPanggilan');
+            if (inputNamaPanggilan) {
+                inputNamaPanggilan.value = inputNamaPanggilan.value.toUpperCase();
+            }
+
+            const namaLengkapInput = document.getElementById('regNamaLengkap') ? document.getElementById('regNamaLengkap').value : '';
+            const namaPanggilanInput = inputNamaPanggilan ? inputNamaPanggilan.value : '';
+
+            const prevNamaLengkap = document.getElementById('prevNamaLengkap');
+            const prevNamaPanggilan = document.getElementById('prevNamaPanggilan');
+
+            if (prevNamaPanggilan) {
+                prevNamaPanggilan.textContent = namaPanggilanInput.trim() !== '' ? namaPanggilanInput : 'NAMA PANGGILAN';
+            }
+
+            if (prevNamaLengkap) {
+                prevNamaLengkap.textContent = namaLengkapInput.trim() !== '' ? namaLengkapInput : 'Nama Lengkap Alumni';
+            }
+
+            if (typeof updateQrPreview === 'function') {
+                updateQrPreview(namaPanggilanInput || 'PREVIEW');
+            }
+        };
+
+        function updateQrPreview(payloadText) {
+            if (typeof window.renderPreviewQR === 'function') {
+                window.renderPreviewQR("https://ikasebelas98.github.io/?alumni=" + encodeURIComponent(payloadText || "PREVIEW"));
+            }
+        }
+
+        // --- HELPER UNTUK SISTEM INLINE WARNING PER KOLOM ---
+        window.clearFieldError = function(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (!field) return;
+
+            field.classList.remove('bg-red-500/10', 'border-red-500/80', 'ring-1', 'ring-red-500/50');
+            
+            // Hapus element pesan error jika ada
+            const parent = field.parentElement;
+            if (parent) {
+                const existingError = parent.querySelector('.field-error-msg');
+                if (existingError) existingError.remove();
+            }
+        };
+
+        window.showFieldError = function(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            if (!field) return;
+
+            window.clearFieldError(fieldId);
+
+            // Tambahkan style warning merah
+            field.classList.add('bg-red-500/10', 'border-red-500/80', 'ring-1', 'ring-red-500/50');
+
+            // Buat elemen teks error
+            const errP = document.createElement('p');
+            errP.className = 'field-error-msg text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium';
+            errP.innerHTML = `<i class="fa-solid fa-circle-exclamation text-[10px]"></i> ${message}`;
+
+            const parent = field.parentElement;
+            if (parent) {
+                parent.appendChild(errP);
+            }
+
+            // Tambahkan listener untuk otomatis menghilangkan warning saat diketik
+            const clearHandler = () => {
+                window.clearFieldError(fieldId);
+                field.removeEventListener('input', clearHandler);
+                field.removeEventListener('change', clearHandler);
+            };
+            field.addEventListener('input', clearHandler);
+            field.addEventListener('change', clearHandler);
+        };
+
+        window.clearAllErrors = function() {
+            document.querySelectorAll('.field-error-msg').forEach(el => el.remove());
+            document.querySelectorAll('.bg-red-500\\/10').forEach(el => {
+                el.classList.remove('bg-red-500/10', 'border-red-500/80', 'ring-1', 'ring-red-500/50');
+            });
+        };
+    </script>
+
+    <!-- UI HANDLERS & INTERACTIVE SLIDERS script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const prevFotoFront = document.getElementById('prevFotoFront');
+            const prevFotoBack = document.getElementById('prevFotoBack');
+
+            const zoomFront = document.getElementById('zoomFront');
+            const posXFront = document.getElementById('posXFront');
+            const posYFront = document.getElementById('posYFront');
+            const rotateFront = document.getElementById('rotateFront');
+            const btnResetFrontPhoto = document.getElementById('btnResetFrontPhoto');
+
+            const zoomBack = document.getElementById('zoomBack');
+            const posXBack = document.getElementById('posXBack');
+            const posYBack = document.getElementById('posYBack');
+            const rotateBack = document.getElementById('rotateBack');
+            const btnResetBackPhoto = document.getElementById('btnResetBackPhoto');
+
+            function applyFrontTransform() {
+                if (!prevFotoFront) return;
+                const z = zoomFront ? zoomFront.value : 1;
+                const x = posXFront ? posXFront.value : 0;
+                const y = posYFront ? posYFront.value : 0;
+                const r = rotateFront ? rotateFront.value : 0;
+                prevFotoFront.style.transform = `translate(${x}px, ${y}px) scale(${z}) rotate(${r}deg)`;
+            }
+
+            function applyBackTransform() {
+                if (!prevFotoBack) return;
+                const z = zoomBack ? zoomBack.value : 1;
+                const x = posXBack ? posXBack.value : 0;
+                const y = posYBack ? posYBack.value : 0;
+                const r = rotateBack ? rotateBack.value : 0;
+                prevFotoBack.style.transform = `translate(${x}px, ${y}px) scale(${z}) rotate(${r}deg)`;
+            }
+
+            [zoomFront, posXFront, posYFront, rotateFront].forEach(slider => {
+                if (slider) {
+                    slider.addEventListener('input', applyFrontTransform);
+                    slider.addEventListener('change', applyFrontTransform);
+                }
+            });
+
+            [zoomBack, posXBack, posYBack, rotateBack].forEach(slider => {
+                if (slider) {
+                    slider.addEventListener('input', applyBackTransform);
+                    slider.addEventListener('change', applyBackTransform);
+                }
+            });
+
+            if (btnResetFrontPhoto) {
+                btnResetFrontPhoto.addEventListener('click', () => {
+                    if (zoomFront) zoomFront.value = 1;
+                    if (posXFront) posXFront.value = 0;
+                    if (posYFront) posYFront.value = 0;
+                    if (rotateFront) rotateFront.value = 0;
+                    applyFrontTransform();
+                });
+            }
+
+            if (btnResetBackPhoto) {
+                btnResetBackPhoto.addEventListener('click', () => {
+                    if (zoomBack) zoomBack.value = 1;
+                    if (posXBack) posXBack.value = 0;
+                    if (posYBack) posYBack.value = 0;
+                    if (rotateBack) rotateBack.value = 0;
+                    applyBackTransform();
+                });
+            }
+
+            window.renderPreviewQR = function(payloadData = "https://ikasebelas98.github.io") {
+    const qrContainer = document.getElementById("prevQrcodeBack");
+    if (!qrContainer) return;
+
+    qrContainer.innerHTML = "";
+
+    const TargetQRCode = window.QRCodeStyling || (typeof QRCodeStyling !== 'undefined' ? QRCodeStyling : null);
+
+    if (TargetQRCode) {
+        try {
+            const qrCode = new TargetQRCode({
+                width: 130,
+                height: 130,
+                type: "svg",
+                data: payloadData,
+                dotsOptions: { color: "#666666", type: "dots" },
+                backgroundOptions: { color: "transparent" },
+                cornersSquareOptions: { color: "#434343", type: "extra-rounded" },
+                cornersDotOptions: { color: "#434343", type: "dot" }
+            });
+            qrCode.append(qrContainer);
+        } catch (err) {
+            console.error("Gagal render QR Code:", err);
+        }
+    } else {
+        setTimeout(() => window.renderPreviewQR(payloadData), 300);
+    }
+};
+
+            window.togglePasswordVisibility = function(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (input && icon) {
+        // Cek apakah input dalam kondisi kosong saat tombol diklik
+        const isCurrentlyEmpty = input.value === '';
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+
+        // Jika tadinya kosong lalu browser memaksa mengisinya saat tipe berganti, kosongkan kembali
+        if (isCurrentlyEmpty) {
+            input.value = '';
+        }
+    }
+};
+        });
+    </script>
+
+    <!-- FIREBASE ENGINE & CORE LOGIC -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { 
+        getAuth, 
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        signOut,
+        onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { 
+        getFirestore, 
+        doc, 
+        setDoc, 
+        getDoc,
+        collection,
+        getCountFromServer 
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQPbOs9mN3TIW9SkBsPM6y0MjJmlhBfgc",
+      authDomain: "ikasebelas98-96595.firebaseapp.com",
+      projectId: "ikasebelas98-96595",
+      storageBucket: "ikasebelas98-96595.firebasestorage.app",
+      messagingSenderId: "142033224407",
+      appId: "1:142033224407:web:21a6cd2305c75c1deee692",
+      measurementId: "G-W486XXJVBX"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let base64Photo = "";
+
+        // Tambahkan ekspor ke window agar bisa dipanggil dari HTML
+window.previewImage = async function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    window.clearFieldError('inputFoto');
+
+    const photoPlaceholder = document.getElementById('photoPlaceholder');
+    const photoPreview = document.getElementById('photoPreview');
+    const loaderFront = document.getElementById('previewLoaderFront');
+
+    if (photoPlaceholder) photoPlaceholder.className = "fa-solid fa-spinner fa-spin text-xl text-gold-400";
+    if (loaderFront) loaderFront.classList.remove('hidden');
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Set batas dimensi maksimum untuk sisi terpanjang foto (tinggi atau lebar)
+            const maxDimension = 1200; 
+
+            let width = img.width;
+            let height = img.height;
+
+            // Cari sisi terpanjang (panjang atau tinggi) dan skalakan secara murni tanpa memotong rasio
+            if (width > height) {
+                if (width > maxDimension) {
+                    height = Math.round((height * maxDimension) / width);
+                    width = maxDimension;
+                }
+            } else {
+                if (height > maxDimension) {
+                    width = Math.round((width * maxDimension) / height);
+                    height = maxDimension;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            // Render ulang gambar pada canvas sesuai dimensi proporsional tanpa cropping
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Kompresi otomatis file menjadi JPEG kualitas 82% (ukuran file turun Drastis ke ~100-250KB)
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.82);
+            base64Photo = compressedBase64;
+
+            const targetIDs = ['photoPreview', 'prevFotoFront', 'prevFotoBack', 'cardFotoFront', 'cardFotoBack'];
+targetIDs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.src = compressedBase64;
+        el.classList.remove('hidden');
+        el.style.display = 'block';
+        el.style.objectFit = 'contain'; // Dipastikan 'contain' agar foto utuh 100%
+    }
+});
+
+            if (photoPlaceholder) photoPlaceholder.classList.add('hidden');
+            if (loaderFront) loaderFront.classList.add('hidden');
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+};
+
+    // --- FUNGSI HANDLE REGISTER (INLINE VALIDATION MODE) ---
+    window.handleRegister = async function(e) {
+    e.preventDefault();
+    window.clearAllErrors();
+    if (typeof window.hideAlert === 'function') window.hideAlert();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const isEditMode = urlParams.get('mode') === 'edit';
+    const currentUser = auth.currentUser;
+
+    // ==========================================
+    // JIKA DALAM MODE EDIT PROFILE
+    // ==========================================
+    if (isEditMode && currentUser) {
+        const btnSubmit = document.getElementById('btnRegisterSubmit');
+        const originalText = btnSubmit ? btnSubmit.innerHTML : 'Simpan';
+
+        try {
+            if (btnSubmit) {
+                btnSubmit.disabled = true;
+                btnSubmit.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Menyimpan Perubahan...</span>`;
+            }
+
+            const statusPekerjaanVal = document.getElementById('regStatusPekerjaan')?.value || '';
+
+            // Kumpulkan data yang diperbarui
+            const updateData = {
+                namaPanggilan: document.getElementById('regNamaPanggilan').value.trim().toUpperCase(),
+                tempatLahir: document.getElementById('regTempatLahir').value.trim(),
+                tanggalLahir: document.getElementById('regTanggalLahir').value,
+                whatsapp: document.getElementById('regWhatsapp').value.trim(),
+                domisili: document.getElementById('regDomisili').value.trim(),
+                linkedin: document.getElementById('regLinkedin').value.trim(),
+                instagram: document.getElementById('regInstagram').value.trim(),
+                statusPekerjaan: statusPekerjaanVal,
+                namaPerusahaan: document.getElementById('regNamaPerusahaan')?.value || '',
+                jabatan: document.getElementById('regJabatan')?.value || '',
+                namaUsaha: document.getElementById('regNamaUsaha')?.value || '',
+                jenisUsaha: document.getElementById('regJenisUsaha')?.value || '',
+                keahlian: document.getElementById('regKeahlian')?.value || '',
+                statusLainnyaText: document.getElementById('regStatusLainnyaText')?.value || '',
+                updatedAt: new Date().toISOString()
+            };
+
+            // Jika user memilih/mengupload foto baru
+            if (base64Photo) {
+                updateData.foto = base64Photo;
+            }
+
+            // Simpan pembaruan ke Firestore menggunakan merge: true (tanpa cek email auth)
+            await setDoc(doc(db, "alumni", currentUser.uid), updateData, { merge: true });
+
+            window.showAlert('success', 'Perubahan profil & ID Card berhasil disimpan!');
+            
+            // Ambil data utuh gabungan untuk me-render ulang preview ID card
+            const docSnap = await getDoc(doc(db, "alumni", currentUser.uid));
+            if (docSnap.exists()) {
+                renderIDCard(docSnap.data());
+            }
+
+        } catch (error) {
+            console.error("Gagal update profil:", error);
+            window.showAlert('error', `Gagal menyimpan: ${error.message}`);
+        } finally {
+            if (btnSubmit) {
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = originalText;
+            }
+        }
+        return; // Hentikan eksekusi agar tidak turun ke validasi registrasi baru
+    }
+
+    // ==========================================
+    // JIKA DALAM MODE REGISTRASI BARU (KODE LAMA)
+    // ==========================================
+    let hasError = false;
+    let firstErrorElement = null;
+
+    const checkRequired = (id, message) => {
+        const el = document.getElementById(id);
+        if (!el || !el.value.trim()) {
+            window.showFieldError(id, message);
+            hasError = true;
+            if (!firstErrorElement && el) firstErrorElement = el;
+        }
+    };
+
+    checkRequired('regNamaLengkap', 'Nama lengkap wajib diisi.');
+    checkRequired('regNamaPanggilan', 'Nama panggilan masa SMA wajib diisi.');
+    checkRequired('regTempatLahir', 'Tempat lahir wajib diisi.');
+    checkRequired('regTanggalLahir', 'Tanggal lahir wajib dipilih.');
+    checkRequired('regKelas', 'Pilih kelas masa SMA Anda.');
+    checkRequired('regWhatsapp', 'Nomor WhatsApp / HP wajib diisi.');
+    checkRequired('regDomisili', 'Alamat domisili wajib diisi.');
+    checkRequired('regStatusPekerjaan', 'Pilih status pekerjaan Anda.');
+
+    const statusPekerjaanVal = document.getElementById('regStatusPekerjaan')?.value;
+    if (statusPekerjaanVal === 'bekerja') {
+        checkRequired('regNamaPerusahaan', 'Nama perusahaan / instansi wajib diisi.');
+    } else if (statusPekerjaanVal === 'wirausaha') {
+        checkRequired('regNamaUsaha', 'Nama brand / usaha wajib diisi.');
+        checkRequired('regJenisUsaha', 'Jenis produk / jasa wajib diisi.');
+    } else if (statusPekerjaanVal === 'mencari_peluang') {
+        checkRequired('regKeahlian', 'Keahlian utama wajib diisi.');
+    } else if (statusPekerjaanVal === 'lainnya') {
+        checkRequired('regStatusLainnyaText', 'Sebutkan kegiatan Anda saat ini.');
+    }
+
+    const emailEl = document.getElementById('regEmail');
+    const emailVal = emailEl ? emailEl.value.trim() : '';
+    if (!emailVal || !/\S+@\S+\.\S+/.test(emailVal)) {
+        window.showFieldError('regEmail', 'Email aktif tidak valid.');
+        hasError = true;
+        if (!firstErrorElement && emailEl) firstErrorElement = emailEl;
+    }
+
+    const passEl = document.getElementById('regPassword');
+    const passVal = passEl ? passEl.value : '';
+    if (!passVal || passVal.length < 6) {
+        window.showFieldError('regPassword', 'Password minimal 6 karakter.');
+        hasError = true;
+        if (!firstErrorElement && passEl) firstErrorElement = passEl;
+    }
+
+    const confirmPassEl = document.getElementById('regConfirmPassword');
+    const confirmPassVal = confirmPassEl ? confirmPassEl.value : '';
+    if (passVal !== confirmPassVal) {
+        window.showFieldError('regConfirmPassword', 'Konfirmasi password tidak cocok.');
+        hasError = true;
+        if (!firstErrorElement && confirmPassEl) firstErrorElement = confirmPassEl;
+    }
+
+    if (!base64Photo) {
+        window.showFieldError('inputFoto', 'Silakan upload pas foto terlebih dahulu.');
+        hasError = true;
+        if (!firstErrorElement) firstErrorElement = document.getElementById('inputFoto');
+    }
+
+    if (hasError) {
+        if (firstErrorElement) {
+            firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (typeof firstErrorElement.focus === 'function') firstErrorElement.focus();
+        }
+        return;
+    }
+
+    const btnSubmit = document.getElementById('btnRegisterSubmit');
+    const originalText = btnSubmit ? btnSubmit.innerHTML : 'Gass Join';
+
+    try {
+        if (btnSubmit) {
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Menyimpan Data...</span>`;
+        }
+
+        const userCredential = await createUserWithEmailAndPassword(auth, emailVal, passVal);
+        const user = userCredential.user;
+
+        let totalAlumni = 1;
+        try {
+            const coll = collection(db, "alumni");
+            const snapshot = await getCountFromServer(coll);
+            totalAlumni = (snapshot.data().count || 0) + 1;
+        } catch (cntErr) {
+            totalAlumni = Math.floor(1000 + Math.random() * 9000);
+        }
+
+        const nomorAnggota = `ika11a98${String(totalAlumni).padStart(4, '0')}`;
+
+        const alumniData = {
+            uid: user.uid,
+            noAnggota: nomorAnggota,
+            noUrut: totalAlumni,
+            email: emailVal,
+            namaLengkap: document.getElementById('regNamaLengkap').value.trim(),
+            namaPanggilan: document.getElementById('regNamaPanggilan').value.trim().toUpperCase(),
+            tempatLahir: document.getElementById('regTempatLahir').value.trim(),
+            tanggalLahir: document.getElementById('regTanggalLahir').value,
+            kelas: document.getElementById('regKelas').value,
+            whatsapp: document.getElementById('regWhatsapp').value.trim(),
+            domisili: document.getElementById('regDomisili').value.trim(),
+            linkedin: document.getElementById('regLinkedin').value.trim(),
+            instagram: document.getElementById('regInstagram').value.trim(),
+            statusPekerjaan: statusPekerjaanVal,
+            namaPerusahaan: document.getElementById('regNamaPerusahaan')?.value || '',
+            jabatan: document.getElementById('regJabatan')?.value || '',
+            namaUsaha: document.getElementById('regNamaUsaha')?.value || '',
+            jenisUsaha: document.getElementById('regJenisUsaha')?.value || '',
+            keahlian: document.getElementById('regKeahlian')?.value || '',
+            statusLainnyaText: document.getElementById('regStatusLainnyaText')?.value || '',
+            foto: base64Photo,
+            createdAt: new Date().toISOString()
+        };
+
+        await setDoc(doc(db, "alumni", user.uid), alumniData);
+
+        window.showAlert('success', 'Registrasi berhasil! ID Card Digital Anda telah diterbitkan.');
+        renderIDCard(alumniData);
+
+    } catch (error) {
+        console.error("Detail Error Registrasi:", error);
+        if (error.code === 'auth/email-already-in-use') {
+            window.showFieldError('regEmail', 'Email ini sudah terdaftar.');
+        } else {
+            window.showAlert('error', `Gagal: ${error.message}`);
+        }
+    } finally {
+        if (btnSubmit) {
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = originalText;
+        }
+    }
+};
+
+    // --- FUNGSI HANDLE SIGN IN ---
+    window.handleSignIn = async function(e) {
+        e.preventDefault();
+        
+        const btnSubmit = document.getElementById('btnSignInSubmit');
+        const originalText = btnSubmit ? btnSubmit.innerHTML : 'Sign In';
+
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+            if (btnSubmit) {
+                btnSubmit.disabled = true;
+                btnSubmit.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Memproses...</span>`;
+            }
+
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            
+            // REDIRECT LANGSUNG KE HOMEPAGE (INDEX.HTML)
+            window.location.href = "index.html";
+
+        } catch (error) {
+            console.error("Gagal Sign In:", error);
+            window.showAlert('error', 'Email atau password yang Anda masukkan salah.');
+        } finally {
+            if (btnSubmit) {
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = originalText;
+            }
+        }
+    };
+
+    // --- FUNGSI LOAD ALUMNI DATA ---
+    window.loadAlumniData = async function(uid) {
+        try {
+            const docRef = doc(db, "alumni", uid);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                renderIDCard(docSnap.data());
+            } else {
+                window.showAlert('error', 'Data alumni tidak ditemukan di database.');
+            }
+        } catch (err) {
+            console.error("Gagal mengambil data alumni:", err);
+        }
+    };
+
+    // --- FUNGSI RENDER ID CARD DIGITAL ---
+function renderIDCard(data) {
+    document.getElementById('authContainer').classList.add('hidden');
+    const idCardContainer = document.getElementById('idCardContainer');
+    idCardContainer.classList.remove('hidden');
+
+    const navUserArea = document.getElementById('navUserArea');
+    const navUserName = document.getElementById('navUserName');
+    if (navUserArea) {
+        navUserArea.classList.remove('hidden');
+        navUserArea.classList.add('flex');
+    }
+    if (navUserName) {
+        const namaPanggilan = (data.namaPanggilan || data.namaLengkap || 'ALUMNI').toUpperCase();
+        navUserName.innerText = `Halo, ${namaPanggilan}`;
+    }
+
+    const photoSrc = data.foto || "https://placehold.co/638x1004/0e0e0e/666666?text=Foto";
+
+    // 1. Dapatkan Nilai Transformasi dari Slider Foto
+    const zFront = document.getElementById('zoomFront')?.value || 1;
+    const xFront = document.getElementById('posXFront')?.value || 0;
+    const yFront = document.getElementById('posYFront')?.value || 0;
+    const rFront = document.getElementById('rotateFront')?.value || 0;
+
+    const zBack = document.getElementById('zoomBack')?.value || 1;
+    const xBack = document.getElementById('posXBack')?.value || 0;
+    const yBack = document.getElementById('posYBack')?.value || 0;
+    const rBack = document.getElementById('rotateBack')?.value || 0;
+
+    // 2. Terapkan Foto & Transformasi Presisi (Disamakan 100% dengan Preview Editor)
+    const cardFotoFront = document.getElementById('cardFotoFront');
+    const cardFotoBack = document.getElementById('cardFotoBack');
+
+    if (cardFotoFront) {
+        cardFotoFront.src = photoSrc;
+        cardFotoFront.style.objectFit = 'contain';
+        cardFotoFront.style.transformOrigin = 'center center';
+        cardFotoFront.style.transform = `translate(${xFront}px, ${yFront}px) scale(${zFront}) rotate(${rFront}deg)`;
+    }
+
+    if (cardFotoBack) {
+        cardFotoBack.src = photoSrc;
+        cardFotoBack.style.objectFit = 'contain';
+        cardFotoBack.style.transformOrigin = 'center center';
+        cardFotoBack.style.transform = `translate(${xBack}px, ${yBack}px) scale(${zBack}) rotate(${rBack}deg)`;
+    }
+
+    // 3. Tampilkan Teks Nama & Nomor Anggota
+    const namaPanggilanUpper = (data.namaPanggilan || "").toUpperCase();
+    if (document.getElementById('cardNamaPanggilan')) {
+        document.getElementById('cardNamaPanggilan').innerText = namaPanggilanUpper || 'NAMA PANGGILAN';
+    }
+    if (document.getElementById('cardNamaLengkap')) {
+        document.getElementById('cardNamaLengkap').innerText = data.namaLengkap || "Nama Lengkap Alumni";
+    }
+
+    let seqNum = "0001";
+    if (data.noUrut) {
+        seqNum = String(data.noUrut).padStart(4, '0');
+    }
+    const nomorAnggotaLengkap = data.noAnggota || `ika11a98${seqNum}`;
+
+    if (document.getElementById('cardNoAnggotaBack')) {
+        document.getElementById('cardNoAnggotaBack').innerText = nomorAnggotaLengkap.toLowerCase();
+    }
+
+    // 4. Render QR Code (Menggunakan setTimeout agar DOM sudah siap & terhindar dari blok abu-abu)
+    setTimeout(() => {
+        const qrContainer = document.getElementById('cardQrcodeBack');
+        if (qrContainer) {
+            qrContainer.innerHTML = '';
+            const qrDataUrl = `https://ikasebelas98.github.io/?alumni=${encodeURIComponent(nomorAnggotaLengkap)}`;
+
+            const QRClass = window.QRCodeStyling || (typeof QRCodeStyling !== 'undefined' ? QRCodeStyling : null);
+
+            if (QRClass) {
+                try {
+                    const qrCode = new QRClass({
+                        width: 130,
+                        height: 130,
+                        type: "svg",
+                        data: qrDataUrl,
+                        dotsOptions: { color: "#666666", type: "dots" },
+                        backgroundOptions: { color: "transparent" },
+                        cornersSquareOptions: { color: "#434343", type: "extra-rounded" },
+                        cornersDotOptions: { color: "#434343", type: "dot" }
+                    });
+                    qrCode.append(qrContainer);
+                } catch (err) {
+                    qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent(qrDataUrl)}&color=434343" class="w-full h-full object-contain" alt="QR Code" />`;
+                }
+            } else {
+                qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent(qrDataUrl)}&color=434343" class="w-full h-full object-contain" alt="QR Code" />`;
+            }
+        }
+    }, 100);
+}
+
+    // --- FUNGSI PRINT ---
+    window.printIDCard = function() {
+        window.print();
+    };
+
+    // --- FUNGSI DOWNLOAD HASIL GAMBAR PNG (BERSEBELAHAN) ---
+    window.downloadIDCardPNG = async function() {
+    const captureArea = document.getElementById('captureArea');
+    if (!captureArea) return;
+
+    // Tunggu hingga semua web font kustom selesai di-load sempurna oleh browser
+    if (document.fonts) {
+        await document.fonts.ready;
+    }
+
+    html2canvas(captureArea, {
+        scale: 3,               // Meningkatkan skala ke 3x agar teks jauh lebih tajam
+        useCORS: true,          // Memastikan resource & font kustom ter-render penuh
+        allowTaint: true,
+        backgroundColor: null,   // Menjaga transparansi background
+        logging: false,
+        onclone: (clonedDoc) => {
+            // Memastikan elemen teks di dalam clone html2canvas tidak memiliki overflow hidden
+            const clonedPanggilan = clonedDoc.getElementById('cardNamaPanggilan');
+            const clonedLengkap = clonedDoc.getElementById('cardNamaLengkap');
+            
+            if (clonedPanggilan) {
+                clonedPanggilan.style.overflow = 'visible';
+                clonedPanggilan.style.lineHeight = '1.3';
+                clonedPanggilan.style.paddingBottom = '4px';
+            }
+            if (clonedLengkap) {
+                clonedLengkap.style.overflow = 'visible';
+                clonedLengkap.style.lineHeight = '1.3';
+                clonedLengkap.style.paddingBottom = '4px';
+            }
+        }
+    }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'IDCard_IKA1198.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    }).catch(err => {
+        console.error("Gagal mendownload PNG:", err);
+    });
+};
+
+    
+    // --- DETEKSI URL MODE & LOAD DATA UNTUK EDIT ---
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+
+    if (mode === 'register' || mode === 'edit') {
+        window.switchTab('register'); // Buka tab form
+    } else {
+        window.switchTab('signin');
+    }
+
+    window.updateCardPreview();
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            if (mode === 'edit') {
+                await loadAlumniDataForEdit(user.uid);
+            } else {
+                loadAlumniData(user.uid);
+            }
+        } else {
+            if (mode === 'edit') {
+                window.switchTab('signin');
+                window.showAlert('error', 'Silakan Sign In terlebih dahulu untuk mengedit profil.');
+            }
+        }
+    });
+});
+
+// Fungsi khusus untuk mengisi form & mengunci field saat Mode Edit
+async function loadAlumniDataForEdit(uid) {
+    try {
+        const docRef = doc(db, "alumni", uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+
+            // 1. Isi data ke input form yang ada
+            if (document.getElementById('regNamaLengkap')) {
+                const el = document.getElementById('regNamaLengkap');
+                el.value = data.namaLengkap || '';
+                el.readOnly = true; // Kunci Nama Lengkap agar tidak diubah sembarangan
+                el.classList.add('bg-slate-900/40', 'text-slate-400', 'cursor-not-allowed');
+            }
+            if (document.getElementById('regEmail')) {
+                const el = document.getElementById('regEmail');
+                el.value = data.email || '';
+                el.readOnly = true; // Kunci Email
+                el.classList.add('bg-slate-900/40', 'text-slate-400', 'cursor-not-allowed');
+            }
+            if (document.getElementById('regKelas')) {
+                const el = document.getElementById('regKelas');
+                el.value = data.kelas || '';
+                el.disabled = true; // Kunci Kelas
+                el.classList.add('bg-slate-900/40', 'text-slate-400', 'cursor-not-allowed');
+            }
+
+            // Field lain yang boleh diedit
+            if (document.getElementById('regNamaPanggilan')) document.getElementById('regNamaPanggilan').value = data.namaPanggilan || '';
+            if (document.getElementById('regTempatLahir')) document.getElementById('regTempatLahir').value = data.tempatLahir || '';
+            if (document.getElementById('regTanggalLahir')) document.getElementById('regTanggalLahir').value = data.tanggalLahir || '';
+            if (document.getElementById('regWhatsapp')) document.getElementById('regWhatsapp').value = data.whatsapp || '';
+            if (document.getElementById('regDomisili')) document.getElementById('regDomisili').value = data.domisili || '';
+            if (document.getElementById('regLinkedin')) document.getElementById('regLinkedin').value = data.linkedin || '';
+            if (document.getElementById('regInstagram')) document.getElementById('regInstagram').value = data.instagram || '';
+            if (document.getElementById('regStatusPekerjaan')) {
+                document.getElementById('regStatusPekerjaan').value = data.statusPekerjaan || '';
+                window.toggleJobDetails(data.statusPekerjaan);
+            }
+            if (document.getElementById('regNamaPerusahaan')) document.getElementById('regNamaPerusahaan').value = data.namaPerusahaan || '';
+            if (document.getElementById('regJabatan')) document.getElementById('regJabatan').value = data.jabatan || '';
+            if (document.getElementById('regNamaUsaha')) document.getElementById('regNamaUsaha').value = data.namaUsaha || '';
+            if (document.getElementById('regJenisUsaha')) document.getElementById('regJenisUsaha').value = data.jenisUsaha || '';
+            if (document.getElementById('regKeahlian')) document.getElementById('regKeahlian').value = data.keahlian || '';
+            if (document.getElementById('regStatusLainnyaText')) document.getElementById('regStatusLainnyaText').value = data.statusLainnyaText || '';
+
+            // Jika ada foto tersimpan, load ke preview
+            if (data.foto) {
+                base64Photo = data.foto;
+                ['photoPreview', 'prevFotoFront', 'prevFotoBack', 'cardFotoFront', 'cardFotoBack'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.src = data.foto;
+                        el.classList.remove('hidden');
+                        el.style.display = 'block';
+                    }
+                });
+                const placeholder = document.getElementById('photoPlaceholder');
+                if (placeholder) placeholder.classList.add('hidden');
+            }
+
+            // Sembunyikan bagian password saat mode edit profil
+            const passwordSection = document.getElementById('regPassword')?.closest('.space-y-4');
+            if (passwordSection) {
+                // Opsional: Sembunyikan input password jika hanya ingin update profil/foto
+            }
+
+            // Ubah Judul Tombol Submit menjadi Update
+            const btnSubmit = document.getElementById('btnRegisterSubmit');
+            if (btnSubmit) {
+                btnSubmit.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> <span>Simpan Perubahan Profile & ID Card</span>`;
+            }
+
+            window.updateCardPreview();
+        }
+    } catch (err) {
+        console.error("Gagal memuat data alumni untuk diedit:", err);
+    }
+}
+</script>
+</body>
+</html>

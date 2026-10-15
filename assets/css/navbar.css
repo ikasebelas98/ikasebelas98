@@ -236,14 +236,16 @@ body.mega-open .mega-links li:nth-child(10) { animation-delay: 0.50s; }
     }
 }
 
-/* THUMBNAIL DESKTOP */
+/* THUMBNAIL DESKTOP & FOTO PROFIL USER */
 .mega-icon {
     width: 150px;
     height: 150px;
     object-fit: cover;
+    object-position: center top; /* Fokus ke area wajah alumni */
     flex-shrink: 0;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-top: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
     opacity: 0;
     transform: translateY(-20px);
@@ -416,4 +418,15 @@ body.mega-open .mega-icon {
     .mobile-submenu li a:active {
         color: #ffffff;
     }
+}
+
+/* Custom Hover untuk Tombol Sign Out di Mega Menu */
+.mega-links a#btnLogoutMega {
+    color: #f87171 !important;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.mega-links a#btnLogoutMega:hover {
+    color: #dc2626 !important; /* Merah terang menyala saat hover */
+    font-weight: 700 !important;
 }

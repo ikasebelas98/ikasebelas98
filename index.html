@@ -54,8 +54,11 @@
                 <a href="#">Donasi</a>
             </div>
 
+<!-- ==========================================
+     MENU LOGIN NAVBAR (REVISI)
+========================================== -->
             <div class="nav-item" id="login" data-title="Akses Mudah ke Layanan Alumni">
-                <a href="#">Login</a>
+                <a href="javascript:void(0);">Sign In</a>
             </div>
 
         </nav>
@@ -68,6 +71,99 @@
         </button>
 
     </div>
+
+    <!-- FIREBASE NAVBAR AUTH ENGINE -->
+<script type="module"> 
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"; 
+    import {  
+        getAuth,  
+        onAuthStateChanged, 
+        signOut  
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"; 
+    import {  
+        getFirestore,  
+        doc,  
+        getDoc  
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; 
+
+    const firebaseConfig = { 
+      apiKey: "AIzaSyCQPbOs9mN3TIW9SkBsPM6y0MjJmlhBfgc", 
+      authDomain: "ikasebelas98-96595.firebaseapp.com", 
+      projectId: "ikasebelas98-96595", 
+      storageBucket: "ikasebelas98-96595.firebasestorage.app", 
+      messagingSenderId: "142033224407", 
+      appId: "1:142033224407:web:21a6cd2305c75c1deee692", 
+      measurementId: "G-W486XXJVBX" 
+    }; 
+
+    const app = initializeApp(firebaseConfig); 
+    const auth = getAuth(app); 
+    const db = getFirestore(app); 
+
+    window.firebaseSignOut = signOut; 
+    window.firebaseAuth = auth; 
+
+    onAuthStateChanged(auth, async (user) => { 
+    const loginBtn = document.querySelector('#login') || document.querySelector('a[href*="javascript:void"]'); 
+    const targetElement = loginBtn ? (loginBtn.tagName === 'A' ? loginBtn : (loginBtn.querySelector('a') || loginBtn)) : null; 
+
+    if (user) { 
+        try { 
+            const docRef = doc(db, "alumni", user.uid); 
+            const docSnap = await getDoc(docRef); 
+
+            let namaLengkap = user.displayName || "ALUMNI SMAN 11"; 
+            let namaPanggilan = user.email ? user.email.split('@')[0] : "ALUMNI"; 
+            let email = user.email || ""; 
+            let fotoProfile = ""; 
+            let userRole = "member"; // Default role untuk alumni biasa
+
+            if (docSnap.exists()) { 
+                const data = docSnap.data(); 
+                namaLengkap = data.namaLengkap || namaLengkap; 
+                namaPanggilan = data.namaPanggilan || namaPanggilan; 
+                fotoProfile = data.foto || ""; 
+                userRole = data.role || "member"; // Mengambil role asli dari Firestore (super_admin / admin / member)
+            } 
+
+            const formattedPanggilan = namaPanggilan.trim().toUpperCase(); 
+
+            if (targetElement) { 
+                targetElement.innerHTML = `<span style="color: #eab308; font-weight: 700;">${formattedPanggilan}</span>`; 
+                targetElement.href = "javascript:void(0);"; 
+            } 
+
+            // 1. Update data mega menu beserta role-nya
+            if (typeof window.updateMegaMenuState === "function") { 
+                window.updateMegaMenuState(user, { 
+                    namaLengkap: namaLengkap, 
+                    namaPanggilan: formattedPanggilan, 
+                    email: email, 
+                    foto: fotoProfile,
+                    role: userRole // Dikirim agar mega menu mengenali hak akses admin/super_admin
+                }); 
+            } 
+
+            // 2. Paksa render ulang HTML Mega Menu secara langsung
+            if (typeof window.loadMegaMenu === "function") { 
+                window.loadMegaMenu("login"); 
+            } 
+
+        } catch (error) { 
+            console.error("Gagal memuat profil navbar:", error); 
+        } 
+    } else { 
+        if (targetElement) { 
+            targetElement.innerHTML = "Sign In"; 
+            targetElement.href = "javascript:void(0);"; 
+        } 
+
+        if (typeof window.updateMegaMenuState === "function") { 
+            window.updateMegaMenuState(null); 
+        } 
+    } 
+}); 
+</script>
 
     <!-- Mega Menu -->
     <div class="mega-menu">
@@ -536,9 +632,87 @@
 
 </section>
 
+<!-- ==========================================
+     MODAL MAINTENANCE (NUJU NYEPI HEULA)
+========================================== -->
+<div id="maintenanceOverlay" style="
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: #c0dbff; /* Sesuaikan dengan warna biru lembut Anda saat ini */
+    z-index: 999999;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #595f6b;
+    font-family: 'Inter', sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
+">
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 2px; letter-spacing: -0.5px; text-transform: uppercase;">
+            PUNTEN NUJU NYEPI HEULA
+        </h1>
+        <p style="font-size: 16px; opacity: 0.85; margin: 0 0 24px 0;">
+            sistem IKA SMAN 11 Bandung Angkatan '98 sedang dalam proses maintenance.
+        </p>
+
+        <!-- LOGO IKA ELEGAN (UKURAN KECIL DI BEWAH TULISAN) -->
+        <img src="assets/images/logoikagrey.png" 
+             alt="Logo IKA SMAN 11 Bandung" 
+             style="width: 60px; height: auto; opacity: 0.9;">
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQPbOs9mN3TIW9SkBsPM6y0MjJmlhBfgc",
+      authDomain: "ikasebelas98-96595.firebaseapp.com",
+      projectId: "ikasebelas98-96595",
+      storageBucket: "ikasebelas98-96595.firebasestorage.app",
+      messagingSenderId: "142033224407",
+      appId: "1:142033224407:web:21a6cd2305c75c1deee692",
+      measurementId: "G-W486XXJVBX"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const overlay = document.getElementById("maintenanceOverlay");
+
+    // Real-time listener untuk status maintenance
+    onSnapshot(doc(db, "settings", "maintenance"), (snapshot) => {
+        if (snapshot.exists()) {
+            const isMaintenance = snapshot.data().isMaintenance || false;
+            
+            if (isMaintenance) {
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        const userDoc = await getDoc(doc(db, "alumni", user.uid));
+                        if (userDoc.exists() && userDoc.data().role === "super_admin") {
+                            // Super Admin TETAP BISA TEMBUS/AKSES WEBSITE
+                            overlay.style.display = "none";
+                            return;
+                        }
+                    }
+                    // Jika pengunjung umum, member biasa, atau admin biasa -> TAMPILKAN LAYAR MERAH
+                    overlay.style.display = "flex";
+                });
+            } else {
+                overlay.style.display = "none";
+            }
+        }
+    });
+</script>
+
 <script src="assets/js/hero.js"></script>
 
-<script src="assets/js/navbar.js"></script>
+<script src="assets/js/navbar.js?v=2.0"></script>
 
 <script src="assets/js/sponsor-engine.js"></script>
 

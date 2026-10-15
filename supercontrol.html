@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Control - IKA 11.98</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .control-card {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 36px 32px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .card-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #f8fafc;
+        }
+        p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+        .status-active { background: #e9a538; color: #ffffff; }
+        .status-maintenance { background: #dc2626; color: #ffffff; }
+        
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 12px;
+        }
+        .btn-danger {
+            background: #dc2626;
+            color: #ffffff;
+        }
+        .btn-danger:hover { background: #b91c1c; }
+        
+        .btn-success {
+            background: #e9a538;
+            color: #ffffff;
+        }
+        .btn-success:hover { background: #e9a538; }
+        
+        .btn-back {
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid #334155;
+        }
+        .btn-back:hover { background: #334155; color: #ffffff; }
+    </style>
+</head>
+<body>
+
+<div class="control-card">
+    <!-- LOGO IKA GOLD + BATIK -->
+    <img src="assets/images/logoikagold+batik.svg" alt="Logo IKA SMAN 11 Bandung" class="card-logo">
+    
+    <h1>EMERGENCY CONTROL</h1>
+    <p>Emergency Panel Darurat Super Admin untuk mengontrol akses seluruh website IKA SMAN 11 Bandung Angkatan 98.</p>
+    
+    <div id="statusBadge" class="status-badge status-active">status: MEMUAT STATUS...</div>
+
+    <button id="btnToggle" class="btn-action btn-danger" onclick="toggleMaintenance()">Memproses...</button>
+    <a href="index.html" style="text-decoration:none;"><button class="btn-action btn-back">← Kembali ke Beranda</button></a>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQPbOs9mN3TIW9SkBsPM6y0MjJmlhBfgc",
+      authDomain: "ikasebelas98-96595.firebaseapp.com",
+      projectId: "ikasebelas98-96595",
+      storageBucket: "ikasebelas98-96595.firebasestorage.app",
+      messagingSenderId: "142033224407",
+      appId: "1:142033224407:web:21a6cd2305c75c1deee692",
+      measurementId: "G-W486XXJVBX"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentStatus = false;
+
+    // Proteksi Halaman: Pastikan Hanya Super Admin yang Bisa Akses
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            window.location.href = "index.html";
+            return;
+        }
+        const userDoc = await getDoc(doc(db, "alumni", user.uid));
+        if (!userDoc.exists() || userDoc.data().role !== "super_admin") {
+            alert("Akses ditolak. Halaman ini hanya untuk Super Admin.");
+            window.location.href = "index.html";
+            return;
+        }
+        checkCurrentStatus();
+    });
+
+    async function checkCurrentStatus() {
+        try {
+            const maintenanceDoc = await getDoc(doc(db, "settings", "maintenance"));
+            if (maintenanceDoc.exists()) {
+                currentStatus = maintenanceDoc.data().isMaintenance || false;
+            }
+            renderUI();
+        } catch (err) {
+            console.error("Gagal membaca status:", err);
+        }
+    }
+
+    function renderUI() {
+        const badge = document.getElementById("statusBadge");
+        const btn = document.getElementById("btnToggle");
+
+        if (currentStatus) {
+            badge.className = "status-badge status-maintenance";
+            badge.innerText = "status: EMERGENCY ACTIVE";
+            btn.className = "btn-action btn-success";
+            btn.innerText = "Matikan Mode Darurat (Kembali Normal)";
+        } else {
+            badge.className = "status-badge status-active";
+            badge.innerText = "status: WEBSITE AKTIF NORMAL";
+            btn.className = "btn-action btn-danger";
+            btn.innerText = "Aktifkan Shutdown / Mode Nyepi";
+        }
+    }
+
+    window.toggleMaintenance = async function() {
+        const confirmMsg = currentStatus 
+            ? "Apakah Anda yakin ingin mematikan mode darurat dan mengaktifkan kembali website?" 
+            : "⚠️ PERINGATAN: Seluruh pengunjung & admin akan dikunci dengan layar 'nuju nyepi heula'. Lanjutkan?";
+
+        if (!confirm(confirmMsg)) return;
+
+        const btn = document.getElementById("btnToggle");
+        btn.disabled = true;
+        btn.innerText = "Memproses...";
+
+        try {
+            await updateDoc(doc(db, "settings", "maintenance"), {
+                isMaintenance: !currentStatus
+            });
+            currentStatus = !currentStatus;
+            renderUI();
+            
+            // Notifikasi sukses modern tanpa popup browser
+            showNotification("Status website berhasil diperbarui!");
+        } catch (err) {
+            console.error("Gagal mengubah status:", err);
+            showNotification("Gagal memperbarui status darurat. Cek aturan Firestore/koneksi.", true);
+        } finally {
+            btn.disabled = false;
+        }
+    };
+
+    function showNotification(msg, isError = false) {
+        let notif = document.getElementById("customNotif");
+        if (!notif) {
+            notif = document.createElement("div");
+            notif.id = "customNotif";
+            notif.style.cssText = "margin-top: 16px; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; transition: all 0.3s ease;";
+            document.querySelector(".control-card").appendChild(notif);
+        }
+        
+        notif.style.backgroundColor = isError ? "rgba(220, 38, 38, 0.2)" : "rgba(22, 163, 74, 0.2)";
+        notif.style.color = isError ? "#fca5a5" : "#86efac";
+        notif.style.border = isError ? "1px solid #dc2626" : "1px solid #16a34a";
+        notif.innerText = msg;
+        
+        setTimeout(() => {
+            if (notif) notif.remove();
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>

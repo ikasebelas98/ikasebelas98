@@ -79,10 +79,10 @@ const megaData = {
         title: "Gabung Kembali Menyambung Silaturahmi",
         icon: "assets/images/tumb 06 login.webp",
         links: [
-            { text: "Daftar Baru", href: "#" },
-            { text: "Alumni Login", href: "#" },
-            { text: "Admin Login", href: "#" },
-            { text: "Lupa Password", href: "#" }
+            { text: "Registrasi Alumni Baru", href: "auth.html?mode=register" },
+            { text: "Alumni Sign In (Masuk)", href: "auth.html?mode=login" },
+            { text: "Admin Login", href: "admin-login.html" },
+            { text: "Lupa Password", href: "reset-password.html" }
         ]
     }
 };
@@ -94,8 +94,13 @@ function loadMegaMenu(menuId) {
     const data = megaData[menuId];
     if (!data) return false;
 
-    if (megaTitle) megaTitle.textContent = data.title;
-    if (megaIcon) megaIcon.src = data.icon;
+    if (megaTitle) megaTitle.innerHTML = data.title;
+    
+    // PERBAIKAN: Paksa pembaruan gambar thumbnail / foto profil
+    if (megaIcon) {
+        megaIcon.removeAttribute("src"); // Reset src dulu agar Base64 baru ter-load penuh
+        megaIcon.src = data.icon || "assets/images/tumb 06 login.webp";
+    }
 
     if (megaLinks) {
         megaLinks.innerHTML = "";
@@ -103,17 +108,20 @@ function loadMegaMenu(menuId) {
             const li = document.createElement("li");
             const a = document.createElement("a");
             a.href = link.href;
+            if (link.id) a.id = link.id;
+            if (link.style) a.setAttribute("style", link.style);
             if (link.external) {
                 a.target = "_blank";
                 a.rel = "noopener noreferrer";
             }
-            a.textContent = link.text;
+            a.innerHTML = link.text;
             li.appendChild(a);
             megaLinks.appendChild(li);
         });
     }
     return true;
 }
+
 
 if (navItems.length > 0 && megaMenu) {
     navItems.forEach(menu => {
@@ -151,7 +159,10 @@ function setupMobileSubmenus() {
         const menuId = item.id;
         const data = megaData[menuId];
 
-        if (data && !item.querySelector(".mobile-submenu")) {
+        if (data) {
+            const oldSub = item.querySelector(".mobile-submenu");
+            if (oldSub) oldSub.remove();
+
             const subUl = document.createElement("ul");
             subUl.className = "mobile-submenu";
 
@@ -159,7 +170,10 @@ function setupMobileSubmenus() {
                 const li = document.createElement("li");
                 const a = document.createElement("a");
                 a.href = link.href;
-                a.textContent = link.text;
+                a.innerHTML = link.text;
+                if (link.id) {
+                    a.id = link.id + "-mobile";
+                }
                 if (link.external) {
                     a.target = "_blank";
                     a.rel = "noopener noreferrer";
@@ -171,26 +185,23 @@ function setupMobileSubmenus() {
             item.appendChild(subUl);
 
             const mainLink = item.querySelector("a");
-            mainLink.addEventListener("click", (e) => {
+            mainLink.onclick = (e) => {
                 if (window.innerWidth <= 991) {
                     e.preventDefault();
-
                     const isOpen = item.classList.contains("active");
 
-                    // Tutup submenu lain yang sedang terbuka
                     navItems.forEach(otherItem => {
                         otherItem.classList.remove("active");
                         const otherSub = otherItem.querySelector(".mobile-submenu");
                         if (otherSub) otherSub.style.maxHeight = null;
                     });
 
-                    // Buka submenu yang dipilih
                     if (!isOpen) {
                         item.classList.add("active");
                         subUl.style.maxHeight = subUl.scrollHeight + "px";
                     }
                 }
-            });
+            };
         }
     });
 }
@@ -206,3 +217,93 @@ if (navbarToggle && navbarMenu) {
         navbarMenu.classList.toggle("active");
     });
 }
+
+/* ==========================================
+   UPDATE MEGA MENU STATE (FIREBASE INTEGRATION)
+========================================== */
+window.updateMegaMenuState = function(user, userInfo) {
+    if (user && userInfo) {
+        const namaLengkap = userInfo.namaLengkap || user.displayName || "ALUMNI SMAN 11";
+        const namaPanggilan = userInfo.namaPanggilan || "ALUMNI";
+        const email = userInfo.email || user.email || "";
+        const userRole = userInfo.role || "member"; // <-- Menangkap role dari data user
+        
+        // Cek foto user dari Firebase, jika tidak ada pakai gambar default
+        const photoUrl = userInfo.foto && userInfo.foto.trim() !== "" 
+            ? userInfo.foto 
+            : "assets/images/tumb 06 login.webp";
+
+        const titleHtml = `<span style="color: #1f2433; font-weight: 700; display: block; font-size: 20px; line-height: 1.1; margin-bottom: 0px;">${namaLengkap}</span>`;
+        const profileSubtext = `${namaPanggilan} (${email}) - [${userRole.toUpperCase()}]`;
+
+        // Daftar link dasar untuk semua member yang login
+        let userLinks = [
+            { 
+                text: profileSubtext, 
+                href: "javascript:void(0);", 
+                style: "color: #1f2433; font-size: 12px; font-weight: 600; cursor: default; margin-top: -8px; margin-bottom: 24px; display: block; opacity: 0.85;" 
+            },
+            { text: "Update Profile & ID Card", href: "auth.html?mode=edit" }
+        ];
+
+        // TAMBAHAN MENU KHUSUS JIKA ADMIN ATAU SUPER ADMIN
+        if (userRole === "admin" || userRole === "super_admin") {
+            userLinks.push(
+                { text: "Control Panel", href: "admin-panel.html", style: "color: #0495ce; font-weight: 700;" }
+            );
+        }
+
+        // TAMBAHAN MENU KHUSUS JIKA SUPER ADMIN (Tombol Darurat / Kontrol Sistem)
+        if (userRole === "super_admin") {
+            userLinks.push(
+                { text: "Emergency Control (Shutdown)", href: "supercontrol.html", style: "color: #0495ce; font-weight: 700;" }
+            );
+        }
+
+        // Tombol Sign Out SELALU dimasukkan di paling bawah untuk semua role
+        userLinks.push(
+            { text: "Sign Out", href: "javascript:void(0);", id: "btnLogoutMega" }
+        );
+
+        megaData["login"] = {
+            title: titleHtml,
+            icon: photoUrl,
+            links: userLinks
+        };
+    } else {
+        megaData["login"] = {
+            title: "Gabung Kembali Menyambung Silaturahmi",
+            icon: "assets/images/tumb 06 login.webp",
+            links: [
+                { text: "Registrasi Alumni Baru", href: "auth.html?mode=register" },
+                { text: "Sign In (Masuk)", href: "auth.html?mode=login" },
+                { text: "Lupa Password", href: "reset-password.html" }
+            ]
+        };
+    }
+
+    if (typeof loadMegaMenu === "function") {
+        loadMegaMenu("login");
+    }
+    if (typeof setupMobileSubmenus === "function") {
+        setupMobileSubmenus();
+    }
+};
+
+/* ==========================================
+   EVENT LISTENER LOG OUT (GLOBAL)
+========================================== */
+document.addEventListener("click", function (e) {
+    if (e.target && (e.target.id === "btnLogoutMega" || e.target.id === "btnLogoutMega-mobile")) {
+        e.preventDefault();
+        if (window.firebaseSignOut && window.firebaseAuth) {
+            window.firebaseSignOut(window.firebaseAuth).then(() => {
+                window.location.reload();
+            }).catch((err) => {
+                console.error("Gagal Logout:", err);
+            });
+        } else {
+            console.warn("Firebase Auth belum diinisialisasi di global scope.");
+        }
+    }
+});

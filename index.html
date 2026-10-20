@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="assets/css/sponsor-slider.css">
     <link rel="stylesheet" href="assets/css/counter.css">
 
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
 <body>
@@ -603,15 +606,29 @@
 
 </footer>
 
+<!-- FOOTER VISITOR COUNTER WITH BIRTHDAY REMINDER -->
 <div class="counter-wrapper">
     <div class="visitor-counter">
         <!-- Live Clock & Date -->
         <div class="counter-time-group">
             <span id="liveDayDate" class="counter-date">MEMUAT TANGGAL...</span>
-            <span class="counter-divider">|</span>
-            <span id="liveClock" class="counter-clock">00:00:00 WIB</span>
         </div>
         
+        <span class="counter-divider-vertical"></span>
+
+        <!-- Birthday Reminder Widget -->
+        <div class="counter-bday-group text-amber-400 font-normal text-[11px] flex items-center gap-1">
+            <i class="fa-solid fa-cake-candles text-amber-400"></i>
+            <span id="bdayWidgetText">Mengecek Ultah...</span>
+        </div>
+
+        <span class="counter-divider-vertical"></span>
+
+        <!-- Live Clock -->
+        <div class="counter-time-group">
+            <span id="liveClock" class="counter-clock">00:00:00 WIB</span>
+        </div>
+
         <span class="counter-divider-vertical"></span>
 
         <!-- Visitor Stats -->
@@ -680,7 +697,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, onSnapshot, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCQPbOs9mN3TIW9SkBsPM6y0MjJmlhBfgc",
@@ -698,7 +715,148 @@
 
     const overlay = document.getElementById("maintenanceOverlay");
 
-    // Real-time listener untuk status maintenance
+    // ==========================================
+    // 1. PENCARIAN & FILTER ULANG TAHUN TERDEKAT
+    // ==========================================
+    async function loadAlumniForBirthday() {
+        try {
+            const querySnap = await getDocs(collection(db, "alumni"));
+            const alumniList = [];
+            querySnap.forEach((docSnap) => {
+                alumniList.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            initBirthdayEngine(alumniList);
+        } catch (err) {
+            console.error("Gagal memuat data ultah:", err);
+            const bdayWidgetText = document.getElementById("bdayWidgetText");
+            if (bdayWidgetText) bdayWidgetText.innerText = "Gagal memuat ultah";
+        }
+    }
+
+    // Engine pencari tanggal terdekat & hari H
+    function initBirthdayEngine(allAlumni) {
+        if (!allAlumni || allAlumni.length === 0) {
+            const bdayWidgetText = document.getElementById("bdayWidgetText");
+            if (bdayWidgetText) bdayWidgetText.innerText = "Belum ada data alumni";
+            hideBdayPopup();
+            return;
+        }
+
+        const today = new Date();
+        const currentMonth = today.getMonth() + 1; // 1 - 12
+        const currentDate = today.getDate();
+
+        let todayBirthdays = [];
+        let upcomingBirthdays = [];
+
+        allAlumni.forEach(alumni => {
+            if (!alumni.tanggalLahir) return;
+
+            const parts = alumni.tanggalLahir.split("-");
+            if (parts.length !== 3) return;
+
+            const bMonth = parseInt(parts[1], 10);
+            const bDate = parseInt(parts[2], 10);
+
+            let bdayThisYear = new Date(today.getFullYear(), bMonth - 1, bDate);
+            if (bdayThisYear < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+                bdayThisYear.setFullYear(today.getFullYear() + 1);
+            }
+
+            const diffTime = bdayThisYear - new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            // Cek jika bulan dan tanggal persis hari ini
+            if (bMonth === currentMonth && bDate === currentDate) {
+                todayBirthdays.push(alumni);
+            } else {
+                upcomingBirthdays.push({
+                    alumni: alumni,
+                    diffDays: diffDays,
+                    formattedDate: `${String(bDate).padStart(2, '0')}.${String(bMonth).padStart(2, '0')}.${bdayThisYear.getFullYear()}`
+                });
+            }
+        });
+
+        upcomingBirthdays.sort((a, b) => a.diffDays - b.diffDays);
+
+        const bdayWidgetText = document.getElementById("bdayWidgetText");
+
+        // 1. JIKA ADA YANG ULANG TAHUN HARI INI
+        if (todayBirthdays.length > 0) {
+            const targetBday = todayBirthdays[0];
+            const namaPanggilan = (targetBday.namaPanggilan || targetBday.namaLengkap || "BARAYA").toUpperCase();
+            
+            if (bdayWidgetText) {
+                bdayWidgetText.innerHTML = `<span class="animate-pulse">🎉 Ultah Hari Ini: <strong>${namaPanggilan}</strong>!</span>`;
+            }
+
+            // TAMPILKAN POP-UP HANYA DI HARI H & BELUM DITUTUP SESI INI
+            if (!sessionStorage.getItem("bdayPopupShown")) {
+                showBdayPopup(targetBday);
+            } else {
+                hideBdayPopup();
+            }
+        } 
+        // 2. JIKA HANYA ULTAH TERDEKAT (BUKAN HARI H) -> PASTIKAN POP-UP DISEMBUNYIKAN
+        else if (upcomingBirthdays.length > 0) {
+            const nextBday = upcomingBirthdays[0];
+            const namaPanggilan = (nextBday.alumni.namaPanggilan || nextBday.alumni.namaLengkap || "Baraya");
+            
+            if (bdayWidgetText) {
+                bdayWidgetText.innerHTML = `Ultah Terdekat: <strong>${namaPanggilan}</strong> (${nextBday.formattedDate})`;
+            }
+
+            hideBdayPopup();
+        } 
+        else {
+            if (bdayWidgetText) bdayWidgetText.innerText = "Tidak ada ultah terdekat";
+            hideBdayPopup();
+        }
+    }
+
+    // Tampilkan Pop-up Ulang Tahun Hari H
+    function showBdayPopup(alumni) {
+        const popup = document.getElementById("bdayPopupModal");
+        if (!popup) return;
+
+        const namaPanggilan = (alumni.namaPanggilan || alumni.namaLengkap || "Baraya").toUpperCase();
+        const noWaRaw = (alumni.whatsapp || "").replace(/[^0-9]/g, "");
+        
+        let formattedWa = noWaRaw;
+        if (formattedWa.startsWith("0")) {
+            formattedWa = "62" + formattedWa.substring(1);
+        }
+
+        document.getElementById("bdayPopupFoto").src = alumni.foto || "assets/images/tumb 06 login.webp";
+        document.getElementById("bdayPopupNama").innerText = alumni.namaLengkap || namaPanggilan;
+        document.getElementById("bdayPopupKelas").innerText = alumni.kelas || "11.98";
+
+        const waText = encodeURIComponent(`Wilujeng Tepang Taun ${namaPanggilan}! 🎂 Panjang umur, sehat, sukses, tur salawasna aya dina lindungan Allah SWT. Aamiin. Salam hangat ti Baraya IKA 11.98! 🙌`);
+        document.getElementById("bdayBtnWa").href = `https://wa.me/${formattedWa}?text=${waText}`;
+
+        // Ubah dari hidden menjadi flex agar muncul dengan benar
+        popup.classList.remove("hidden");
+        popup.classList.add("flex");
+    }
+
+    // Sembunyikan Pop-up secara mutlak
+    function hideBdayPopup() {
+        const popup = document.getElementById("bdayPopupModal");
+        if (popup) {
+            popup.classList.remove("flex");
+            popup.classList.add("hidden");
+        }
+    }
+
+    window.closeBdayPopup = function() {
+        hideBdayPopup();
+        sessionStorage.setItem("bdayPopupShown", "true");
+    };
+
+    // ==========================================
+    // 2. REALTIME LISTENER MAINTENANCE
+    // ==========================================
     onSnapshot(doc(db, "settings", "maintenance"), (snapshot) => {
         if (snapshot.exists()) {
             const isMaintenance = snapshot.data().isMaintenance || false;
@@ -708,12 +866,10 @@
                     if (user) {
                         const userDoc = await getDoc(doc(db, "alumni", user.uid));
                         if (userDoc.exists() && userDoc.data().role === "super_admin") {
-                            // Super Admin TETAP BISA TEMBUS/AKSES WEBSITE
                             overlay.style.display = "none";
                             return;
                         }
                     }
-                    // Jika pengunjung umum, member biasa, atau admin biasa -> TAMPILKAN LAYAR MERAH
                     overlay.style.display = "flex";
                 });
             } else {
@@ -721,7 +877,60 @@
             }
         }
     });
+
+    // Panggil fungsi utama saat halaman dibuka
+    loadAlumniForBirthday();
 </script>
+
+<script src="assets/js/hero.js"></script>
+<script src="assets/js/navbar.js?v=2.0"></script>
+<script src="assets/js/sponsor-engine.js"></script>
+<script type="module" src="assets/js/counter.js"></script>
+
+<!-- MODAL POP-UP UCAPAN ULANG TAHUN (DISEMBUNYIKAN SECARA DEFAULT) -->
+<div id="bdayPopupModal" class="fixed inset-0 z-[999999] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-all">
+    <div class="relative w-full max-w-sm bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-500/40 rounded-3xl p-6 text-center shadow-2xl text-slate-100 space-y-4 transform animate-bounce-short">
+        
+        <!-- Tombol Close -->
+        <button onclick="closeBdayPopup()" class="absolute top-3 right-3 w-8 h-8 bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-slate-400 rounded-full flex items-center justify-center transition">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Icon / Ilustrasi Kado / Kue -->
+        <div class="w-20 h-20 mx-auto rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-3xl shadow-lg shadow-amber-500/10">
+            <i class="fa-solid fa-cake-candles animate-pulse"></i>
+        </div>
+
+        <!-- Judul & Teks Ucapan -->
+        <div class="space-y-1">
+            <h3 id="bdayPopupTitle" class="text-lg font-extrabold text-amber-400 font-heading uppercase tracking-wide">
+                Wilujeng Tepang Taun! 🎉
+            </h3>
+            <p id="bdayPopupMessage" class="text-xs text-slate-300 leading-relaxed">
+                Hari ini baraya kita sedang merayakan ulang tahun!
+            </p>
+        </div>
+
+        <!-- Detail Foto & Nama Alumni -->
+        <div class="p-3 bg-slate-800/80 rounded-2xl border border-slate-700/80 flex items-center gap-3 text-left">
+            <img id="bdayPopupFoto" src="assets/images/tumb 06 login.webp" class="w-12 h-12 rounded-xl object-cover border border-amber-500/40 shrink-0" alt="Foto Ultah">
+            <div class="overflow-hidden">
+                <h4 id="bdayPopupNama" class="font-bold text-white text-sm truncate">NAMA ALUMNI</h4>
+                <p id="bdayPopupKelas" class="text-[11px] text-amber-400 font-semibold">3 - 1 (IPA 1)</p>
+            </div>
+        </div>
+
+        <!-- Tombol Action WA Direct Click -->
+        <a id="bdayBtnWa" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-bold text-xs rounded-xl shadow-lg flex items-center justify-center gap-2 transition transform hover:scale-105">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Kirim Ucapan via WhatsApp</span>
+        </a>
+    </div>
+</div>
+
+</body>
+
+</html>
 
 <script src="assets/js/hero.js"></script>
 
@@ -730,6 +939,7 @@
 <script src="assets/js/sponsor-engine.js"></script>
 
 <script type="module" src="assets/js/counter.js"></script>
+
 
 </body>
 

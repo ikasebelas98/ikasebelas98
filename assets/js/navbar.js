@@ -30,7 +30,7 @@ const megaData = {
         title: "Rumah Bersama Terhubung Selamanya",
         icon: "assets/images/tumb 02 alumni center.webp",
         links: [
-            { text: "Database Alumni", href: "#" },
+            { text: "Database Alumni", href: "database-alumni.html" },
             { text: "Jejaring Profesi", href: "#" },
             { text: "Karier dan Lowongan Pekerjaan", href: "#" },
             { text: "Mentoring Alumni", href: "#" },

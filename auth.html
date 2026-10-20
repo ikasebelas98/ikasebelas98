@@ -315,29 +315,100 @@
 </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Nomor WhatsApp / HP *</label>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Nomor Telepon *</label>
                                     <input type="tel" id="regWhatsapp" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="081234567890">
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 2. DOMISILI & PROFIL -->
+                        <!-- 2. DETAIL DOMISILI TERPISAH (SENSOR-FRIENDLY) -->
                         <div class="space-y-4">
                             <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
-                                <i class="fa-solid fa-house-user"></i> 2. Domisili & Profil
+                                <i class="fa-solid fa-house-user"></i> 2. Domisili Alamat
                             </h3>
-                            <div>
-                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Alamat Domisili Lengkap *</label>
-                                <textarea id="regDomisili" rows="2" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="Jl. Kembar Baru No.23, Cigereleng, Kec. Regol, Kota Bandung, Jawa Barat 40253"></textarea>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Nama Jalan / Komplek / Perumahan</label>
+                                    <input type="text" id="regJalan" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Pesona Bali Residence / Jl. Bojong Soang">
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Nomor Rumah / Unit / Blok</label>
+                                        <input type="text" id="regNoRumah" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Blok B3 No. 3">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">RT / RW</label>
+                                        <input type="text" id="regRtRw" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: RT 01 / RW 05">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Kelurahan / Desa</label>
+                                        <input type="text" id="regKelurahan" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Bojongsoang">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Kecamatan *</label>
+                                        <input type="text" id="regKecamatan" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Bojongsoang">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Kabupaten / Kota *</label>
+                                        <input type="text" id="regKota" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Kabupaten Bandung">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Provinsi *</label>
+                                        <input type="text" id="regProvinsi" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Jawa Barat">
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- 3. MEDIA SOSIAL & PROFIL SOSIAL (OPSIONAL) -->
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
+                                <i class="fa-solid fa-share-nodes"></i> 3. Media Sosial & Status Personal
+                            </h3>
+                            
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Profil LinkedIn</label>
-                                    <input type="url" id="regLinkedin" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="https://linkedin.com/in/username">
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5"><i class="fa-brands fa-instagram text-pink-500 mr-1"></i> Instagram</label>
+                                    <input type="text" id="regInstagram" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="@username_anda">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Instagram Pribadi</label>
-                                    <input type="text" id="regInstagram" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition" placeholder="@username_anda">
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5"><i class="fa-brands fa-linkedin text-blue-500 mr-1"></i> LinkedIn</label>
+                                    <input type="url" id="regLinkedin" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="https://linkedin.com/in/username">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5"><i class="fa-brands fa-facebook text-blue-600 mr-1"></i> Facebook</label>
+                                    <input type="text" id="regFacebook" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Nama Akun / URL Facebook">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5"><i class="fa-brands fa-tiktok text-white mr-1"></i> TikTok</label>
+                                    <input type="text" id="regTiktok" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="@username_tiktok">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Status Pernikahan</label>
+                                    <select id="regMaritalStatus" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm focus:outline-none focus:border-gold-500 transition">
+                                        <option value="" class="text-slate-500 bg-slate-950">-- Pilih Status --</option>
+                                        <option value="Lajang" class="text-slate-100 bg-slate-950">Lajang</option>
+                                        <option value="Menikah" class="text-slate-100 bg-slate-950">Menikah</option>
+                                        <option value="Duda/Janda" class="text-slate-100 bg-slate-950">Duda / Janda</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Hobi (Komunitas)</label>
+                                    <input type="text" id="regHobby" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Sepeda, Basket, Mancing">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Minat / Bakat</label>
+                                    <input type="text" id="regMinatBakat" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl py-2.5 px-3.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:border-gold-500 transition" placeholder="Contoh: Fotografi, Musik, Kuliner">
                                 </div>
                             </div>
                         </div>
@@ -1037,15 +1108,43 @@ targetIDs.forEach(id => {
 
             const statusPekerjaanVal = document.getElementById('regStatusPekerjaan')?.value || '';
 
-            // Kumpulkan data yang diperbarui
+            // Ambil komponen alamat terpisah
+            const jalan = document.getElementById('regJalan')?.value.trim() || '';
+            const noRumah = document.getElementById('regNoRumah')?.value.trim() || '';
+            const rtRw = document.getElementById('regRtRw')?.value.trim() || '';
+            const kelurahan = document.getElementById('regKelurahan')?.value.trim() || '';
+            const kecamatan = document.getElementById('regKecamatan')?.value.trim() || '';
+            const kota = document.getElementById('regKota')?.value.trim() || '';
+            const provinsi = document.getElementById('regProvinsi')?.value.trim() || '';
+
+            const domisiliUtuh = [jalan, noRumah, rtRw, kelurahan, kecamatan, kota, provinsi].filter(Boolean).join(", ");
+
+            // Kumpulkan data yang diperbarui secara bersih
             const updateData = {
                 namaPanggilan: document.getElementById('regNamaPanggilan').value.trim().toUpperCase(),
                 tempatLahir: document.getElementById('regTempatLahir').value.trim(),
                 tanggalLahir: document.getElementById('regTanggalLahir').value,
                 whatsapp: document.getElementById('regWhatsapp').value.trim(),
-                domisili: document.getElementById('regDomisili').value.trim(),
-                linkedin: document.getElementById('regLinkedin').value.trim(),
-                instagram: document.getElementById('regInstagram').value.trim(),
+                
+                // Simpan Kolom Alamat Terpisah & Utuh
+                alamatJalan: jalan,
+                alamatNoRumah: noRumah,
+                alamatRtRw: rtRw,
+                alamatKelurahan: kelurahan,
+                alamatKecamatan: kecamatan,
+                alamatKota: kota,
+                alamatProvinsi: provinsi,
+                domisili: domisiliUtuh,
+
+                // Sosmed & Komunitas
+                instagram: document.getElementById('regInstagram')?.value.trim() || '',
+                linkedin: document.getElementById('regLinkedin')?.value.trim() || '',
+                facebook: document.getElementById('regFacebook')?.value.trim() || '',
+                tiktok: document.getElementById('regTiktok')?.value.trim() || '',
+                maritalStatus: document.getElementById('regMaritalStatus')?.value || '',
+                hobby: document.getElementById('regHobby')?.value.trim() || '',
+                minatBakat: document.getElementById('regMinatBakat')?.value.trim() || '',
+
                 statusPekerjaan: statusPekerjaanVal,
                 namaPerusahaan: document.getElementById('regNamaPerusahaan')?.value || '',
                 jabatan: document.getElementById('regJabatan')?.value || '',
@@ -1061,12 +1160,11 @@ targetIDs.forEach(id => {
                 updateData.foto = base64Photo;
             }
 
-            // Simpan pembaruan ke Firestore menggunakan merge: true (tanpa cek email auth)
+            // Simpan pembaruan ke Firestore menggunakan merge: true
             await setDoc(doc(db, "alumni", currentUser.uid), updateData, { merge: true });
 
             window.showAlert('success', 'Perubahan profil & ID Card berhasil disimpan!');
             
-            // Ambil data utuh gabungan untuk me-render ulang preview ID card
             const docSnap = await getDoc(doc(db, "alumni", currentUser.uid));
             if (docSnap.exists()) {
                 renderIDCard(docSnap.data());
@@ -1081,7 +1179,7 @@ targetIDs.forEach(id => {
                 btnSubmit.innerHTML = originalText;
             }
         }
-        return; // Hentikan eksekusi agar tidak turun ke validasi registrasi baru
+        return; 
     }
 
     // ==========================================
@@ -1484,7 +1582,21 @@ async function loadAlumniDataForEdit(uid) {
             if (document.getElementById('regTempatLahir')) document.getElementById('regTempatLahir').value = data.tempatLahir || '';
             if (document.getElementById('regTanggalLahir')) document.getElementById('regTanggalLahir').value = data.tanggalLahir || '';
             if (document.getElementById('regWhatsapp')) document.getElementById('regWhatsapp').value = data.whatsapp || '';
-            if (document.getElementById('regDomisili')) document.getElementById('regDomisili').value = data.domisili || '';
+            // KODE BARU (Tempel baris ini):
+            if (document.getElementById('regJalan')) document.getElementById('regJalan').value = data.alamatJalan || '';
+            if (document.getElementById('regNoRumah')) document.getElementById('regNoRumah').value = data.alamatNoRumah || '';
+            if (document.getElementById('regRtRw')) document.getElementById('regRtRw').value = data.alamatRtRw || '';
+            if (document.getElementById('regKelurahan')) document.getElementById('regKelurahan').value = data.alamatKelurahan || '';
+            if (document.getElementById('regKecamatan')) document.getElementById('regKecamatan').value = data.alamatKecamatan || '';
+            if (document.getElementById('regKota')) document.getElementById('regKota').value = data.alamatKota || '';
+            if (document.getElementById('regProvinsi')) document.getElementById('regProvinsi').value = data.alamatProvinsi || '';
+
+            // Kolom Sosmed & Komunitas Baru
+            if (document.getElementById('regFacebook')) document.getElementById('regFacebook').value = data.facebook || '';
+            if (document.getElementById('regTiktok')) document.getElementById('regTiktok').value = data.tiktok || '';
+            if (document.getElementById('regMaritalStatus')) document.getElementById('regMaritalStatus').value = data.maritalStatus || '';
+            if (document.getElementById('regHobby')) document.getElementById('regHobby').value = data.hobby || '';
+            if (document.getElementById('regMinatBakat')) document.getElementById('regMinatBakat').value = data.minatBakat || '';
             if (document.getElementById('regLinkedin')) document.getElementById('regLinkedin').value = data.linkedin || '';
             if (document.getElementById('regInstagram')) document.getElementById('regInstagram').value = data.instagram || '';
             if (document.getElementById('regStatusPekerjaan')) {

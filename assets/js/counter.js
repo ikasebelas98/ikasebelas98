@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Format ke 6 digit (contoh: 000001)
-            const formattedNumber = String(currentCount).padStart(6, '0');
+            const formattedNumber = String(currentCount).padStart(9, '0');
             const visitorEl = document.getElementById("visitorCount");
             if (visitorEl) visitorEl.innerText = formattedNumber;
 

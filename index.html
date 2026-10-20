@@ -634,7 +634,7 @@
         <!-- Visitor Stats -->
         <div class="counter-stats-group">
             <span class="counter-label">visitor:</span>
-            <span id="visitorCount" class="counter-number">000000</span>
+            <span id="visitorCount" class="counter-number">000000000</span>
         </div>
     </div>
 </div>
@@ -784,20 +784,37 @@
 
         // 1. JIKA ADA YANG ULANG TAHUN HARI INI
         if (todayBirthdays.length > 0) {
-            const targetBday = todayBirthdays[0];
-            const namaPanggilan = (targetBday.namaPanggilan || targetBday.namaLengkap || "BARAYA").toUpperCase();
-            
-            if (bdayWidgetText) {
-                bdayWidgetText.innerHTML = `<span class="animate-pulse">🎉 Ultah Hari Ini: <strong>${namaPanggilan}</strong>!</span>`;
+            let currentIndex = 0;
+
+            const renderTodayBday = () => {
+                const targetBday = todayBirthdays[currentIndex];
+                const namaPanggilan = (targetBday.namaPanggilan || targetBday.namaLengkap || "BARAYA").toUpperCase();
+                
+                if (bdayWidgetText) {
+                    // Efek transisi halus bisa ditambahkan menggunakan class CSS jika diinginkan
+                    bdayWidgetText.innerHTML = `<span class="animate-pulse">🎉 Ultah Hari Ini: <strong>${namaPanggilan}</strong>!</span>`;
+                }
+
+                // Pindah ke index berikutnya, jika habis kembali ke 0 (looping)
+                currentIndex = (currentIndex + 1) % todayBirthdays.length;
+            };
+
+            // Jalankan pertama kali saat halaman dimuat
+            renderTodayBday();
+
+            // Jika yang ultah lebih dari 1 orang, putar nama tiap 3.5 detik
+            if (todayBirthdays.length > 1) {
+                setInterval(renderTodayBday, 3500);
             }
 
-            // TAMPILKAN POP-UP HANYA DI HARI H & BELUM DITUTUP SESI INI
+            // Tampilkan pop-up untuk orang pertama (atau bisa disesuaikan)
             if (!sessionStorage.getItem("bdayPopupShown")) {
-                showBdayPopup(targetBday);
+                showBdayPopup(todayBirthdays[0]);
             } else {
                 hideBdayPopup();
             }
-        } 
+        }
+
         // 2. JIKA HANYA ULTAH TERDEKAT (BUKAN HARI H) -> PASTIKAN POP-UP DISEMBUNYIKAN
         else if (upcomingBirthdays.length > 0) {
             const nextBday = upcomingBirthdays[0];

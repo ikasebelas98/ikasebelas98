@@ -73,7 +73,7 @@
             background-image: repeating-linear-gradient(
                 45deg,
                 rgba(128, 128, 128, 0.5),      /* Warna abu-abu 50% */
-                rgba(128, 128, 128, 1) 0.8px, /* Ketebalan garis diperkecil (0.8px) */
+                rgb(89, 90, 92) 1.3px, /* Ketebalan garis diperkecil (0.8px) */
                 transparent 0.5px,
                 transparent 4.2px              /* Jarak antar garis (4.2px) */
             ); 
@@ -232,7 +232,13 @@
             <!-- DETAIL KONTEN BIODATA + FOOTER COPYRIGHT -->
             <div class="px-6 pb-5 -mt-2 relative z-30 space-y-2.5 text-xs">
                 
-                <div class="flex items-baseline pt-1">
+                <!-- KEPALA JUDUL BIODATA -->
+                <div class="border-b border-slate-800/80 pb-2 mb-3">
+                    <h2 class="text-xl font-bold text-white tracking-wider uppercase"></h2>
+                </div>
+
+                <!-- BLOK 1: IDENTITAS UTAMA -->
+                <div class="flex items-baseline">
                     <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">NAMA LENGKAP</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
                         <span class="text-[9px] text-slate-400 font-medium">:</span>
@@ -273,6 +279,14 @@
                 </div>
 
                 <div class="flex items-baseline">
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">STATUS PERNIKAHAN</span>
+                    <div class="flex-grow flex items-baseline gap-1.5">
+                        <span class="text-[9px] text-slate-400 font-medium">:</span>
+                        <span id="modalMaritalStatus" class="text-sm font-bold text-white"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-baseline">
                     <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">KELAS MASA SMA</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
                         <span class="text-[9px] text-slate-400 font-medium">:</span>
@@ -296,20 +310,23 @@
                     </div>
                 </div>
 
-                <!-- POIN SOSIAL MEDIA & KOMUNITAS TERBARU -->
-                <div class="flex items-baseline">
-                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">PROFIL LINKEDIN</span>
-                    <div class="flex-grow flex items-baseline gap-1.5">
-                        <span class="text-[9px] text-slate-400 font-medium">:</span>
-                        <span id="modalLinkedin" class="text-sm font-bold text-white"></span>
-                    </div>
-                </div>
+                <!-- GARIS PEMBATAS KELOMPOK 1 & 2 -->
+                <div class="border-t border-slate-800/80 !my-3.5"></div>
 
+                <!-- BLOK 2: SOSIAL MEDIA & KOMUNITAS -->
                 <div class="flex items-baseline">
                     <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">INSTAGRAM</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
                         <span class="text-[9px] text-slate-400 font-medium">:</span>
                         <span id="modalInstagram" class="text-sm font-bold text-white"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-baseline">
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">PROFIL LINKEDIN</span>
+                    <div class="flex-grow flex items-baseline gap-1.5">
+                        <span class="text-[9px] text-slate-400 font-medium">:</span>
+                        <span id="modalLinkedin" class="text-sm font-bold text-white"></span>
                     </div>
                 </div>
 
@@ -330,15 +347,7 @@
                 </div>
 
                 <div class="flex items-baseline">
-                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">STATUS PERNIKAHAN</span>
-                    <div class="flex-grow flex items-baseline gap-1.5">
-                        <span class="text-[9px] text-slate-400 font-medium">:</span>
-                        <span id="modalMaritalStatus" class="text-sm font-bold text-white"></span>
-                    </div>
-                </div>
-
-                <div class="flex items-baseline">
-                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">HOBI (KOMUNITAS)</span>
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">HOBI</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
                         <span class="text-[9px] text-slate-400 font-medium">:</span>
                         <span id="modalHobby" class="text-sm font-bold text-white"></span>
@@ -353,7 +362,10 @@
                     </div>
                 </div>
 
-                <!-- RINCIAN PEKERJAAN & KONTAK -->
+                <!-- GARIS PEMBATAS KELOMPOK 2 & 3 -->
+                <div class="border-t border-slate-800/80 !my-3.5"></div>
+
+                <!-- BLOK 3: RINCIAN PEKERJAAN & KONTAK -->
                 <div class="flex items-baseline">
                     <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">STATUS PEKERJAAN</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
@@ -363,7 +375,7 @@
                 </div>
 
                 <div class="flex items-baseline">
-                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium" id="labelBrandUsaha">NAMA BRAND/USAHA</span>
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium" id="labelBrandUsaha">NAMA PERUSAHAAN</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
                         <span class="text-[9px] text-slate-400 font-medium">:</span>
                         <span id="modalDetailKerja" class="text-sm font-bold text-white"></span>
@@ -371,7 +383,7 @@
                 </div>
 
                 <div class="flex items-baseline">
-                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium" id="labelDetailKerja2">JABATAN / SKILL</span>
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium" id="labelDetailKerja2">JABATAN</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
                         <span class="text-[9px] text-slate-400 font-medium">:</span>
                         <span id="modalDetailKerjaSub" class="text-sm font-bold text-white"></span>
@@ -386,8 +398,11 @@
                     </div>
                 </div>
 
+                <!-- GARIS PEMBATAS SEBELUM FOOTER -->
+                <div class="border-t border-slate-800/80 !my-4"></div>
+
                 <!-- Tombol Edit Data Khusus Admin/Super Admin -->
-                <div id="modalAdminControls" class="hidden border-t border-slate-800 pt-3 mt-3">
+                <div id="modalAdminControls" class="hidden pb-2">
                     <button id="btnAdminEdit" class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg transition text-xs flex items-center justify-center gap-2">
                         <i class="fa-solid fa-user-pen"></i>
                         <span>Koreksi Data Alumni Ini (Admin)</span>
@@ -395,7 +410,7 @@
                 </div>
 
                 <!-- FOOTER COPYRIGHT DIVTIK & DESIGNER -->
-                <div class="!mt-5 pt-5 border-t border-slate-800/80 text-center space-y-0.5 text-[8px] text-slate-500 tracking-tight font-normal leading-tight select-none">
+                <div class="text-center space-y-0.5 text-[8px] text-slate-500 tracking-tight font-normal leading-tight select-none">
                     <p>copyrights © 2026 IKA.11.98 | Ikatan Alumni SMUN 11 Bandung Angkatan 98</p>
                     <p>divTIK (Divisi Teknologi Informasi dan Komunikasi) IKA.11.98</p>
                     <p>designed and developed by Dedenipans</p>

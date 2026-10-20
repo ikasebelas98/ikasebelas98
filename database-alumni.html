@@ -88,69 +88,8 @@
 
 <body class="min-h-screen flex flex-col justify-between">
 
-    <!-- NAVBAR HEADER -->
-    <header class="navbar">
-        <div class="navbar-container">
-            <a href="index.html" class="navbar-logo" title="Kembali ke Beranda">
-                <img class="logo-grey" src="assets/images/logo.svg" alt="IKA">
-                <img class="logo-gold" src="assets/images/logo-hover.svg" alt="IKA">
-            </a>
-
-            <nav class="navbar-menu" id="navbarMenu">
-                <div class="nav-item" id="tentang-kita"><a href="#">Tentang Kita</a></div>
-                <div class="nav-item" id="alumni-center"><a href="#">Alumni Center</a></div>
-                <div class="nav-item" id="media-center"><a href="#">Media Center</a></div>
-                <div class="nav-item" id="community-hub"><a href="#">Community Hub</a></div>
-                <div class="nav-item" id="donasi"><a href="#">Donasi</a></div>
-                
-                <!-- Tombol Sign In / Area User di Navbar -->
-                <div class="nav-item" id="login">
-                    <a href="auth.html?mode=signin">Sign In</a>
-                </div>
-
-                <!-- Area Nama Panggilan & Mega Menu Profil -->
-                <div id="navUserArea" class="hidden relative group items-center">
-                    <a href="javascript:void(0);" id="navUserName" class="text-gold-400 font-semibold hover:text-gold-300 transition cursor-pointer py-2">
-                        DEDENIPANS
-                    </a>
-                    <div class="absolute right-0 top-full w-72 hidden group-hover:block pt-2 z-50">
-                        <div class="bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl p-4 text-xs space-y-3">
-                            <div class="flex items-center space-x-3 pb-3 border-b border-slate-800">
-                                <img id="dropdownUserFoto" src="https://placehold.co/100x100/0e0e0e/cccccc?text=Foto" class="w-12 h-12 rounded-xl object-cover border border-amber-500/40 shadow-md" alt="Foto Profil">
-                                <div class="overflow-hidden">
-                                    <p id="dropdownNamaLengkap" class="font-bold text-white truncate text-sm">Nama Lengkap</p>
-                                    <p id="dropdownSubInfo" class="text-[11px] text-amber-400/90 truncate mt-0.5">NAMA PANGGILAN (email@domain.com) - [MEMBER]</p>
-                                </div>
-                            </div>
-                            <div class="space-y-1.5 pt-1">
-                                <a href="auth.html?mode=edit" class="block px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-300 text-slate-200 transition font-medium flex items-center gap-2">
-                                    <i class="fa-solid fa-user-pen text-amber-400"></i> Update Profile & ID Card
-                                </a>
-                                <button onclick="handleSignOut()" class="w-full text-left px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 transition font-medium flex items-center gap-2">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Sign Out
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle Navigation">
-                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-            </button>
-        </div>
-
-        <!-- Mega Menu Container -->
-        <div class="mega-menu">
-            <div class="mega-menu-container">
-                <img id="mega-icon" src="assets/images/tumb 01 tentang kita.webp" class="mega-icon" alt="Mega Menu">
-                <div class="mega-content">
-                    <h2 id="mega-title" class="mega-title">Satu Perjalanan untuk Maju Bersama</h2>
-                    <ul id="mega-links" class="mega-links"></ul>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- NAVBAR HEADER (Dinamis dari navbar.js) -->
+    <header id="mainNavbarContainer"></header>
 
     <!-- KONTEN UTAMA DIREKTORI DATABASE ALUMNI -->
     <main class="container mx-auto px-4 py-8 flex-grow">
@@ -158,11 +97,12 @@
         <!-- Header Judul Halaman -->
         <div class="text-center mb-8">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-heading mb-2">
-                DATABASE <span class="text-gold-custom">ALUMNI 11.98</span>
+                BIODATA <span class="text-gold-custom">ALUMNI 11.98</span>
             </h1>
             <p class="text-slate-400 text-sm max-w-xl mx-auto">
-                Direktori resmi alumni SMAN 11 Bandung Angkatan 1998. Terhubung kembali dan jalin silaturahmi bersama baraya.
-            </p>
+                <p>Direktori Resmi Alumni SMAN 11 Bandung Angkatan 1998</p>
+                <p>Terhubung Kembali dan Jalin Silaturahmi</p>
+            
         </div>
 
         <!-- Area Search & Filter -->
@@ -172,18 +112,19 @@
                 <input type="text" id="searchKeyword" placeholder="Cari Nama Lengkap / Panggilan..." 
                        class="w-full pl-11 pr-4 py-3 bg-slate-800/90 border border-slate-700 rounded-xl text-white text-sm focus:outline-none focus:border-amber-500 transition">
             </div>
+
             <select id="filterKelas" class="bg-slate-800/90 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500 transition">
                 <option value="">-- Semua Kelas --</option>
-                <option value="3 IPA 1">3 IPA 1</option>
-                <option value="3 IPA 2">3 IPA 2</option>
-                <option value="3 IPA 3">3 IPA 3</option>
-                <option value="3 IPA 4">3 IPA 4</option>
-                <option value="3 IPA 5">3 IPA 5</option>
-                <option value="3 IPS 1">3 IPS 1</option>
-                <option value="3 IPS 2">3 IPS 2</option>
-                <option value="3 IPS 3">3 IPS 3</option>
-                <option value="3 IPS 4">3 IPS 4</option>
-                <option value="3 IPS 5">3 IPS 5</option>
+                <option value="3 - 1 (IPA 1)">3 - 1 (IPA 1)</option>
+                <option value="3 - 2 (IPA 2)">3 - 2 (IPA 2)</option>
+                <option value="3 - 3 (IPA 3)">3 - 3 (IPA 3)</option>
+                <option value="3 - 4 (IPA 4)">3 - 4 (IPA 4)</option>
+                <option value="3 - 5 (IPA 5)">3 - 5 (IPA 5)</option>
+                <option value="3 - 6 (IPS 1)">3 - 6 (IPS 1)</option>
+                <option value="3 - 7 (IPS 2)">3 - 7 (IPS 2)</option>
+                <option value="3 - 8 (IPS 3)">3 - 8 (IPS 3)</option>
+                <option value="3 - 9 (IPS 4)">3 - 9 (IPS 4)</option>
+                <option value="3 - 10 (IPS 5)">3 - 10 (IPS 5)</option>
             </select>
         </div>
 
@@ -227,6 +168,14 @@
                 <!-- LAYER 2: Bingkai PNG Transparan -->
                 <img src="assets/images/frame_biodata.png" alt="Frame Biodata" 
                      class="absolute top-0 left-0 w-full h-full object-cover object-top pointer-events-none z-20 block">
+
+                <!-- Tombol Hapus Foto (Muncul pas di area yang dilingkari merah saat Mode Edit aktif) -->
+                <div id="adminPhotoActionContainer" class="hidden absolute top-[84%] left-[12%] z-30">
+                    <button id="btnAdminDeletePhoto" type="button" class="py-1 px-2.5 bg-red-600/30 border border-red-500/50 hover:bg-red-600/50 text-red-200 font-semibold rounded-md transition text-[10px] flex items-center justify-center gap-1 shadow-md">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <span>Hapus Foto</span>
+                    </button>
+                </div>
             </div>
 
             <!-- DETAIL KONTEN BIODATA + FOOTER COPYRIGHT -->
@@ -401,16 +350,26 @@
                 <!-- GARIS PEMBATAS SEBELUM FOOTER -->
                 <div class="border-t border-slate-800/80 !my-4"></div>
 
-                <!-- Tombol Edit Data Khusus Admin/Super Admin -->
-                <div id="modalAdminControls" class="hidden pb-2">
-                    <button id="btnAdminEdit" class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg transition text-xs flex items-center justify-center gap-2">
+                <!-- Kontrol Tombol Bawah Modal -->
+                <div id="modalAdminControls" class="hidden pb-2 space-y-2 pt-4">
+                    <button id="btnAdminEdit" type="button" class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg transition text-xs flex items-center justify-center gap-2">
                         <i class="fa-solid fa-user-pen"></i>
-                        <span>Koreksi Data Alumni Ini (Admin)</span>
+                        <span>Edit Data Alumni Ini</span>
                     </button>
+
+                    <div id="adminEditActions" class="hidden flex gap-2">
+                        <button id="btnAdminCancelEdit" type="button" class="w-1/2 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition text-xs">
+                            Batal
+                        </button>
+                        <button id="btnAdminSaveEdit" type="button" class="w-1/2 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg transition text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            <span>Simpan Perubahan</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- FOOTER COPYRIGHT DIVTIK & DESIGNER -->
-                <div class="text-center space-y-0.5 text-[8px] text-slate-500 tracking-tight font-normal leading-tight select-none">
+                <div class="text-center space-y-0.5 text-[8px] text-slate-500 tracking-tight font-normal leading-tight select-none pt-2">
                     <p>copyrights © 2026 IKA.11.98 | Ikatan Alumni SMUN 11 Bandung Angkatan 98</p>
                     <p>divTIK (Divisi Teknologi Informasi dan Komunikasi) IKA.11.98</p>
                     <p>designed and developed by Dedenipans</p>
@@ -441,7 +400,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCQPbOs9mN3TIW9SkBsPM6y0MjJmlhBfgc",
@@ -467,20 +426,16 @@
             });
         };
 
-        // Deteksi Pengguna Login & Role untuk Navbar & Akses Modal
+        // Deteksi Pengguna Login & Penyelarasan Navbar Terpusat via navbar.js
+        window.firebaseSignOut = signOut;
+        window.firebaseAuth = auth;
+
         onAuthStateChanged(auth, async (user) => {
-            const navSignInLink = document.getElementById("login");
-            const navUserArea = document.getElementById("navUserArea");
-            const navUserName = document.getElementById("navUserName");
+            const loginBtn = document.querySelector('#login') || document.querySelector('a[href*="javascript:void"]');
+            const targetElement = loginBtn ? (loginBtn.tagName === 'A' ? loginBtn : (loginBtn.querySelector('a') || loginBtn)) : null;
 
             if (user) {
                 currentUid = user.uid;
-                
-                if (navSignInLink) navSignInLink.classList.add("hidden");
-                if (navUserArea) {
-                    navUserArea.classList.remove("hidden");
-                    navUserArea.classList.add("flex");
-                }
 
                 try {
                     const userDoc = await getDoc(doc(db, "alumni", user.uid));
@@ -488,23 +443,29 @@
                         const userData = userDoc.data();
                         currentRole = userData.role || "member";
                         
-                        if (navUserName) {
-                            const panggilan = (userData.namaPanggilan || userData.namaLengkap || "ALUMNI").toUpperCase();
-                            navUserName.innerText = panggilan;
+                        const namaLengkap = userData.namaLengkap || "ALUMNI SMAN 11";
+                        const namaPanggilan = (userData.namaPanggilan || userData.namaLengkap || "ALUMNI").toUpperCase();
+                        const email = userData.email || user.email || "";
+                        const fotoProfile = userData.foto || "";
+
+                        if (targetElement) { 
+                            targetElement.innerHTML = `<span style="color: #eab308; font-weight: 700;">${namaPanggilan}</span>`; 
+                            targetElement.href = "javascript:void(0);"; 
                         }
 
-                        // Isi detail Dropdown Mega Menu jika elemennya ada
-                        const dropdownNamaLengkap = document.getElementById("dropdownNamaLengkap");
-                        const dropdownSubInfo = document.getElementById("dropdownSubInfo");
-                        const dropdownUserFoto = document.getElementById("dropdownUserFoto");
-
-                        if (dropdownNamaLengkap) dropdownNamaLengkap.innerText = userData.namaLengkap || "Alumni SMAN 11";
-                        if (dropdownSubInfo) {
-                            const panggilan = (userData.namaPanggilan || "").toUpperCase();
-                            dropdownSubInfo.innerText = `${panggilan} (${userData.email || ''}) - [${(userData.role || 'MEMBER').toUpperCase()}]`;
+                        // Sinkronisasi dengan Mega Menu terpusat di navbar.js
+                        if (typeof window.updateMegaMenuState === "function") { 
+                            window.updateMegaMenuState(user, { 
+                                namaLengkap: namaLengkap, 
+                                namaPanggilan: namaPanggilan, 
+                                email: email, 
+                                foto: fotoProfile,
+                                role: currentRole
+                            }); 
                         }
-                        if (dropdownUserFoto && userData.foto) {
-                            dropdownUserFoto.src = userData.foto;
+
+                        if (typeof loadMegaMenu === "function") { 
+                            loadMegaMenu("login"); 
                         }
                     }
                 } catch (docErr) {
@@ -515,6 +476,15 @@
                 loadDatabaseAlumni();
 
             } else {
+                if (targetElement) { 
+                    targetElement.innerHTML = "Sign In"; 
+                    targetElement.href = "javascript:void(0);"; 
+                } 
+
+                if (typeof window.updateMegaMenuState === "function") { 
+                    window.updateMegaMenuState(null); 
+                }
+
                 // Jika belum login, arahkan ke halaman Sign In
                 window.location.href = "auth.html?mode=signin";
             }
@@ -549,6 +519,24 @@
             }
         }
 
+        // Fungsi Pembantu: Normalisasi Format Kelas Lama ke Format Baru
+        function formatKelasSMA(kelasRaw) {
+            if (!kelasRaw) return "11.98";
+            const mapKelas = {
+                "3 IPA 1": "3 - 1 (IPA 1)",
+                "3 IPA 2": "3 - 2 (IPA 2)",
+                "3 IPA 3": "3 - 3 (IPA 3)",
+                "3 IPA 4": "3 - 4 (IPA 4)",
+                "3 IPA 5": "3 - 5 (IPA 5)",
+                "3 IPS 1": "3 - 6 (IPS 1)",
+                "3 IPS 2": "3 - 7 (IPS 2)",
+                "3 IPS 3": "3 - 8 (IPS 3)",
+                "3 IPS 4": "3 - 9 (IPS 4)",
+                "3 IPS 5": "3 - 10 (IPS 5)"
+            };
+            return mapKelas[kelasRaw] || kelasRaw;
+        }
+
         // Render Kartu Grid dengan Golden Ratio Presisi pada Thumbnail
         function renderAlumniGrid(dataList) {
             const gridEl = document.getElementById("alumniGrid");
@@ -560,9 +548,9 @@
             }
 
             dataList.forEach((alumni) => {
-                const fotoSrc = alumni.foto || "assets/images/tumb 06 login.webp";
+                const fotoSrc = alumni.foto || "assets/images/tumb 07 foto-dihapus.webp";
                 const namaPanggilan = alumni.namaPanggilan || "ALUMNI";
-                const kelas = alumni.kelas || "11.98";
+                const kelasFormatted = formatKelasSMA(alumni.kelas);
 
                 const card = document.createElement("div");
                 card.className = "alumni-card rounded-2xl p-3 flex flex-col items-center text-center cursor-pointer";
@@ -573,7 +561,7 @@
                         <img src="${fotoSrc}" class="w-full h-full" style="object-fit: cover; object-position: center 15%;" alt="${namaPanggilan}">
                     </div>
                     <h3 class="font-bold text-white text-sm truncate w-full uppercase">${namaPanggilan}</h3>
-                    <p class="text-xs text-amber-500 font-medium">${kelas}</p>
+                    <p class="text-xs text-amber-500 font-medium">${kelasFormatted}</p>
                 `;
                 gridEl.appendChild(card);
             });
@@ -585,12 +573,15 @@
 
         function filterData() {
             const keyword = document.getElementById("searchKeyword").value.toLowerCase();
-            const kelas = document.getElementById("filterKelas").value;
+            const kelasFilter = document.getElementById("filterKelas").value;
 
             const filtered = allAlumniData.filter(item => {
                 const matchName = (item.namaLengkap || "").toLowerCase().includes(keyword) || 
                                   (item.namaPanggilan || "").toLowerCase().includes(keyword);
-                const matchKelas = kelas === "" || item.kelas === kelas;
+                
+                const formattedKelasItem = formatKelasSMA(item.kelas);
+                const matchKelas = kelasFilter === "" || formattedKelasItem === kelasFilter || item.kelas === kelasFilter;
+                
                 return matchName && matchKelas;
             });
             renderAlumniGrid(filtered);
@@ -648,8 +639,37 @@
             ).join(" ");
         }
 
-        // Buka Modal Biodata Tentara
+        // Variabel global sementara untuk menyimpan data alumni yang sedang dibuka di modal
+        let currentModalAlumni = null;
+        let isEditModeActive = false;
+
+        // Fungsi Reset Tampilan Modal ke Mode Baca (Normal)
+        function resetModalToViewMode() {
+            isEditModeActive = false;
+            document.getElementById("btnAdminEdit").classList.remove("hidden");
+            document.getElementById("adminEditActions").classList.add("hidden");
+            
+            // Kembalikan field jika sebelumnya berubah jadi input
+            const fieldsToReset = [
+                "modalNamaLengkap", "modalNamaPanggilan", "modalTempatLahir", "modalTanggalLahir", 
+                "modalWhatsapp", "modalDomisili", "modalInstagram", "modalLinkedin", 
+                "modalFacebook", "modalTiktok", "modalMaritalStatus", "modalHobby", 
+                "modalMinatBakat", "modalEmail", "modalKelas"
+            ];
+
+            fieldsToReset.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.dataset.originalText !== undefined) {
+                    el.innerHTML = el.dataset.originalText;
+                }
+            });
+        }
+
+        // Buka Modal Biodata Alumni
         window.openBioModal = function(alumni) {
+            currentModalAlumni = alumni;
+            resetModalToViewMode();
+
             const isFullAccess = (currentRole === "super_admin" || currentRole === "admin" || currentUid === alumni.id || currentUid === alumni.uid);
 
             document.getElementById("modalFoto").src = alumni.foto || "assets/images/tumb 06 login.webp";
@@ -660,9 +680,9 @@
 
             document.getElementById("modalNamaPanggilan").innerText = alumni.namaPanggilan || "-";
             document.getElementById("modalTempatLahir").innerText = alumni.tempatLahir || "-";
-            document.getElementById("modalKelas").innerText = alumni.kelas || "-";
+            document.getElementById("modalKelas").innerText = formatKelasSMA(alumni.kelas) || "-";
             
-            // ISI DATA SOSIAL MEDIA & SOSIAL PERSONAL TERBARU
+            // RINCIAN SOSIAL MEDIA & PERSONAL
             document.getElementById("modalLinkedin").innerText = alumni.linkedin || "-";
             document.getElementById("modalInstagram").innerText = alumni.instagram ? (alumni.instagram.startsWith('@') ? alumni.instagram : `@${alumni.instagram}`) : "-";
             document.getElementById("modalFacebook").innerText = alumni.facebook || "-";
@@ -671,7 +691,7 @@
             document.getElementById("modalHobby").innerText = alumni.hobby || "-";
             document.getElementById("modalMinatBakat").innerText = alumni.minatBakat || "-";
 
-            // RINCIAN PEKERJAAN DINAMIS
+            // RINCIAN PEKERJAAN
             const statusPekerjaan = alumni.statusPekerjaan || "-";
             document.getElementById("modalStatusPekerjaan").innerText = statusPekerjaan.replace('_', ' ');
 
@@ -702,16 +722,14 @@
                 if (valDetailKerjaSub) valDetailKerjaSub.innerText = "-";
             }
 
-            // Email Aktif Selalu Dibuka Penuh
             document.getElementById("modalEmail").innerText = alumni.email || "-";
 
-            // Atur Sensor Privasi Dinamis
+            // PRIVASI DATA (SENSOR / BUKA FULL)
             if (isFullAccess) {
                 document.getElementById("modalTanggalLahir").innerText = alumni.tanggalLahir || "-";
                 document.getElementById("modalWhatsapp").innerText = alumni.whatsapp || "-";
                 document.getElementById("modalDomisili").innerText = alumni.domisili || "-";
             } else {
-                // 1. SENSOR TANGGAL LAHIR
                 if (alumni.tanggalLahir) {
                     const parts = alumni.tanggalLahir.split("-");
                     if (parts.length === 3) {
@@ -726,7 +744,6 @@
                     document.getElementById("modalTanggalLahir").innerText = "-";
                 }
 
-                // 2. SENSOR NOMOR TELEPON
                 const rawWa = alumni.whatsapp || "";
                 if (rawWa.length >= 4) {
                     const frontWa = rawWa.substring(0, 4);
@@ -737,25 +754,218 @@
                     document.getElementById("modalWhatsapp").innerText = "-";
                 }
 
-                // 3. SENSOR ALAMAT LENGKAP
                 document.getElementById("modalDomisili").innerHTML = renderAlamatModal(alumni, isFullAccess);
             }
 
-            // Tombol Koreksi Admin
+            // KONTROL KHUSUS ADMIN / SUPER ADMIN
             const adminControls = document.getElementById("modalAdminControls");
+            const photoActionContainer = document.getElementById("adminPhotoActionContainer");
+
             if (currentRole === "super_admin" || currentRole === "admin") {
                 adminControls.classList.remove("hidden");
+                
+                // 1. Sembunyikan container tombol hapus foto secara default (Mode Biasa)
+                if (photoActionContainer) photoActionContainer.classList.add("hidden");
+
+                // 2. Event Listener Tombol "Edit Data Alumni Ini"
                 document.getElementById("btnAdminEdit").onclick = () => {
-                    window.location.href = `auth.html?mode=edit&uid=${alumni.id}`;
+                    activateAdminModalEditMode(alumni);
                 };
+
+                // 3. Event Listener Tombol "Batal Edit"
+                document.getElementById("btnAdminCancelEdit").onclick = () => {
+                    openBioModal(alumni); // Reload modal ke mode biasa
+                };
+
+                // 4. Event Listener Tombol "Hapus Foto"
+                const btnDeletePhoto = document.getElementById("btnAdminDeletePhoto");
+                if (btnDeletePhoto) {
+                    btnDeletePhoto.onclick = async () => {
+                        if (confirm(`Apakah Anda yakin ingin menghapus foto ${alumni.namaLengkap}? Foto akan di-reset ke gambar bawaan.`)) {
+                            try {
+                                await updateDoc(doc(db, "alumni", alumni.id), {
+                                    foto: ""
+                                });
+                                alert("Foto berhasil dihapus!");
+                                alumni.foto = "";
+                                document.getElementById("modalFoto").src = "assets/images/tumb 06 login.webp";
+                                loadDatabaseAlumni(); // Refresh kartu di grid
+                            } catch (err) {
+                                alert("Gagal menghapus foto: " + err.message);
+                            }
+                        }
+                    };
+                }
+
+                // 5. Event Listener Tombol "Simpan Perubahan"
+                document.getElementById("btnAdminSaveEdit").onclick = async () => {
+                    await saveAdminModalChanges(alumni.id);
+                };
+
             } else {
                 adminControls.classList.add("hidden");
+                if (photoActionContainer) photoActionContainer.classList.add("hidden");
             }
 
             document.getElementById("bioModal").classList.remove("hidden");
         };
 
+        // Fungsi Mengubah Tampilan Modal Menjadi Form Input (Mode Edit)
+        function activateAdminModalEditMode(alumni) {
+            isEditModeActive = true;
+            document.getElementById("btnAdminEdit").classList.add("hidden");
+            document.getElementById("adminEditActions").classList.remove("hidden");
+            document.getElementById("adminPhotoActionContainer").classList.remove("hidden");
+
+            // 1. Teks Biasa & Kontak / Tanggal
+            const fieldsText = [
+                { id: "modalNamaLengkap", key: "editNamaLengkap", val: alumni.namaLengkap },
+                { id: "modalNamaPanggilan", key: "editNamaPanggilan", val: alumni.namaPanggilan },
+                { id: "modalTempatLahir", key: "editTempatLahir", val: alumni.tempatLahir },
+                { id: "modalTanggalLahir", key: "editTanggalLahir", val: alumni.tanggalLahir, type: "date" },
+                { id: "modalWhatsapp", key: "editWhatsapp", val: alumni.whatsapp },
+                { id: "modalDomisili", key: "editDomisili", val: alumni.domisili },
+                { id: "modalEmail", key: "editEmail", val: alumni.email },
+                { id: "modalInstagram", key: "editInstagram", val: alumni.instagram },
+                { id: "modalLinkedin", key: "editLinkedin", val: alumni.linkedin },
+                { id: "modalFacebook", key: "editFacebook", val: alumni.facebook },
+                { id: "modalTiktok", key: "editTiktok", val: alumni.tiktok },
+                { id: "modalHobby", key: "editHobby", val: alumni.hobby },
+                { id: "modalMinatBakat", key: "editMinatBakat", val: alumni.minatBakat }
+            ];
+
+            fieldsText.forEach(item => {
+                const el = document.getElementById(item.id);
+                if (el) {
+                    el.dataset.originalText = el.innerText;
+                    const inputType = item.type || "text";
+                    el.innerHTML = `<input type="${inputType}" id="${item.key}" value="${item.val || ''}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-slate-100 focus:border-amber-500 focus:outline-none">`;
+                }
+            });
+
+            // 2. Status Pernikahan (Dropdown)
+            const elMarital = document.getElementById("modalMaritalStatus");
+            if (elMarital) {
+                elMarital.dataset.originalText = elMarital.innerText;
+                const currentMarital = alumni.maritalStatus || "";
+                elMarital.innerHTML = `
+                    <select id="editMaritalStatus" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-slate-100 focus:border-amber-500 focus:outline-none">
+                        <option value="Belum Menikah" ${currentMarital === "Belum Menikah" ? "selected" : ""}>Belum Menikah</option>
+                        <option value="Menikah" ${currentMarital === "Menikah" ? "selected" : ""}>Menikah</option>
+                        <option value="Lainnya" ${currentMarital === "Lainnya" ? "selected" : ""}>Lainnya</option>
+                    </select>
+                `;
+            }
+
+            // 3. Status Pekerjaan (Dropdown)
+            const elStatusPekerjaan = document.getElementById("modalStatusPekerjaan");
+            if (elStatusPekerjaan) {
+                elStatusPekerjaan.dataset.originalText = elStatusPekerjaan.innerText;
+                const currentStat = alumni.statusPekerjaan || "bekerja";
+                elStatusPekerjaan.innerHTML = `
+                    <select id="editStatusPekerjaan" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-slate-100 focus:border-amber-500 focus:outline-none">
+                        <option value="bekerja" ${currentStat === "bekerja" ? "selected" : ""}>Bekerja</option>
+                        <option value="wirausaha" ${currentStat === "wirausaha" ? "selected" : ""}>Wirausaha</option>
+                        <option value="mencari_peluang" ${currentStat === "mencari_peluang" ? "selected" : ""}>Mencari Peluang</option>
+                        <option value="pensiun" ${currentStat === "pensiun" ? "selected" : ""}>Pensiun</option>
+                        <option value="lainnya" ${currentStat === "lainnya" ? "selected" : ""}>Lainnya</option>
+                    </select>
+                `;
+            }
+
+            // 4. Detail Pekerjaan / Usaha / Perusahaan / Jabatan
+            const elDetail1 = document.getElementById("modalDetailKerja");
+            if (elDetail1) {
+                elDetail1.dataset.originalText = elDetail1.innerText;
+                const val1 = alumni.namaPerusahaan || alumni.namaUsaha || alumni.statusLainnyaText || "";
+                elDetail1.innerHTML = `<input type="text" id="editDetailKerja1" value="${val1}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-slate-100 focus:border-amber-500 focus:outline-none" placeholder="Nama Perusahaan / Usaha">`;
+            }
+
+            const elDetail2 = document.getElementById("modalDetailKerjaSub");
+            if (elDetail2) {
+                elDetail2.dataset.originalText = elDetail2.innerText;
+                const val2 = alumni.jabatan || alumni.jenisUsaha || alumni.keahlian || "";
+                elDetail2.innerHTML = `<input type="text" id="editDetailKerja2" value="${val2}" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-slate-100 focus:border-amber-500 focus:outline-none" placeholder="Jabatan / Jenis Usaha">`;
+            }
+
+            // 5. Kelas SMA
+            const elKelas = document.getElementById("modalKelas");
+            if (elKelas) {
+                elKelas.dataset.originalText = elKelas.innerText;
+                const currentKelasVal = alumni.kelas || "";
+                elKelas.innerHTML = `
+                    <select id="editKelas" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-slate-100 focus:border-amber-500 focus:outline-none">
+                        <option value="3 - 1 (IPA 1)" ${currentKelasVal.includes("3 - 1") || currentKelasVal.includes("IPA 1") ? "selected" : ""}>3 - 1 (IPA 1)</option>
+                        <option value="3 - 2 (IPA 2)" ${currentKelasVal.includes("3 - 2") || currentKelasVal.includes("IPA 2") ? "selected" : ""}>3 - 2 (IPA 2)</option>
+                        <option value="3 - 3 (IPA 3)" ${currentKelasVal.includes("3 - 3") || currentKelasVal.includes("IPA 3") ? "selected" : ""}>3 - 3 (IPA 3)</option>
+                        <option value="3 - 4 (IPA 4)" ${currentKelasVal.includes("3 - 4") || currentKelasVal.includes("IPA 4") ? "selected" : ""}>3 - 4 (IPA 4)</option>
+                        <option value="3 - 5 (IPA 5)" ${currentKelasVal.includes("3 - 5") || currentKelasVal.includes("IPA 5") ? "selected" : ""}>3 - 5 (IPA 5)</option>
+                        <option value="3 - 6 (IPS 1)" ${currentKelasVal.includes("3 - 6") || currentKelasVal.includes("IPS 1") ? "selected" : ""}>3 - 6 (IPS 1)</option>
+                        <option value="3 - 7 (IPS 2)" ${currentKelasVal.includes("3 - 7") || currentKelasVal.includes("IPS 2") ? "selected" : ""}>3 - 7 (IPS 2)</option>
+                        <option value="3 - 8 (IPS 3)" ${currentKelasVal.includes("3 - 8") || currentKelasVal.includes("IPS 3") ? "selected" : ""}>3 - 8 (IPS 3)</option>
+                        <option value="3 - 9 (IPS 4)" ${currentKelasVal.includes("3 - 9") || currentKelasVal.includes("IPS 4") ? "selected" : ""}>3 - 9 (IPS 4)</option>
+                        <option value="3 - 10 (IPS 5)" ${currentKelasVal.includes("3 - 10") || currentKelasVal.includes("IPS 5") ? "selected" : ""}>3 - 10 (IPS 5)</option>
+                    </select>
+                `;
+            }
+        }
+
+        // Fungsi Menyimpan Perubahan Data Admin Langsung ke Firestore
+        async function saveAdminModalChanges(alumniId) {
+            if (!confirm("Simpan perubahan data alumni ini ke database?")) return;
+
+            try {
+                const statusPekerjaanVal = document.getElementById("editStatusPekerjaan").value;
+                const detail1Val = document.getElementById("editDetailKerja1").value.trim();
+                const detail2Val = document.getElementById("editDetailKerja2").value.trim();
+
+                let updatedData = {
+                    namaLengkap: document.getElementById("editNamaLengkap").value.trim(),
+                    namaPanggilan: document.getElementById("editNamaPanggilan").value.trim(),
+                    tempatLahir: document.getElementById("editTempatLahir").value.trim(),
+                    tanggalLahir: document.getElementById("editTanggalLahir").value.trim(),
+                    kelas: document.getElementById("editKelas").value,
+                    whatsapp: document.getElementById("editWhatsapp").value.trim(),
+                    domisili: document.getElementById("editDomisili").value.trim(),
+                    email: document.getElementById("editEmail").value.trim(),
+                    maritalStatus: document.getElementById("editMaritalStatus").value,
+                    statusPekerjaan: statusPekerjaanVal,
+                    instagram: document.getElementById("editInstagram").value.trim(),
+                    linkedin: document.getElementById("editLinkedin").value.trim(),
+                    facebook: document.getElementById("editFacebook").value.trim(),
+                    tiktok: document.getElementById("editTiktok").value.trim(),
+                    hobby: document.getElementById("editHobby").value.trim(),
+                    minatBakat: document.getElementById("editMinatBakat").value.trim()
+                };
+
+                if (statusPekerjaanVal === 'bekerja') {
+                    updatedData.namaPerusahaan = detail1Val;
+                    updatedData.jabatan = detail2Val;
+                    updatedData.namaUsaha = "";
+                    updatedData.jenisUsaha = "";
+                } else if (statusPekerjaanVal === 'wirausaha') {
+                    updatedData.namaUsaha = detail1Val;
+                    updatedData.jenisUsaha = detail2Val;
+                    updatedData.namaPerusahaan = "";
+                    updatedData.jabatan = "";
+                } else {
+                    updatedData.statusLainnyaText = detail1Val;
+                }
+
+                await updateDoc(doc(db, "alumni", alumniId), updatedData);
+                alert("Data alumni berhasil diperbarui!");
+
+                closeBioModal();
+                loadDatabaseAlumni();
+
+            } catch (err) {
+                alert("Gagal menyimpan perubahan: " + err.message);
+                console.error("Error updating document:", err);
+            }
+        }
+
         window.closeBioModal = function() {
+            resetModalToViewMode();
             document.getElementById("bioModal").classList.add("hidden");
         };
     </script>

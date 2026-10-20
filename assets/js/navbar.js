@@ -1,7 +1,72 @@
-console.log("navbar.js loaded");
+console.log("navbar.js loaded (Dynamic Injection Mode)");
 
 /* ==========================================
-   SELECT ELEMENTS
+   INJECT HTML NAVBAR KE HALAMAN
+========================================== */
+function injectNavbar() {
+    const navbarContainer = document.getElementById("mainNavbarContainer") || document.querySelector(".navbar");
+    
+    // Jika halaman menggunakan wadah khusus #mainNavbarContainer atau .navbar lama, kita timpa dengan navbar terpusat
+    const navbarHTML = `
+        <div class="navbar-container">
+            <!-- Logo IKA 98 -->
+            <a href="index.html" class="navbar-logo" title="Kembali ke Beranda">
+                <img class="logo-grey" src="assets/images/logo.svg" alt="IKA">
+                <img class="logo-gold" src="assets/images/logo-hover.svg" alt="IKA">
+            </a>
+
+            <!-- Menu Navigasi -->
+            <nav class="navbar-menu" id="navbarMenu">
+                <div class="nav-item" id="tentang-kita" data-title="Satu Perjalanan untuk Maju Bersama">
+                    <a href="#">Tentang Kita</a>
+                </div>
+                <div class="nav-item" id="alumni-center" data-title="Terhubung, Berkarya, dan Bertumbuh Bersama">
+                    <a href="#">Alumni Center</a>
+                </div>
+                <div class="nav-item" id="media-center" data-title="Informasi, Inspirasi, dan Dokumentasi Alumni">
+                    <a href="#">Media Center</a>
+                </div>
+                <div class="nav-item" id="community-hub" data-title="Bersinergi Melalui Komunitas dan Kegiatan">
+                    <a href="#">Community Hub</a>
+                </div>
+                <div class="nav-item" id="donasi" data-title="Bersama Memberi, Bersama Menginspirasi">
+                    <a href="#">Donasi</a>
+                </div>
+                <div class="nav-item" id="login" data-title="Akses Mudah ke Layanan Alumni">
+                    <a href="javascript:void(0);">Sign In</a>
+                </div>
+            </nav>
+
+            <!-- Tombol Hamburger Mobile -->
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+
+        <!-- Mega Menu Terpusat -->
+        <div class="mega-menu">
+            <div class="mega-menu-container">
+                <img id="mega-icon" src="assets/images/tumb 01 tentang kita.webp" class="mega-icon" alt="Tentang Kita">
+                <div class="mega-content">
+                    <h2 id="mega-title" class="mega-title">Satu Perjalanan untuk Maju Bersama</h2>
+                    <ul id="mega-links" class="mega-links"></ul>
+                </div>
+            </div>
+        </div>
+    `;
+
+    if (navbarContainer) {
+        navbarContainer.outerHTML = `<header class="navbar" id="mainNavbarContainer">${navbarHTML}</header>`;
+    }
+}
+
+// Jalankan injeksi sebelum listener lain diikat
+injectNavbar();
+
+/* ==========================================
+   SELECT ELEMENTS (SETELAH INJEKSI)
 ========================================== */
 const navItems = document.querySelectorAll(".nav-item");
 const navbarMenu = document.querySelector(".navbar-menu");
@@ -30,7 +95,7 @@ const megaData = {
         title: "Rumah Bersama Terhubung Selamanya",
         icon: "assets/images/tumb 02 alumni center.webp",
         links: [
-            { text: "Database Alumni", href: "database-alumni.html" },
+            { text: "Biodata Alumni", href: "database-alumni.html" },
             { text: "Jejaring Profesi", href: "#" },
             { text: "Karier dan Lowongan Pekerjaan", href: "#" },
             { text: "Mentoring Alumni", href: "#" },
@@ -94,16 +159,19 @@ function loadMegaMenu(menuId) {
     const data = megaData[menuId];
     if (!data) return false;
 
-    if (megaTitle) megaTitle.innerHTML = data.title;
+    const activeMegaTitle = document.querySelector("#mega-title");
+    const activeMegaIcon = document.querySelector("#mega-icon");
+    const activeMegaLinks = document.querySelector("#mega-links");
+
+    if (activeMegaTitle) activeMegaTitle.innerHTML = data.title;
     
-    // PERBAIKAN: Paksa pembaruan gambar thumbnail / foto profil
-    if (megaIcon) {
-        megaIcon.removeAttribute("src"); // Reset src dulu agar Base64 baru ter-load penuh
-        megaIcon.src = data.icon || "assets/images/tumb 06 login.webp";
+    if (activeMegaIcon) {
+        activeMegaIcon.removeAttribute("src");
+        activeMegaIcon.src = data.icon || "assets/images/tumb 06 login.webp";
     }
 
-    if (megaLinks) {
-        megaLinks.innerHTML = "";
+    if (activeMegaLinks) {
+        activeMegaLinks.innerHTML = "";
         data.links.forEach((link) => {
             const li = document.createElement("li");
             const a = document.createElement("a");
@@ -116,15 +184,18 @@ function loadMegaMenu(menuId) {
             }
             a.innerHTML = link.text;
             li.appendChild(a);
-            megaLinks.appendChild(li);
+            activeMegaLinks.appendChild(li);
         });
     }
     return true;
 }
 
+const activeNavItems = document.querySelectorAll(".nav-item");
+const activeNavbarMenu = document.querySelector(".navbar-menu");
+const activeMegaMenu = document.querySelector(".mega-menu");
 
-if (navItems.length > 0 && megaMenu) {
-    navItems.forEach(menu => {
+if (activeNavItems.length > 0 && activeMegaMenu) {
+    activeNavItems.forEach(menu => {
         menu.addEventListener("mouseenter", () => {
             if (window.innerWidth > 991) {
                 document.body.classList.remove("mega-open");
@@ -138,14 +209,16 @@ if (navItems.length > 0 && megaMenu) {
         });
     });
 
-    navbarMenu.addEventListener("mouseleave", (event) => {
-        if (window.innerWidth > 991 && megaMenu && !megaMenu.contains(event.relatedTarget)) {
-            document.body.classList.remove("mega-open");
-        }
-    });
+    if (activeNavbarMenu) {
+        activeNavbarMenu.addEventListener("mouseleave", (event) => {
+            if (window.innerWidth > 991 && activeMegaMenu && !activeMegaMenu.contains(event.relatedTarget)) {
+                document.body.classList.remove("mega-open");
+            }
+        });
+    }
 
-    megaMenu.addEventListener("mouseleave", (event) => {
-        if (window.innerWidth > 991 && navbarMenu && !navbarMenu.contains(event.relatedTarget)) {
+    activeMegaMenu.addEventListener("mouseleave", (event) => {
+        if (window.innerWidth > 991 && activeNavbarMenu && !activeNavbarMenu.contains(event.relatedTarget)) {
             document.body.classList.remove("mega-open");
         }
     });
@@ -155,7 +228,7 @@ if (navItems.length > 0 && megaMenu) {
    MOBILE ACCORDION LOGIC
 ========================================== */
 function setupMobileSubmenus() {
-    navItems.forEach(item => {
+    document.querySelectorAll(".nav-item").forEach(item => {
         const menuId = item.id;
         const data = megaData[menuId];
 
@@ -190,7 +263,7 @@ function setupMobileSubmenus() {
                     e.preventDefault();
                     const isOpen = item.classList.contains("active");
 
-                    navItems.forEach(otherItem => {
+                    document.querySelectorAll(".nav-item").forEach(otherItem => {
                         otherItem.classList.remove("active");
                         const otherSub = otherItem.querySelector(".mobile-submenu");
                         if (otherSub) otherSub.style.maxHeight = null;
@@ -212,9 +285,10 @@ setupMobileSubmenus();
    MOBILE TOGGLE BUTTON
 ========================================== */
 const navbarToggle = document.getElementById("navbarToggle");
-if (navbarToggle && navbarMenu) {
+const navbarMenuTarget = document.querySelector(".navbar-menu");
+if (navbarToggle && navbarMenuTarget) {
     navbarToggle.addEventListener("click", () => {
-        navbarMenu.classList.toggle("active");
+        navbarMenuTarget.classList.toggle("active");
     });
 }
 
@@ -226,9 +300,8 @@ window.updateMegaMenuState = function(user, userInfo) {
         const namaLengkap = userInfo.namaLengkap || user.displayName || "ALUMNI SMAN 11";
         const namaPanggilan = userInfo.namaPanggilan || "ALUMNI";
         const email = userInfo.email || user.email || "";
-        const userRole = userInfo.role || "member"; // <-- Menangkap role dari data user
+        const userRole = userInfo.role || "member";
         
-        // Cek foto user dari Firebase, jika tidak ada pakai gambar default
         const photoUrl = userInfo.foto && userInfo.foto.trim() !== "" 
             ? userInfo.foto 
             : "assets/images/tumb 06 login.webp";
@@ -236,7 +309,6 @@ window.updateMegaMenuState = function(user, userInfo) {
         const titleHtml = `<span style="color: #1f2433; font-weight: 700; display: block; font-size: 20px; line-height: 1.1; margin-bottom: 0px;">${namaLengkap}</span>`;
         const profileSubtext = `${namaPanggilan} (${email}) - [${userRole.toUpperCase()}]`;
 
-        // Daftar link dasar untuk semua member yang login
         let userLinks = [
             { 
                 text: profileSubtext, 
@@ -246,21 +318,18 @@ window.updateMegaMenuState = function(user, userInfo) {
             { text: "Update Profile & ID Card", href: "auth.html?mode=edit" }
         ];
 
-        // TAMBAHAN MENU KHUSUS JIKA ADMIN ATAU SUPER ADMIN
         if (userRole === "admin" || userRole === "super_admin") {
             userLinks.push(
                 { text: "Control Panel", href: "admin-panel.html", style: "color: #0495ce; font-weight: 700;" }
             );
         }
 
-        // TAMBAHAN MENU KHUSUS JIKA SUPER ADMIN (Tombol Darurat / Kontrol Sistem)
         if (userRole === "super_admin") {
             userLinks.push(
                 { text: "Emergency Control (Shutdown)", href: "supercontrol.html", style: "color: #0495ce; font-weight: 700;" }
             );
         }
 
-        // Tombol Sign Out SELALU dimasukkan di paling bawah untuk semua role
         userLinks.push(
             { text: "Sign Out", href: "javascript:void(0);", id: "btnLogoutMega" }
         );
@@ -302,8 +371,6 @@ document.addEventListener("click", function (e) {
             }).catch((err) => {
                 console.error("Gagal Logout:", err);
             });
-        } else {
-            console.warn("Firebase Auth belum diinisialisasi di global scope.");
         }
     }
 });

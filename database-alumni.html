@@ -60,8 +60,7 @@
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
         }
 
-        /* EFEK SENSOR ARSIRAN MILITER (REDACTION BOX SEPERTI CONTOH) */
-        /* EFEK SENSOR ARSIRAN MIKRO TANPA BORDER */
+        /* EFEK SENSOR ARSIRAN MIKRO TANPA BORDER HASIL EDITING MANUAL USER */
         .box-censor {
             position: relative;
             display: inline-block;
@@ -74,9 +73,9 @@
             background-image: repeating-linear-gradient(
                 45deg,
                 rgba(128, 128, 128, 0.5),      /* Warna abu-abu 50% */
-                rgba(128, 128, 128, 1) 0.8px, /* Ketebalan garis diperkecil (0.5px) */
+                rgba(128, 128, 128, 1) 0.8px, /* Ketebalan garis diperkecil (0.8px) */
                 transparent 0.5px,
-                transparent 4.2px              /* Jarak antar garis diperrapat (2.5px) */
+                transparent 4.2px              /* Jarak antar garis (4.2px) */
             ); 
             border: none !important;            /* Garis border dibuang total */
             border-radius: 2px;
@@ -103,41 +102,37 @@
                 <div class="nav-item" id="media-center"><a href="#">Media Center</a></div>
                 <div class="nav-item" id="community-hub"><a href="#">Community Hub</a></div>
                 <div class="nav-item" id="donasi"><a href="#">Donasi</a></div>
+                
                 <!-- Tombol Sign In / Area User di Navbar -->
-                <!-- Ganti elemen navUserArea yang lama di database-alumni.html dengan ini -->
-<div class="nav-item" id="login">
-    <a href="auth.html?mode=signin">Sign In</a>
-</div>
-
-<!-- Area Nama Panggilan & Mega Menu Profil yang Identik dengan index.html -->
-<div id="navUserArea" class="hidden relative group items-center">
-    <!-- Teks Nama Panggilan Warna Gold Polos -->
-    <a href="javascript:void(0);" id="navUserName" class="text-gold-400 font-semibold hover:text-gold-300 transition cursor-pointer py-2">
-        DEDENIPANS
-    </a>
-    
-    <!-- Mega Menu Dropdown persis seperti index.html -->
-    <div class="absolute right-0 top-full w-72 hidden group-hover:block pt-2 z-50">
-        <div class="bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl p-4 text-xs space-y-3">
-            <div class="flex items-center space-x-3 pb-3 border-b border-slate-800">
-                <img id="dropdownUserFoto" src="https://placehold.co/100x100/0e0e0e/cccccc?text=Foto" class="w-12 h-12 rounded-xl object-cover border border-amber-500/40 shadow-md" alt="Foto Profil">
-                <div class="overflow-hidden">
-                    <p id="dropdownNamaLengkap" class="font-bold text-white truncate text-sm">Nama Lengkap</p>
-                    <p id="dropdownSubInfo" class="text-[11px] text-amber-400/90 truncate mt-0.5">NAMA PANGGILAN (email@domain.com) - [MEMBER]</p>
+                <div class="nav-item" id="login">
+                    <a href="auth.html?mode=signin">Sign In</a>
                 </div>
-            </div>
-            <div class="space-y-1.5 pt-1">
-                <a href="auth.html?mode=edit" class="block px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-300 text-slate-200 transition font-medium flex items-center gap-2">
-                    <i class="fa-solid fa-user-pen text-amber-400"></i> Update Profile & ID Card
-                </a>
-                <button onclick="handleSignOut()" class="w-full text-left px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 transition font-medium flex items-center gap-2">
-                    <i class="fa-solid fa-right-from-bracket"></i> Sign Out
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-            </div>
+
+                <!-- Area Nama Panggilan & Mega Menu Profil -->
+                <div id="navUserArea" class="hidden relative group items-center">
+                    <a href="javascript:void(0);" id="navUserName" class="text-gold-400 font-semibold hover:text-gold-300 transition cursor-pointer py-2">
+                        DEDENIPANS
+                    </a>
+                    <div class="absolute right-0 top-full w-72 hidden group-hover:block pt-2 z-50">
+                        <div class="bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl p-4 text-xs space-y-3">
+                            <div class="flex items-center space-x-3 pb-3 border-b border-slate-800">
+                                <img id="dropdownUserFoto" src="https://placehold.co/100x100/0e0e0e/cccccc?text=Foto" class="w-12 h-12 rounded-xl object-cover border border-amber-500/40 shadow-md" alt="Foto Profil">
+                                <div class="overflow-hidden">
+                                    <p id="dropdownNamaLengkap" class="font-bold text-white truncate text-sm">Nama Lengkap</p>
+                                    <p id="dropdownSubInfo" class="text-[11px] text-amber-400/90 truncate mt-0.5">NAMA PANGGILAN (email@domain.com) - [MEMBER]</p>
+                                </div>
+                            </div>
+                            <div class="space-y-1.5 pt-1">
+                                <a href="auth.html?mode=edit" class="block px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-amber-500/20 hover:text-amber-300 text-slate-200 transition font-medium flex items-center gap-2">
+                                    <i class="fa-solid fa-user-pen text-amber-400"></i> Update Profile & ID Card
+                                </a>
+                                <button onclick="handleSignOut()" class="w-full text-left px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 transition font-medium flex items-center gap-2">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </nav>
 
             <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle Navigation">
@@ -210,31 +205,31 @@
     <!-- WRAPPER UTAMA DENGAN TOMBOL X DI LUAR FORM -->
     <div class="relative w-full max-w-md my-auto sm:my-8">
         
-        <!-- TOMBOL CLOSE (X) RESPONSIF: DI DALAM PADA HP, DI LUAR PADA DESKTOP -->
-<button onclick="closeBioModal()" 
-        title="Tutup Modal"
-        class="absolute top-3 right-3 sm:-top-2 sm:-right-12 z-50 bg-black/80 hover:bg-amber-500 hover:text-slate-950 text-white w-9 h-9 rounded-full flex items-center justify-center border border-slate-700/80 shadow-lg transition-all transform hover:scale-110 focus:outline-none">
-    <i class="fa-solid fa-xmark text-base"></i>
-</button>
+        <!-- TOMBOL CLOSE (X) RESPONSIF -->
+        <button onclick="closeBioModal()" 
+                title="Tutup Modal"
+                class="absolute top-3 right-3 sm:-top-2 sm:-right-12 z-50 bg-black/80 hover:bg-amber-500 hover:text-slate-950 text-white w-9 h-9 rounded-full flex items-center justify-center border border-slate-700/80 shadow-lg transition-all transform hover:scale-110 focus:outline-none">
+            <i class="fa-solid fa-xmark text-base"></i>
+        </button>
 
         <!-- KOTAK FORM BIODATA -->
         <div class="bio-modal-body rounded-2xl overflow-hidden shadow-2xl bg-[#1a1a1a] border border-slate-800">
             
-            <!-- KEPALA BINGKAI FRAME PNG & FOTO (RATA ATAS 100% TANPA GAP) -->
+            <!-- KEPALA BINGKAI FRAME PNG & FOTO -->
             <div class="relative w-full aspect-[1378/1483] bg-[#1a1a1a] overflow-hidden leading-none">
                 
-                <!-- LAYER 1: Pas Foto Alumni (Pas di dalam jendela bingkai) -->
+                <!-- LAYER 1: Pas Foto Alumni -->
                 <div class="absolute top-[8.5%] left-[12%] w-[76%] h-[78%] overflow-hidden rounded-2xl z-10">
                     <img id="modalFoto" src="" alt="Foto Alumni" 
                          class="w-full h-full object-cover object-[center_15%] transition-transform duration-200">
                 </div>
 
-                <!-- LAYER 2: Bingkai PNG Transparan (Menempel Rapat di Top 0) -->
+                <!-- LAYER 2: Bingkai PNG Transparan -->
                 <img src="assets/images/frame_biodata.png" alt="Frame Biodata" 
                      class="absolute top-0 left-0 w-full h-full object-cover object-top pointer-events-none z-20 block">
             </div>
 
-            <!-- DETAIL KONTEN BIODATA + FOOTER COPYRIGHT (SPASI 100% SIMETRIS) -->
+            <!-- DETAIL KONTEN BIODATA + FOOTER COPYRIGHT -->
             <div class="px-6 pb-5 -mt-2 relative z-30 space-y-2.5 text-xs">
                 
                 <div class="flex items-baseline pt-1">
@@ -301,6 +296,7 @@
                     </div>
                 </div>
 
+                <!-- POIN SOSIAL MEDIA & KOMUNITAS TERBARU -->
                 <div class="flex items-baseline">
                     <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">PROFIL LINKEDIN</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
@@ -318,6 +314,47 @@
                 </div>
 
                 <div class="flex items-baseline">
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">FACEBOOK</span>
+                    <div class="flex-grow flex items-baseline gap-1.5">
+                        <span class="text-[9px] text-slate-400 font-medium">:</span>
+                        <span id="modalFacebook" class="text-sm font-bold text-white"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-baseline">
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">TIKTOK</span>
+                    <div class="flex-grow flex items-baseline gap-1.5">
+                        <span class="text-[9px] text-slate-400 font-medium">:</span>
+                        <span id="modalTiktok" class="text-sm font-bold text-white"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-baseline">
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">STATUS PERNIKAHAN</span>
+                    <div class="flex-grow flex items-baseline gap-1.5">
+                        <span class="text-[9px] text-slate-400 font-medium">:</span>
+                        <span id="modalMaritalStatus" class="text-sm font-bold text-white"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-baseline">
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">HOBI (KOMUNITAS)</span>
+                    <div class="flex-grow flex items-baseline gap-1.5">
+                        <span class="text-[9px] text-slate-400 font-medium">:</span>
+                        <span id="modalHobby" class="text-sm font-bold text-white"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-baseline">
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">MINAT & BAKAT</span>
+                    <div class="flex-grow flex items-baseline gap-1.5">
+                        <span class="text-[9px] text-slate-400 font-medium">:</span>
+                        <span id="modalMinatBakat" class="text-sm font-bold text-white"></span>
+                    </div>
+                </div>
+
+                <!-- RINCIAN PEKERJAAN & KONTAK -->
+                <div class="flex items-baseline">
                     <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">STATUS PEKERJAAN</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
                         <span class="text-[9px] text-slate-400 font-medium">:</span>
@@ -326,10 +363,18 @@
                 </div>
 
                 <div class="flex items-baseline">
-                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium">NAMA BRAND/USAHA</span>
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium" id="labelBrandUsaha">NAMA BRAND/USAHA</span>
                     <div class="flex-grow flex items-baseline gap-1.5">
                         <span class="text-[9px] text-slate-400 font-medium">:</span>
                         <span id="modalDetailKerja" class="text-sm font-bold text-white"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-baseline">
+                    <span class="w-[115px] shrink-0 text-[9px] uppercase tracking-wider text-slate-400 font-medium" id="labelDetailKerja2">JABATAN / SKILL</span>
+                    <div class="flex-grow flex items-baseline gap-1.5">
+                        <span class="text-[9px] text-slate-400 font-medium">:</span>
+                        <span id="modalDetailKerjaSub" class="text-sm font-bold text-white"></span>
                     </div>
                 </div>
 
@@ -341,7 +386,7 @@
                     </div>
                 </div>
 
-                <!-- Tombol Edit Data Khusus Admin/Super Admin (Margin Dihapus Agar Tidak Merusak Spasi Saat Hidden) -->
+                <!-- Tombol Edit Data Khusus Admin/Super Admin -->
                 <div id="modalAdminControls" class="hidden border-t border-slate-800 pt-3 mt-3">
                     <button id="btnAdminEdit" class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg transition text-xs flex items-center justify-center gap-2">
                         <i class="fa-solid fa-user-pen"></i>
@@ -349,7 +394,7 @@
                     </button>
                 </div>
 
-                <!-- FOOTER COPYRIGHT DIVTIK & DESIGNER (SPASI RATA & PERSIS SAMA DENGAN JANGKAUAN BAWAH) -->
+                <!-- FOOTER COPYRIGHT DIVTIK & DESIGNER -->
                 <div class="!mt-5 pt-5 border-t border-slate-800/80 text-center space-y-0.5 text-[8px] text-slate-500 tracking-tight font-normal leading-tight select-none">
                     <p>copyrights © 2026 IKA.11.98 | Ikatan Alumni SMUN 11 Bandung Angkatan 98</p>
                     <p>divTIK (Divisi Teknologi Informasi dan Komunikasi) IKA.11.98</p>
@@ -380,7 +425,7 @@
     <!-- FIREBASE & LOGIKA DATABASE ENGINE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -400,6 +445,12 @@
         let allAlumniData = [];
         let currentRole = "member";
         let currentUid = "";
+
+        window.handleSignOut = function() {
+            signOut(auth).then(() => {
+                window.location.reload();
+            });
+        };
 
         // Deteksi Pengguna Login & Role untuk Navbar & Akses Modal
         onAuthStateChanged(auth, async (user) => {
@@ -455,64 +506,63 @@
         });
 
         // Load Data Alumni dari Firestore (Saring Akun Admin/Superadmin)
-async function loadDatabaseAlumni() {
-    const gridEl = document.getElementById("alumniGrid");
-    try {
-        const querySnap = await getDocs(collection(db, "alumni"));
-        allAlumniData = [];
-        
-        querySnap.forEach((docSnap) => {
-            const data = docSnap.data();
-            const role = (data.role || "").toLowerCase();
-            const email = (data.email || "").toLowerCase();
-            const namaLengkap = (data.namaLengkap || "").toLowerCase();
+        async function loadDatabaseAlumni() {
+            const gridEl = document.getElementById("alumniGrid");
+            try {
+                const querySnap = await getDocs(collection(db, "alumni"));
+                allAlumniData = [];
+                
+                querySnap.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const role = (data.role || "").toLowerCase();
+                    const email = (data.email || "").toLowerCase();
+                    const namaLengkap = (data.namaLengkap || "").toLowerCase();
 
-            // PENYARINGAN AKUN: Abaikan akun dengan role admin/super_admin atau akun khusus sistem
-            const isAdminAccount = role === "admin" || role === "super_admin" || 
-                                   email.includes("admin") || namaLengkap.includes("admin");
+                    // PENYARINGAN AKUN: Abaikan akun dengan role admin/super_admin atau akun khusus sistem
+                    const isAdminAccount = role === "admin" || role === "super_admin" || 
+                                           email.includes("admin") || namaLengkap.includes("admin");
 
-            if (!isAdminAccount) {
-                allAlumniData.push({ id: docSnap.id, ...data });
+                    if (!isAdminAccount) {
+                        allAlumniData.push({ id: docSnap.id, ...data });
+                    }
+                });
+
+                renderAlumniGrid(allAlumniData);
+            } catch (err) {
+                console.error("Gagal memuat database:", err);
+                gridEl.innerHTML = `<div class="col-span-full text-center py-8 text-red-400">Gagal memuat data database alumni.</div>`;
             }
-        });
+        }
 
-        renderAlumniGrid(allAlumniData);
-    } catch (err) {
-        console.error("Gagal memuat database:", err);
-        gridEl.innerHTML = `<div class="col-span-full text-center py-8 text-red-400">Gagal memuat data database alumni.</div>`;
-    }
-}
+        // Render Kartu Grid dengan Golden Ratio Presisi pada Thumbnail
+        function renderAlumniGrid(dataList) {
+            const gridEl = document.getElementById("alumniGrid");
+            gridEl.innerHTML = "";
 
-// Render Kartu Grid dengan Golden Ratio Presisi pada Thumbnail
-function renderAlumniGrid(dataList) {
-    const gridEl = document.getElementById("alumniGrid");
-    gridEl.innerHTML = "";
+            if (dataList.length === 0) {
+                gridEl.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400">Data alumni tidak ditemukan.</div>`;
+                return;
+            }
 
-    if (dataList.length === 0) {
-        gridEl.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400">Data alumni tidak ditemukan.</div>`;
-        return;
-    }
+            dataList.forEach((alumni) => {
+                const fotoSrc = alumni.foto || "assets/images/tumb 06 login.webp";
+                const namaPanggilan = alumni.namaPanggilan || "ALUMNI";
+                const kelas = alumni.kelas || "11.98";
 
-    dataList.forEach((alumni) => {
-        const fotoSrc = alumni.foto || "assets/images/tumb 06 login.webp";
-        const namaPanggilan = alumni.namaPanggilan || "ALUMNI";
-        const kelas = alumni.kelas || "11.98";
+                const card = document.createElement("div");
+                card.className = "alumni-card rounded-2xl p-3 flex flex-col items-center text-center cursor-pointer";
+                card.onclick = () => openBioModal(alumni);
 
-        const card = document.createElement("div");
-        card.className = "alumni-card rounded-2xl p-3 flex flex-col items-center text-center cursor-pointer";
-        card.onclick = () => openBioModal(alumni);
-
-        // KITA PAKSA MENGGUNAKAN STYLE OBJECT-POSITION LANGSUNG PADA TAG IMG
-        card.innerHTML = `
-            <div class="w-full aspect-square rounded-xl overflow-hidden mb-3 bg-slate-900 relative">
-                <img src="${fotoSrc}" class="w-full h-full" style="object-fit: cover; object-position: center 15%;" alt="${namaPanggilan}">
-            </div>
-            <h3 class="font-bold text-white text-sm truncate w-full uppercase">${namaPanggilan}</h3>
-            <p class="text-xs text-amber-500 font-medium">${kelas}</p>
-        `;
-        gridEl.appendChild(card);
-    });
-}
+                card.innerHTML = `
+                    <div class="w-full aspect-square rounded-xl overflow-hidden mb-3 bg-slate-900 relative">
+                        <img src="${fotoSrc}" class="w-full h-full" style="object-fit: cover; object-position: center 15%;" alt="${namaPanggilan}">
+                    </div>
+                    <h3 class="font-bold text-white text-sm truncate w-full uppercase">${namaPanggilan}</h3>
+                    <p class="text-xs text-amber-500 font-medium">${kelas}</p>
+                `;
+                gridEl.appendChild(card);
+            });
+        }
 
         // Filter Pencarian & Kelas
         document.getElementById("searchKeyword").addEventListener("input", filterData);
@@ -531,19 +581,6 @@ function renderAlumniGrid(dataList) {
             renderAlumniGrid(filtered);
         }
 
-        // Fungsi Pembantu: Sensor Tanggal Lahir (Hanya Tahun yang Ditutup)
-        function formatTanggalSensor(tglStr) {
-            if (!tglStr) return "-";
-            const parts = tglStr.split("-");
-            if (parts.length === 3) {
-                const bulanNama = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-                const tgl = parseInt(parts[2], 10);
-                const bln = bulanNama[parseInt(parts[1], 10) - 1] || parts[1];
-                return `${tgl} ${bln} ****`;
-            }
-            return tglStr.replace(/\d{4}/, "****");
-        }
-
         // Fungsi Pembantu: Render Alamat Terpisah dengan Sensor Elegan Per Kata
         function renderAlamatModal(alumni, isFullAccess) {
             if (!alumni) return "-";
@@ -556,7 +593,6 @@ function renderAlumniGrid(dataList) {
             const kota = alumni.alamatKota || "";
             const provinsi = alumni.alamatProvinsi || "";
 
-            // Jika menggunakan struktur data baru (kolom terpisah)
             const publicParts = [kelurahan, kecamatan, kota, provinsi].filter(Boolean).join(", ");
             
             if (publicParts) {
@@ -564,7 +600,6 @@ function renderAlumniGrid(dataList) {
                     const privatParts = [jalan, noRumah, rtRw].filter(Boolean).join(", ");
                     return [privatParts, publicParts].filter(Boolean).join(", ");
                 } else {
-                    // Bungkus setiap kata bagian privat dengan .box-censor secara terpisah
                     const privatRaw = [jalan, noRumah, rtRw].filter(Boolean).join(" ");
                     let privatHtml = "";
                     
@@ -600,36 +635,70 @@ function renderAlumniGrid(dataList) {
 
         // Buka Modal Biodata Tentara
         window.openBioModal = function(alumni) {
-            const isFullAccess = (currentRole === "super_admin" || currentRole === "admin" || currentUid === alumni.id);
+            const isFullAccess = (currentRole === "super_admin" || currentRole === "admin" || currentUid === alumni.id || currentUid === alumni.uid);
 
             document.getElementById("modalFoto").src = alumni.foto || "assets/images/tumb 06 login.webp";
             document.getElementById("modalNamaLengkap").innerText = alumni.namaLengkap || "-";
             
-            // Format Nomor Anggota Otomatis Huruf Kapital (IKA11A980000)
             const rawNoAnggota = alumni.noAnggota || "ika11a980000";
             document.getElementById("modalNoAnggota").innerText = rawNoAnggota.toUpperCase();
 
             document.getElementById("modalNamaPanggilan").innerText = alumni.namaPanggilan || "-";
             document.getElementById("modalTempatLahir").innerText = alumni.tempatLahir || "-";
             document.getElementById("modalKelas").innerText = alumni.kelas || "-";
+            
+            // ISI DATA SOSIAL MEDIA & SOSIAL PERSONAL TERBARU
             document.getElementById("modalLinkedin").innerText = alumni.linkedin || "-";
-            document.getElementById("modalInstagram").innerText = alumni.instagram || "-";
-            document.getElementById("modalStatusPekerjaan").innerText = alumni.statusPekerjaan || "-";
-            document.getElementById("modalDetailKerja").innerText = alumni.namaUsaha || alumni.namaPerusahaan || "-";
+            document.getElementById("modalInstagram").innerText = alumni.instagram ? (alumni.instagram.startsWith('@') ? alumni.instagram : `@${alumni.instagram}`) : "-";
+            document.getElementById("modalFacebook").innerText = alumni.facebook || "-";
+            document.getElementById("modalTiktok").innerText = alumni.tiktok ? (alumni.tiktok.startsWith('@') ? alumni.tiktok : `@${alumni.tiktok}`) : "-";
+            document.getElementById("modalMaritalStatus").innerText = alumni.maritalStatus || "-";
+            document.getElementById("modalHobby").innerText = alumni.hobby || "-";
+            document.getElementById("modalMinatBakat").innerText = alumni.minatBakat || "-";
+
+            // RINCIAN PEKERJAAN DINAMIS
+            const statusPekerjaan = alumni.statusPekerjaan || "-";
+            document.getElementById("modalStatusPekerjaan").innerText = statusPekerjaan.replace('_', ' ');
+
+            const labelBrandUsaha = document.getElementById("labelBrandUsaha");
+            const labelDetailKerja2 = document.getElementById("labelDetailKerja2");
+            const valDetailKerja = document.getElementById("modalDetailKerja");
+            const valDetailKerjaSub = document.getElementById("modalDetailKerjaSub");
+
+            if (statusPekerjaan === 'bekerja') {
+                if (labelBrandUsaha) labelBrandUsaha.innerText = "NAMA PERUSAHAAN";
+                if (labelDetailKerja2) labelDetailKerja2.innerText = "JABATAN";
+                if (valDetailKerja) valDetailKerja.innerText = alumni.namaPerusahaan || "-";
+                if (valDetailKerjaSub) valDetailKerjaSub.innerText = alumni.jabatan || "-";
+            } else if (statusPekerjaan === 'wirausaha') {
+                if (labelBrandUsaha) labelBrandUsaha.innerText = "NAMA BRAND/USAHA";
+                if (labelDetailKerja2) labelDetailKerja2.innerText = "JENIS USAHA";
+                if (valDetailKerja) valDetailKerja.innerText = alumni.namaUsaha || "-";
+                if (valDetailKerjaSub) valDetailKerjaSub.innerText = alumni.jenisUsaha || "-";
+            } else if (statusPekerjaan === 'mencari_peluang') {
+                if (labelBrandUsaha) labelBrandUsaha.innerText = "PELUANG CARI";
+                if (labelDetailKerja2) labelDetailKerja2.innerText = "CORE SKILLS";
+                if (valDetailKerja) valDetailKerja.innerText = "Open for Opportunity";
+                if (valDetailKerjaSub) valDetailKerjaSub.innerText = alumni.keahlian || "-";
+            } else {
+                if (labelBrandUsaha) labelBrandUsaha.innerText = "KEGIATAN";
+                if (labelDetailKerja2) labelDetailKerja2.innerText = "KETERANGAN";
+                if (valDetailKerja) valDetailKerja.innerText = alumni.statusLainnyaText || "-";
+                if (valDetailKerjaSub) valDetailKerjaSub.innerText = "-";
+            }
 
             // Email Aktif Selalu Dibuka Penuh
             document.getElementById("modalEmail").innerText = alumni.email || "-";
 
-            // Atur Sensor Privasi Dinamis Berdasarkan Data Asli Alumni
+            // Atur Sensor Privasi Dinamis
             if (isFullAccess) {
-                // Akses Penuh untuk Admin / Pemilik Akun Sendiri
                 document.getElementById("modalTanggalLahir").innerText = alumni.tanggalLahir || "-";
                 document.getElementById("modalWhatsapp").innerText = alumni.whatsapp || "-";
                 document.getElementById("modalDomisili").innerText = alumni.domisili || "-";
             } else {
-                // 1. SENSOR TANGGAL LAHIR (Bulan/Tanggal dibuka, Tahun disensor arsiran)
+                // 1. SENSOR TANGGAL LAHIR
                 if (alumni.tanggalLahir) {
-                    const parts = alumni.tanggalLahir.split("-"); // Format YYYY-MM-DD atau sebaliknya
+                    const parts = alumni.tanggalLahir.split("-");
                     if (parts.length === 3) {
                         const bulanNama = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
                         const tgl = parseInt(parts[2], 10) || parts[2];
@@ -642,7 +711,7 @@ function renderAlumniGrid(dataList) {
                     document.getElementById("modalTanggalLahir").innerText = "-";
                 }
 
-                // 2. SENSOR NOMOR TELEPON (4 digit depan dibuka, sisanya disensor arsiran seragam)
+                // 2. SENSOR NOMOR TELEPON
                 const rawWa = alumni.whatsapp || "";
                 if (rawWa.length >= 4) {
                     const frontWa = rawWa.substring(0, 4);
@@ -653,7 +722,7 @@ function renderAlumniGrid(dataList) {
                     document.getElementById("modalWhatsapp").innerText = "-";
                 }
 
-                // 3. SENSOR ALAMAT LENGKAP (Menggunakan fungsi renderAlamatModal per kata)
+                // 3. SENSOR ALAMAT LENGKAP
                 document.getElementById("modalDomisili").innerHTML = renderAlamatModal(alumni, isFullAccess);
             }
 

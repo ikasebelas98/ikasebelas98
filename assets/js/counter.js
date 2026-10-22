@@ -36,34 +36,39 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLiveDateTime();
     setInterval(updateLiveDateTime, 1000);
 
-    // 2. FIREBASE FIRESTORE VISITOR COUNTER
+    // 2. FIREBASE FIRESTORE VISITOR COUNTER DENGAN SESSION STORAGE
     async function trackVisitor() {
         try {
             const visitorRef = doc(db, "settings", "visitor_counter");
             const visitorSnap = await getDoc(visitorRef);
 
-            let currentCount = 1;
+            let currentCount = visitorSnap.exists() ? visitorSnap.data().count : 0;
+            const visitorEl = document.getElementById("visitorCount");
 
-            if (visitorSnap.exists()) {
-                // Jika dokumen sudah ada, tambahkan 1
-                await updateDoc(visitorRef, {
-                    count: increment(1)
-                });
-                currentCount = visitorSnap.data().count + 1;
-            } else {
-                // Jika dokumen belum ada, buat baru mulai dari 1
-                await setDoc(visitorRef, { count: 1 });
+            // Cek apakah tab browser ini sudah mencatat kunjungan di sesi aktif
+            if (!sessionStorage.getItem("visited_session")) {
+                if (visitorSnap.exists()) {
+                    await updateDoc(visitorRef, {
+                        count: increment(1)
+                    });
+                    currentCount += 1;
+                } else {
+                    await setDoc(visitorRef, { count: 1 });
+                    currentCount = 1;
+                }
+                // Tandai bahwa sesi ini sudah dihitung
+                sessionStorage.setItem("visited_session", "true");
             }
 
-            // Format ke 6 digit (contoh: 000001)
-            const formattedNumber = String(currentCount).padStart(9, '0');
-            const visitorEl = document.getElementById("visitorCount");
-            if (visitorEl) visitorEl.innerText = formattedNumber;
+            // Tampilkan angka visitor ke layar (format 9 digit)
+            if (visitorEl) {
+                visitorEl.innerText = String(currentCount).padStart(9, '0');
+            }
 
         } catch (err) {
             console.error("Firebase Counter Error:", err);
             const visitorEl = document.getElementById("visitorCount");
-            if (visitorEl) visitorEl.innerText = "000001";
+            if (visitorEl) visitorEl.innerText = "000000001";
         }
     }
 

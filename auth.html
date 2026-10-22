@@ -1203,7 +1203,9 @@ targetIDs.forEach(id => {
     checkRequired('regTanggalLahir', 'Tanggal lahir wajib dipilih.');
     checkRequired('regKelas', 'Pilih kelas masa SMA Anda.');
     checkRequired('regWhatsapp', 'Nomor WhatsApp / HP wajib diisi.');
-    checkRequired('regDomisili', 'Alamat domisili wajib diisi.');
+    checkRequired('regKecamatan', 'Kecamatan wajib diisi.');
+    checkRequired('regKota', 'Kabupaten / Kota wajib diisi.');
+    checkRequired('regProvinsi', 'Provinsi wajib diisi.');
     checkRequired('regStatusPekerjaan', 'Pilih status pekerjaan Anda.');
 
     const statusPekerjaanVal = document.getElementById('regStatusPekerjaan')?.value;
@@ -1279,6 +1281,17 @@ targetIDs.forEach(id => {
 
         const nomorAnggota = `ika11a98${String(totalAlumni).padStart(4, '0')}`;
 
+        // Ambil komponen alamat terpisah terlebih dahulu
+        const jalan = document.getElementById('regJalan')?.value.trim() || '';
+        const noRumah = document.getElementById('regNoRumah')?.value.trim() || '';
+        const rtRw = document.getElementById('regRtRw')?.value.trim() || '';
+        const kelurahan = document.getElementById('regKelurahan')?.value.trim() || '';
+        const kecamatan = document.getElementById('regKecamatan')?.value.trim() || '';
+        const kota = document.getElementById('regKota')?.value.trim() || '';
+        const provinsi = document.getElementById('regProvinsi')?.value.trim() || '';
+
+        const domisiliUtuh = [jalan, noRumah, rtRw, kelurahan, kecamatan, kota, provinsi].filter(Boolean).join(", ");
+
         const alumniData = {
             uid: user.uid,
             noAnggota: nomorAnggota,
@@ -1290,9 +1303,25 @@ targetIDs.forEach(id => {
             tanggalLahir: document.getElementById('regTanggalLahir').value,
             kelas: document.getElementById('regKelas').value,
             whatsapp: document.getElementById('regWhatsapp').value.trim(),
-            domisili: document.getElementById('regDomisili').value.trim(),
+            
+            // Simpan Kolom Alamat Terpisah & Utuh dengan aman
+            alamatJalan: jalan,
+            alamatNoRumah: noRumah,
+            alamatRtRw: rtRw,
+            alamatKelurahan: kelurahan,
+            alamatKecamatan: kecamatan,
+            alamatKota: kota,
+            alamatProvinsi: provinsi,
+            domisili: domisiliUtuh,
+
             linkedin: document.getElementById('regLinkedin').value.trim(),
             instagram: document.getElementById('regInstagram').value.trim(),
+            facebook: document.getElementById('regFacebook')?.value.trim() || '',
+            tiktok: document.getElementById('regTiktok')?.value.trim() || '',
+            maritalStatus: document.getElementById('regMaritalStatus')?.value || '',
+            hobby: document.getElementById('regHobby')?.value.trim() || '',
+            minatBakat: document.getElementById('regMinatBakat')?.value.trim() || '',
+
             statusPekerjaan: statusPekerjaanVal,
             namaPerusahaan: document.getElementById('regNamaPerusahaan')?.value || '',
             jabatan: document.getElementById('regJabatan')?.value || '',

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Week One Juz - IKA SMAN 11 Bandung Angkatan 98</title>
+
+    <!-- CSS Base & Existing -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/grid-menu.css">
+    <link rel="stylesheet" href="assets/css/counter.css">
+    <link rel="stylesheet" href="assets/css/tilawah.css">
+
+    <!-- Font Awesome & Tailwind CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <!-- ==========================================
+         NAVBAR (KONSISTEN DENGAN INDEX.HTML)
+    ========================================== -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo" title="Kembali ke Beranda">
+                <img class="logo-grey" src="assets/images/logo.svg" alt="IKA">
+                <img class="logo-gold" src="assets/images/logo-hover.svg" alt="IKA">
+            </a>
+
+            <nav class="navbar-menu" id="navbarMenu">
+                <div class="nav-item" id="tentang-kita" data-title="Satu Perjalanan untuk Maju Bersama"><a href="index.html#">Tentang Kita</a></div>
+                <div class="nav-item" id="alumni-center" data-title="Terhubung, Berkarya, dan Bertumbuh Bersama"><a href="index.html#">Alumni Center</a></div>
+                <div class="nav-item" id="media-center" data-title="Informasi, Inspirasi, dan Dokumentasi Alumni"><a href="index.html#">Media Center</a></div>
+                <div class="nav-item" id="community-hub" data-title="Bersinergi Melalui Komunitas dan Kegiatan"><a href="index.html#">Community Hub</a></div>
+                <div class="nav-item" id="donasi" data-title="Bersama Memberi, Bersama Menginspirasi"><a href="donasi.html">Donasi</a></div>
+                <div class="nav-item" id="login" data-title="Akses Mudah ke Layanan Alumni"><a href="javascript:void(0);">Sign In</a></div>
+            </nav>
+
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+
+        <div class="mega-menu">
+            <div class="mega-menu-container">
+                <img id="mega-icon" src="assets/images/tumb 01 tentang kita.webp" class="mega-icon" alt="Menu">
+                <div class="mega-content">
+                    <h2 id="mega-title" class="mega-title">Satu Perjalanan untuk Maju Bersama</h2>
+                    <ul id="mega-links" class="mega-links"></ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         MAIN CONTENT - OWOJ TILAWAH DASHBOARD
+    ========================================== -->
+    <main class="flex-grow pt-20 pb-16 w-full">
+
+        <!-- TAB NAVIGATION BAR (GREY METALLIC STYLE LIKE DESIGN) -->
+        <div class="bg-slate-900 border-b border-slate-800 sticky top-16 z-40 shadow-md">
+            <div class="max-w-[1920px] mx-auto px-2">
+                <div class="grid grid-cols-2 md:grid-cols-4 text-center font-bold text-xs md:text-sm uppercase tracking-wider" id="tabContainer">
+                    <button onclick="switchTab('tab1')" id="btnTab1" class="tab-btn-bar">
+                        PESERTA TILAWAH
+                    </button>
+                    <button onclick="switchTab('tab2')" id="btnTab2" class="tab-btn-bar active">
+                        ONE WEEK ONE JUZ
+                    </button>
+                    <button onclick="switchTab('tab3')" id="btnTab3" class="tab-btn-bar">
+                        ONE WEEK PROGRESS
+                    </button>
+                    <button onclick="switchTab('tab4')" id="btnTab4" class="tab-btn-bar">
+                        LAPORAN TAHUNAN
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT CONTAINER -->
+        <div class="max-w-[1920px] mx-auto px-4 py-6">
+
+            <!-- TAB 1: PESERTA TILAWAH -->
+            <div id="tab1" class="tab-content hidden">
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-amber-400">Daftar 30 Peserta OWOJ</h2>
+                            <p class="text-xs text-slate-400">Rotasi urutan Juz otomatis bergeser setiap hari Senin pukul 00:00 WIB.</p>
+                        </div>
+                        <div class="text-xs bg-slate-800 text-amber-300 font-semibold px-3 py-1.5 rounded-lg border border-amber-500/20" id="currentWeekBadge">
+                            Memuat Periode Pekan...
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-300">
+                            <thead class="bg-slate-800/80 text-amber-400 text-xs uppercase tracking-wider">
+                                <tr>
+                                    <th class="p-3.5 rounded-l-lg">No</th>
+                                    <th class="p-3.5">Nama Panggilan</th>
+                                    <th class="p-3.5">Nama Lengkap</th>
+                                    <th class="p-3.5 text-center">Tugas Pekan Ini</th>
+                                    <th class="p-3.5 text-center rounded-r-lg">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="participantTableBody" class="divide-y divide-slate-800/50">
+                                <tr>
+                                    <td colspan="5" class="p-8 text-center text-slate-500">Memuat data peserta...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ONE WEEK ONE JUZ (GRID 30 JUZ CARD SEPERTI ACCUAN GAMBAR) -->
+            <div id="tab2" class="tab-content block">
+                <!-- GRID CONTAINER 3 KOLOM BERDERET -->
+                <div id="juzGrid30Container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 30 CARD JUZ AKAN DI-RENDER OTOMATIS OLEH JAVASCRIPT -->
+                </div>
+            </div>
+
+            <!-- TAB 3: ONE WEEK PROGRESS (COLOR WHEEL) -->
+            <div id="tab3" class="tab-content hidden">
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 text-center space-y-8">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-amber-400">Color Wheel Progress OWOJ</h2>
+                        <p class="text-xs text-slate-400 mt-1">Status capaian tilawah 30 Juz seluruh kelompok pekan ini secara visual.</p>
+                    </div>
+
+                    <div class="relative w-full max-w-lg mx-auto aspect-square flex items-center justify-center p-4">
+                        <svg id="colorWheelSvg" viewBox="0 0 500 500" class="w-full h-full drop-shadow-2xl"></svg>
+
+                        <div class="absolute inset-0 m-auto w-36 h-36 md:w-44 md:h-44 bg-slate-950/90 rounded-full border-2 border-amber-500/30 flex flex-col items-center justify-center p-2 text-center backdrop-blur-md shadow-inner">
+                            <span class="text-[10px] md:text-xs text-slate-400 font-medium">TOTAL PEKAN INI</span>
+                            <span id="wheelTotalPercent" class="text-2xl md:text-3xl font-black text-amber-400 my-0.5">0%</span>
+                            <span class="text-[9px] md:text-[10px] text-slate-400">Target Group Khatam</span>
+                        </div>
+                    </div>
+
+                    <div id="wheelHoverInfo" class="bg-slate-800/90 border border-amber-500/30 rounded-xl p-3 text-xs text-slate-300 max-w-sm mx-auto">
+                        Arahkan kursor atau sentuh kelopak Juz pada roda warna di atas untuk melihat detail progres.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: LAPORAN TAHUNAN -->
+            <div id="tab4" class="tab-content hidden">
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-amber-400">Laporan & Analytic Tahunan OWOJ</h2>
+                        <p class="text-xs text-slate-400">Rekapitulasi pencapaian target khatam bersama sepanjang 52 pekan.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl text-center space-y-1">
+                            <span class="text-xs text-slate-400">Total Khatam Grup</span>
+                            <h4 id="yearlyTotalKhatam" class="text-3xl font-black text-amber-400">0 Kali</h4>
+                        </div>
+                        <div class="bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl text-center space-y-1">
+                            <span class="text-xs text-slate-400">Tingkat Disiplin Kelompok</span>
+                            <h4 id="yearlyDisciplineRate" class="text-3xl font-black text-emerald-400">0%</h4>
+                        </div>
+                        <div class="bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl text-center space-y-1">
+                            <span class="text-xs text-slate-400">Pekan Berlangsung</span>
+                            <h4 id="yearlyCurrentWeekNum" class="text-3xl font-black text-sky-400">Pekan --</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER VISITOR COUNTER -->
+    <div class="counter-wrapper">
+        <div class="visitor-counter">
+            <div class="counter-time-group"><span id="liveDayDate" class="counter-date">MEMUAT TANGGAL...</span></div>
+            <span class="counter-divider-vertical"></span>
+            <div class="counter-bday-group text-amber-400 font-normal text-[11px] flex items-center gap-1">
+                <i class="fa-solid fa-cake-candles text-amber-400"></i>
+                <span id="bdayWidgetText">Mengecek Ultah...</span>
+            </div>
+            <span class="counter-divider-vertical"></span>
+            <div class="counter-time-group"><span id="liveClock" class="counter-clock">00:00:00 WIB</span></div>
+            <span class="counter-divider-vertical"></span>
+            <div class="counter-stats-group">
+                <span class="counter-label">visitor:</span>
+                <span id="visitorCount" class="counter-number">000000000</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- COPYRIGHT SECTION -->
+    <section class="soft-launch py-4 bg-slate-950 text-center text-[11px] text-slate-500 border-t border-slate-900">
+        <p>copyrights © 2026 IKA.11.98 | divTIK IKA SMAN 11 Bandung Angkatan 98</p>
+    </section>
+
+    <!-- FIREBASE AUTH ENGINE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCQPbOs9mN3TIW9SkBsPM6y0MjJmlhBfgc",
+          authDomain: "ikasebelas98-96595.firebaseapp.com",
+          projectId: "ikasebelas98-96595",
+          storageBucket: "ikasebelas98-96595.firebasestorage.app",
+          messagingSenderId: "142033224407",
+          appId: "1:142033224407:web:21a6cd2305c75c1deee692",
+          measurementId: "G-W486XXJVBX"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.firebaseSignOut = signOut;
+        window.firebaseAuth = auth;
+        window.firebaseDb = db;
+
+        onAuthStateChanged(auth, async (user) => {
+            const loginBtn = document.querySelector('#login') || document.querySelector('a[href*="javascript:void"]');
+            const targetElement = loginBtn ? (loginBtn.tagName === 'A' ? loginBtn : (loginBtn.querySelector('a') || loginBtn)) : null;
+
+            if (user) {
+                try {
+                    const docRef = doc(db, "alumni", user.uid);
+                    const docSnap = await getDoc(docRef);
+
+                    let namaPanggilan = user.email ? user.email.split('@')[0] : "ALUMNI";
+                    let userRole = "member";
+
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        namaPanggilan = data.namaPanggilan || namaPanggilan;
+                        userRole = data.role || "member";
+                    }
+
+                    const formattedPanggilan = namaPanggilan.trim().toUpperCase();
+                    if (targetElement) {
+                        targetElement.innerHTML = `<span style="color: #eab308; font-weight: 700;">${formattedPanggilan}</span>`;
+                        targetElement.href = "javascript:void(0);";
+                    }
+
+                    if (typeof window.initTilawahDashboard === "function") {
+                        window.initTilawahDashboard(user, formattedPanggilan);
+                    }
+                } catch (error) {
+                    console.error("Gagal memuat auth tilawah:", error);
+                }
+            } else {
+                if (targetElement) {
+                    targetElement.innerHTML = "Sign In";
+                    targetElement.href = "javascript:void(0);";
+                }
+                if (typeof window.initTilawahDashboard === "function") {
+                    window.initTilawahDashboard(null);
+                }
+            }
+        });
+    </script>
+
+    <!-- JS ASSETS -->
+    <script src="assets/js/navbar.js?v=2.0"></script>
+    <script type="module" src="assets/js/counter.js"></script>
+    <script src="assets/js/tilawah.js"></script>
+
+</body>
+</html>

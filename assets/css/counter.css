@@ -21,7 +21,7 @@
     font-family: 'Inter', monospace;
     border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    white-space: nowrap; /* Mencegah teks turun baris */
+    white-space: nowrap; /* Mencegah teks turun baris di desktop */
 }
 
 /* Waktu & Tanggal */
@@ -73,19 +73,54 @@
     font-family: monospace;
 }
 
-/* Responsif Mobile (tetap dipaksa satu baris dengan mengecilkan sedikit ukuran font) */
+/* ==========================================================
+   RESPONSIF MOBILE: BERUBAH JADI KOTAK MEMBULAT VERTIKAL
+========================================================== */
 @media (max-width: 640px) {
     .visitor-counter {
-        padding: 6px 12px;
-        gap: 8px;
+        background: rgba(15, 23, 42, 0.95) !important;
+        border: 1px solid rgba(233, 165, 56, 0.3) !important; /* Aksen border gold tipis */
+        border-radius: 16px !important; /* Bentuk kotak sudut membulat */
+        padding: 14px 18px !important;
+        flex-direction: column !important; /* Susun ke bawah secara vertikal */
+        gap: 8px !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 320px !important; /* Batasi lebar agar pas di layar HP */
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+        white-space: normal !important;
     }
+
+    /* Sembunyikan garis pemisah vertikal bawaan desktop */
+    .counter-divider-vertical {
+        display: none !important;
+    }
+
+    /* Lebarkan setiap grup elemen agar pas di dalam kotak */
+    .counter-time-group, 
+    .counter-bday-group, 
+    .counter-stats-group {
+        width: 100% !important;
+        justify-content: center !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
     .counter-time-group {
-        font-size: 0.62rem;
+        font-size: 0.7rem !important;
     }
+
     .counter-number {
-        font-size: 0.85rem;
+        font-size: 0.9rem !important;
     }
+
     .counter-label {
-        font-size: 0.62rem;
+        font-size: 0.68rem !important;
+    }
+
+    #bdayWidgetText {
+        font-size: 11px !important;
+        text-align: center !important;
     }
 }

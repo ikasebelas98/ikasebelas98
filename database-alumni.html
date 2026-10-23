@@ -403,7 +403,7 @@
         import { getFirestore, collection, getDocs, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCQPbOs9mN3TIW9SkBsPM6y0MjJmlhBfgc",
+            apiKey: "AIzaSyBSuusyB8UmVN721It89xqgfxZf8swB6gk",
             authDomain: "ikasebelas98-96595.firebaseapp.com",
             projectId: "ikasebelas98-96595",
             storageBucket: "ikasebelas98-96595.firebasestorage.app",
@@ -430,11 +430,19 @@
         window.firebaseSignOut = signOut;
         window.firebaseAuth = auth;
 
+        // Deteksi Pengguna Login & Penyelarasan Navbar Terpusat via navbar.js
+        window.firebaseSignOut = signOut;
+        window.firebaseAuth = auth;
+
+        // Flag penanda status inisialisasi auth untuk mencegah redirect prematur
+        let authCheckCompleted = false;
+
         onAuthStateChanged(auth, async (user) => {
             const loginBtn = document.querySelector('#login') || document.querySelector('a[href*="javascript:void"]');
             const targetElement = loginBtn ? (loginBtn.tagName === 'A' ? loginBtn : (loginBtn.querySelector('a') || loginBtn)) : null;
 
             if (user) {
+                authCheckCompleted = true;
                 currentUid = user.uid;
 
                 try {
@@ -476,17 +484,22 @@
                 loadDatabaseAlumni();
 
             } else {
-                if (targetElement) { 
-                    targetElement.innerHTML = "Sign In"; 
-                    targetElement.href = "javascript:void(0);"; 
-                } 
+                // Beri jeda 600ms untuk memastikan apakah ini murni belum login atau sesi sedang dimuat oleh Firebase
+                setTimeout(() => {
+                    if (!authCheckCompleted && !auth.currentUser) {
+                        if (targetElement) { 
+                            targetElement.innerHTML = "Sign In"; 
+                            targetElement.href = "javascript:void(0);"; 
+                        } 
 
-                if (typeof window.updateMegaMenuState === "function") { 
-                    window.updateMegaMenuState(null); 
-                }
+                        if (typeof window.updateMegaMenuState === "function") { 
+                            window.updateMegaMenuState(null); 
+                        }
 
-                // Jika belum login, arahkan ke halaman Sign In
-                window.location.href = "auth.html?mode=signin";
+                        // Jika benar-benar belum login, baru arahkan ke halaman Sign In
+                        window.location.href = "auth.html?mode=signin";
+                    }
+                }, 600);
             }
         });
 
